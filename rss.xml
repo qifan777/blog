@@ -6,10 +6,11 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Tue, 20 Feb 2024 08:23:34 GMT</pubDate>
-    <lastBuildDate>Tue, 20 Feb 2024 08:23:34 GMT</lastBuildDate>
+    <pubDate>Thu, 22 Feb 2024 07:19:57 GMT</pubDate>
+    <lastBuildDate>Thu, 22 Feb 2024 07:19:57 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <category>ElementUI</category>
     <category>起凡商城</category>
     <category>前端基础</category>
     <category>前端工程化</category>
@@ -21,6 +22,124 @@
     <category>JPA</category>
     <category>Spring</category>
     <category>小程序</category>
+    <item>
+      <title>Vue+ElementUI动态显示图标</title>
+      <link>https://mister-hope.github.io/blog/knowledge/tips/dynamic-icon/</link>
+      <guid>https://mister-hope.github.io/blog/knowledge/tips/dynamic-icon/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">Vue+ElementUI动态显示图标</source>
+      <description>Vue+ElementUI动态显示图标 编辑图标 动态显示图标 安装依赖 正常使用 使用了 Element Plus UI 库来展示一个编辑图标。 &amp;lt;el-icon&amp;gt;：来自 Element Plus 的组件，用于显示图标。:size=&amp;quot;28&amp;quot; 表示设置图标的大小为 12px，:color=&amp;quot;&amp;apos;#000&amp;apos;&amp;quot; 设置图标的颜色为黑色。 &amp;lt;Edit /&amp;gt;：这是...</description>
+      <category>ElementUI</category>
+      <pubDate>Thu, 22 Feb 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<p><br>
+</p>
+<h2>安装依赖</h2>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token comment"># 选择一个你喜欢的包管理器</span>
+
+<span class="token comment"># NPM</span>
+$ <span class="token function">npm</span> <span class="token function">install</span> @element-plus/icons-vue
+<span class="token comment"># Yarn</span>
+$ <span class="token function">yarn</span> <span class="token function">add</span> @element-plus/icons-vue
+<span class="token comment"># pnpm</span>
+$ <span class="token function">pnpm</span> <span class="token function">install</span> @element-plus/icons-vue
+</code></pre></div><h2>正常使用</h2>
+<p>使用了 Element Plus UI 库来展示一个编辑图标。</p>
+<ol>
+<li>
+<p><code>&lt;el-icon&gt;</code>：来自 Element Plus 的组件，用于显示图标。<code>:size="28"</code> 表示设置图标的大小为 12px，<code>:color="'#000'"</code> 设置图标的颜色为黑色。</p>
+</li>
+<li>
+<p><code>&lt;Edit /&gt;</code>：这是一个自定义标签，引用了 Element Plus 图标库中的 <code>Edit</code> 图标。</p>
+</li>
+<li>
+<p><code>import { Edit } from '@element-plus/icons-vue'</code>：这一行是导入 Element Plus 图标库中名为 <code>Edit</code> 的图标组件。</p>
+</li>
+</ol>
+<p>综上所述，整个组件的作用是在页面上渲染一个大小为12px、颜色为白色的编辑图标。</p>
+<figure><figcaption>编辑图标</figcaption></figure>
+<div class="language-vue" data-ext="vue" data-title="vue"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-icon</span> <span class="token attr-name">:size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>28<span class="token punctuation">"</span></span> <span class="token attr-name">:color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">'</span>#000'<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Edit</span> <span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-icon</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Edit <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@element-plus/icons-vue'</span>
+
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><div class="hint-container info">
+<p class="hint-container-title">相关信息</p>
+<p><a href="https://element-plus.gitee.io/zh-CN/component/icon.html#%E7%BB%93%E5%90%88-el-icon-%E4%BD%BF%E7%94%A8" target="_blank" rel="noopener noreferrer">官方文档</a></p>
+</div>
+<h2>动态显示</h2>
+<h2>全局注册图标组件</h2>
+<ul>
+<li>
+<p>从Element Plus Icons库导入所有的图标组件，以键值对的形式（名称）导出为Vue组件。这样就可以直接在模板中通过名称来使用它们。</p>
+<div class="language-typescript" data-ext="ts" data-title="ts"><pre class="language-typescript"><code><span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> ElementPlusIconsVue <span class="token keyword">from</span> <span class="token string">'@element-plus/icons-vue'</span>
+</code></pre></div></li>
+<li>
+<p>遍历ElementPlusIconsVue对象的所有条目，将每个图标组件全局注册到Vue应用中，这样在整个应用中就可以无需单独导入就能使用这些图标组件了。</p>
+<div class="language-typescript" data-ext="ts" data-title="ts"><pre class="language-typescript"><code><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token punctuation">[</span>key<span class="token punctuation">,</span> component<span class="token punctuation">]</span> <span class="token keyword">of</span> Object<span class="token punctuation">.</span><span class="token function">entries</span><span class="token punctuation">(</span>ElementPlusIconsVue<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> component<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li>
+</ul>
+<div class="language-typescript" data-ext="ts" data-title="ts"><pre ts="" class="language-typescript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> createApp <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> createPinia <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'pinia'</span>
+<span class="token keyword">import</span> ElementPlus <span class="token keyword">from</span> <span class="token string">'element-plus'</span>
+<span class="token keyword">import</span> <span class="token string">'element-plus/dist/index.css'</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> ElementPlusIconsVue <span class="token keyword">from</span> <span class="token string">'@element-plus/icons-vue'</span>
+<span class="token keyword">import</span> App <span class="token keyword">from</span> <span class="token string">'./App.vue'</span>
+<span class="token keyword">import</span> router <span class="token keyword">from</span> <span class="token string">'./router'</span>
+
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">createApp</span><span class="token punctuation">(</span>App<span class="token punctuation">)</span>
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token punctuation">[</span>key<span class="token punctuation">,</span> component<span class="token punctuation">]</span> <span class="token keyword">of</span> Object<span class="token punctuation">.</span><span class="token function">entries</span><span class="token punctuation">(</span>ElementPlusIconsVue<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  app<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> component<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">createPinia</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>ElementPlus<span class="token punctuation">)</span>
+app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>router<span class="token punctuation">)</span>
+app<span class="token punctuation">.</span><span class="token function">mount</span><span class="token punctuation">(</span><span class="token string">'#app'</span><span class="token punctuation">)</span>
+
+</code></pre></div><h3>动态加载图标组件</h3>
+<figure><figcaption>图标列表展示</figcaption></figure>
+<p>这里使用了 Vue 的 <code>v-for</code> 指令来遍历一个名为 <code>iconList</code> 的 ref 数组。数组中存储的是 Element Plus 图标库中各个图标的名称字符串。对于数组中的每个图标名称，Vue 使用动态组件 <code>&lt;component&gt;</code>，并通过 <code>:is</code> 特性绑定对应的图标名（即变量 <code>icon</code>），这样就可以根据变量值动态地渲染出不同的图标组件。</p>
+<div class="language-vue" data-ext="vue" data-title="vue"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-icon</span> <span class="token attr-name">v-for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>(icon, index) in iconList<span class="token punctuation">"</span></span> <span class="token attr-name">:key</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>index<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>component</span> <span class="token attr-name">:is</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>component</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-icon</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><p>定义了一个响应式引用（ref）变量 <code>iconList</code>，其中包含了多个 Element Plus 图标组件的名字。由于之前已经全局注册了所有 Element Plus 图标组件，所以在模板中可以直接通过名字来引用它们。</p>
+<p>因此，这段代码会根据 <code>iconList</code> 中列出的图标名称列表，动态生成一系列图标，实现了动态加载和显示图标的功能。</p>
+<div class="language-typescript" data-ext="ts" data-title="ts"><pre class="language-typescript"><code><span class="token keyword">const</span> iconList <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token string">'Tickets'</span><span class="token punctuation">,</span>
+  <span class="token string">'Notebook'</span><span class="token punctuation">,</span>
+  <span class="token string">'House'</span><span class="token punctuation">,</span>
+  <span class="token string">'ShoppingCartFull'</span><span class="token punctuation">,</span>
+  <span class="token string">'Goods'</span><span class="token punctuation">,</span>
+  <span class="token string">'Memo'</span><span class="token punctuation">,</span>
+  <span class="token string">'Avatar'</span><span class="token punctuation">,</span>
+  <span class="token string">'User'</span><span class="token punctuation">,</span>
+  <span class="token string">'Lock'</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language-vue" data-ext="vue" data-title="vue"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-icon</span> <span class="token attr-name">v-for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>(icon, index) in iconList<span class="token punctuation">"</span></span> <span class="token attr-name">:key</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>index<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>component</span> <span class="token attr-name">:is</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>component</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-icon</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">setup</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">const</span> iconList <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+  <span class="token string">'Tickets'</span><span class="token punctuation">,</span>
+  <span class="token string">'Notebook'</span><span class="token punctuation">,</span>
+  <span class="token string">'House'</span><span class="token punctuation">,</span>
+  <span class="token string">'ShoppingCartFull'</span><span class="token punctuation">,</span>
+  <span class="token string">'Goods'</span><span class="token punctuation">,</span>
+  <span class="token string">'Memo'</span><span class="token punctuation">,</span>
+  <span class="token string">'Avatar'</span><span class="token punctuation">,</span>
+  <span class="token string">'User'</span><span class="token punctuation">,</span>
+  <span class="token string">'Lock'</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div>]]></content:encoded>
+    </item>
     <item>
       <title>项目</title>
       <link>https://mister-hope.github.io/blog/project/</link>
@@ -1006,7 +1125,7 @@
         <span class="token punctuation">.</span><span class="token function">orderState</span><span class="token punctuation">(</span>productOrder<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getKeyEnName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">eventType</span><span class="token punctuation">(</span><span class="token string">"NOTIFY"</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">sceneId</span><span class="token punctuation">(</span>productOrder<span class="token punctuation">.</span><span class="token function">payment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">payType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getKeyEnName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">businessCode</span><span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">businessCode</span><span class="token punctuation">(</span><span class="token string">"PRODUCT_ORDER"</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token class-name">R</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> res <span class="token operator">=</span> stateMachine<span class="token punctuation">.</span><span class="token function">action</span><span class="token punctuation">(</span>
         <span class="token keyword">new</span> <span class="token class-name">StateContext</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>stateEvent<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">NotifyWeChatContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -1057,7 +1176,7 @@
 </ul>
 </li>
 </ul>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@OrderStateProcessor</span><span class="token punctuation">(</span>state <span class="token operator">=</span> <span class="token string">"TO_BE_PAID"</span><span class="token punctuation">,</span> event <span class="token operator">=</span> <span class="token string">"NOTIFY"</span><span class="token punctuation">,</span> sceneId <span class="token operator">=</span> <span class="token string">"WE_CHAT_PAY"</span><span class="token punctuation">)</span>
+<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@OrderStateProcessor</span><span class="token punctuation">(</span>state <span class="token operator">=</span> <span class="token string">"TO_BE_PAID"</span><span class="token punctuation">,</span> event <span class="token operator">=</span> <span class="token string">"NOTIFY"</span><span class="token punctuation">,</span> sceneId <span class="token operator">=</span> <span class="token string">"WE_CHAT_PAY"</span><span class="token punctuation">,</span> bizCode <span class="token operator">=</span> <span class="token string">"PRODUCT_ORDER"</span><span class="token punctuation">)</span>
 <span class="token annotation punctuation">@Slf4j</span>
 <span class="token annotation punctuation">@AllArgsConstructor</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">NotifyWeChatProcessor</span> <span class="token keyword">extends</span> <span class="token class-name">AbstractStateProcessor</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">NotifyWeChatContext</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
@@ -1187,7 +1306,7 @@
         <span class="token punctuation">.</span><span class="token function">orderState</span><span class="token punctuation">(</span>productOrder<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getKeyEnName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">eventType</span><span class="token punctuation">(</span><span class="token string">"PREPAY"</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">sceneId</span><span class="token punctuation">(</span>productOrder<span class="token punctuation">.</span><span class="token function">payment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">payType</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getKeyEnName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">businessCode</span><span class="token punctuation">(</span><span class="token string">"*"</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">businessCode</span><span class="token punctuation">(</span><span class="token string">"PRODUCT_ORDER"</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token class-name">R</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">JsapiResult</span><span class="token punctuation">&gt;</span></span> res <span class="token operator">=</span> stateMachine<span class="token punctuation">.</span><span class="token function">action</span><span class="token punctuation">(</span>
         <span class="token keyword">new</span> <span class="token class-name">StateContext</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span>stateEvent<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">PrepayWeChatContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -1247,7 +1366,7 @@
 </li>
 </ol>
 <p>总体而言，该处理器用于处理订单状态为 "TO_BE_PAID"，事件为 "PREPAY"，场景为 "WE_CHAT_PAY" 的情况，其中包含了与微信支付相关的业务逻辑。</p>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@OrderStateProcessor</span><span class="token punctuation">(</span>state <span class="token operator">=</span> <span class="token string">"TO_BE_PAID"</span><span class="token punctuation">,</span> event <span class="token operator">=</span> <span class="token string">"PREPAY"</span><span class="token punctuation">,</span> sceneId <span class="token operator">=</span> <span class="token string">"WE_CHAT_PAY"</span><span class="token punctuation">)</span>
+<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@OrderStateProcessor</span><span class="token punctuation">(</span>state <span class="token operator">=</span> <span class="token string">"TO_BE_PAID"</span><span class="token punctuation">,</span> event <span class="token operator">=</span> <span class="token string">"PREPAY"</span><span class="token punctuation">,</span> sceneId <span class="token operator">=</span> <span class="token string">"WE_CHAT_PAY"</span><span class="token punctuation">,</span> bizCode <span class="token operator">=</span> <span class="token string">"PRODUCT_ORDER"</span><span class="token punctuation">)</span>
 <span class="token annotation punctuation">@Slf4j</span>
 <span class="token annotation punctuation">@AllArgsConstructor</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PrepayWeChatProcessor</span> <span class="token keyword">extends</span>
