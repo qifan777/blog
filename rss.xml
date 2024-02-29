@@ -6,10 +6,12 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Thu, 22 Feb 2024 07:19:57 GMT</pubDate>
-    <lastBuildDate>Thu, 22 Feb 2024 07:19:57 GMT</lastBuildDate>
+    <pubDate>Thu, 29 Feb 2024 13:53:04 GMT</pubDate>
+    <lastBuildDate>Thu, 29 Feb 2024 13:53:04 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+    <category>SpringMVC</category>
+    <category>IO</category>
     <category>ElementUI</category>
     <category>起凡商城</category>
     <category>前端基础</category>
@@ -22,6 +24,206 @@
     <category>JPA</category>
     <category>Spring</category>
     <category>小程序</category>
+    <item>
+      <title>API(Controller层)</title>
+      <link>https://mister-hope.github.io/blog/knowledge/tips/api/</link>
+      <guid>https://mister-hope.github.io/blog/knowledge/tips/api/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">API(Controller层)</source>
+      <description>API(Controller层) @Controller 在SpringMVC中 Controller层可以提供WEB服务，返回视图结果（ViewResult）、JSON、重定向等，通常用来渲染完整的HTML页面或者片段。 @RestController 针对专门提供JSON的WEB服务，可以使用SpringMVC提供的RESTful风格的Contro...</description>
+      <category>SpringMVC</category>
+      <pubDate>Mon, 26 Feb 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<h2>@Controller</h2>
+<p>在SpringMVC中 Controller层可以提供WEB服务，返回视图结果（ViewResult）、JSON、重定向等，通常用来渲染完整的HTML页面或者片段。</p>
+<h2>@RestController</h2>
+<p>针对专门提供JSON的WEB服务，可以使用SpringMVC提供的RESTful风格的Controller即@RestController，也就是人们常说的API。</p>
+<h2>@RequestMapping(GetMapping/PostMapping/PutMapping/DeleteMapping等)</h2>
+<p>既可以应用在类级别也可以应用在方法级别</p>
+<ul>
+<li>在类级别上代表的是所有方法的路径都加上前缀。</li>
+<li>在方法级别上用于映射HTTP请求到相应的处理方法上。</li>
+<li>可以指定请求的路径、HTTP方法（GET, POST等）、以及请求参数约束等。</li>
+</ul>
+<h2>@RequestParam</h2>
+<p><code>@RequestParam</code> 注解在 Spring MVC 及 Spring Boot 应用程序中主要用于从不同的HTTP请求方法（GET、POST等）的请求参数中获取参数值。具体来说，它可以：</p>
+<ol>
+<li>
+<p><strong>从URL查询字符串</strong> 中获取参数，对于GET请求尤其常见，例如：</p>
+<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code>GET /api/users?name=John&amp;age=30
+</code></pre></div><p>在后端控制器方法中可以通过 <code>@RequestParam("name") String name</code> 来获取 "John"。</p>
+</li>
+<li>
+<p><strong>从POST表单数据</strong> 中获取参数，特别是当Content-Type设置为<code>application/x-www-form-urlencoded</code>时：</p>
+<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code>POST /api/users
+Content-Type: application/x-www-form-urlencoded
+name=John&amp;age=30
+</code></pre></div></li>
+<li>
+<p>对于 <code>multipart/form-data</code> 类型的请求，虽然通常用于文件上传，但也包含非文件字段，这些字段也可以通过 <code>@RequestParam</code> 获取。</p>
+</li>
+</ol>
+<p>因此，<code>@RequestParam</code> 主要作用于标准HTTP请求中的查询字符串或编码为 <code>x-www-form-urlencoded</code> 格式的请求主体内容。而对于JSON或者其他复杂格式的数据，通常需要使用 <code>@RequestBody</code> 注解来处理。</p>
+<h2>@RequestBody</h2>
+<p>Spring会利用HttpMessageConverter接口实现类（如MappingJackson2HttpMessageConverter）将HTTP请求体中的JSON或XML数据转换为Java对象，并将其注入到标记了@RequestBody的方法参数中。</p>
+<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"/users"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token class-name">User</span> <span class="token function">createUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">User</span> user<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 将HTTP请求体中的JSON或XML数据反序列化为User对象</span>
+    <span class="token comment">// 然后在此处对User对象进行业务逻辑处理...</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2>@Validate 和 @Valid</h2>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>前端显示二进制流图片</title>
+      <link>https://mister-hope.github.io/blog/knowledge/tips/binary-picture/</link>
+      <guid>https://mister-hope.github.io/blog/knowledge/tips/binary-picture/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">前端显示二进制流图片</source>
+      <description>前端显示二进制流图片 读取resource目录下的图片 在resource目录下的文件（文件夹）编译后都会在classpath的根目录下下。如下图： resource目录的含义 从类路径中读取名为&amp;quot;logo.jpg&amp;quot;的文件内容，并将其转换为字节数组。 ClassPathResource(&amp;quot;logo.jpg&amp;quot;)：这是创建一个Spring Framewor...</description>
+      <category>IO</category>
+      <pubDate>Thu, 29 Feb 2024 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<h2>读取resource目录下的图片</h2>
+<p>在resource目录下的文件（文件夹）编译后都会在classpath的根目录下下。如下图：<br>
+</p>
+<p>从类路径中读取名为"logo.jpg"的文件内容，并将其转换为字节数组。</p>
+<ol>
+<li>
+<p><code>ClassPathResource("logo.jpg")</code>：这是创建一个Spring Framework中的<code>ClassPathResource</code>对象，它代表了一个应从类路径获取的资源。</p>
+</li>
+<li>
+<p><code>.getInputStream()</code>：调用该方法会返回一个指向该资源的输入流（InputStream），通过这个输入流可以读取“logo.jpg”文件的实际内容。</p>
+</li>
+<li>
+<p><code>.readAllBytes()</code>：进一步调用此方法会读取并返回输入流中的所有字节，即将“logo.jpg”图片文件的内容以字节数组的形式一次性读取出来。</p>
+</li>
+</ol>
+<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code>  <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"logo"</span><span class="token punctuation">)</span>
+  <span class="token annotation punctuation">@CrossOrigin</span>
+  <span class="token keyword">public</span> <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">getLogo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">IOException</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ClassPathResource</span><span class="token punctuation">(</span><span class="token string">"logo.jpg"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getInputStream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">readAllBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+</code></pre></div><div class="hint-container tip">
+<p class="hint-container-title">提示</p>
+<p><code>ClassPathResource</code>是Spring框架中<code>org.springframework.core.io</code>包下的一个类，它主要用于表示类路径（classpath）中的资源。当你需要从项目的类路径下加载配置文件、静态资源等时，可以使用这个类。</p>
+<p>函数还使用了<code>@CrossOrigin</code>注解来允许跨域请求。</p>
+</div>
+<div class="hint-container info">
+<p class="hint-container-title">相关信息</p>
+<p>如果你像读取系统上的文件，可以使用<code>FileSystemResource</code>，它表示的是文件系统中的资源。</p>
+</div>
+<h2>前端展示</h2>
+<p>使用axios库从指定URL获取图片资源，并将其转化为Base64格式的字符串，以便可以直接作为图像源在网页中展示。</p>
+<p>具体步骤如下：</p>
+<ol>
+<li>
+<p>首先引入了<code>axios</code>库来进行HTTP请求，并使用Vue3的<code>ref</code>函数创建了一个响应式的变量<code>base64Image</code>，初始值为空字符串。</p>
+</li>
+<li>
+<p>使用axios的<code>get</code>方法发起GET请求获取图片数据，配置项<code>responseType: 'arraybuffer'</code>表示期望服务器返回二进制数据（ArrayBuffer）。</p>
+</li>
+<li>
+<p>当请求成功后（进入<code>.then</code>的回调函数），首先从响应结果<code>res</code>中提取出ArrayBuffer数据。</p>
+</li>
+<li>
+<p>将ArrayBuffer转换为Uint8Array，便于进一步操作。Uint8Array是一种能够存储原始8位无符号整数的TypedArray视图，适合处理二进制数据如图片、音频等。</p>
+</li>
+<li>
+<p>然后通过<code>reduce</code>方法遍历Uint8Array中的每个字节，将其转换为其对应的字符编码并拼接到一起形成一个字符串。</p>
+</li>
+<li>
+<p>使用<code>btoa</code>函数将这个由字节序列组成的字符串转换为Base64编码格式。</p>
+</li>
+<li>
+<p>最后，将得到的Base64字符串格式化为符合Data URL Scheme的标准格式，即<code>data:image/*;base64,${base64String}</code>，并将其赋值给<code>base64Image.value</code>。这样，在Vue模板中可以通过绑定<code>base64Image</code>来直接展示图片。</p>
+</li>
+</ol>
+<div class="language-vue" data-ext="vue" data-title="vue"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">:src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>base64Image<span class="token punctuation">"</span></span> <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>base64Image<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">setup</span> <span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ref <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vue'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> base64Image <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+axios<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"http://localhost:8081/image/logo"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> <span class="token literal-property property">responseType</span><span class="token operator">:</span> <span class="token string">'arraybuffer'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">res</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">// 将ArrayBuffer转为Uint8Array方便处理</span>
+    <span class="token keyword">const</span> arrayBuffer <span class="token operator">=</span> res<span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+    <span class="token keyword">const</span> uint8Array <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Uint8Array</span><span class="token punctuation">(</span>arrayBuffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 将Uint8Array转换为Base64字符串</span>
+    <span class="token keyword">const</span> base64String <span class="token operator">=</span> <span class="token function">btoa</span><span class="token punctuation">(</span>uint8Array<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">data<span class="token punctuation">,</span> byte</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> data <span class="token operator">+</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>byte<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 设置图片的Base64源</span>
+    base64Image<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">data:image/*;base64,</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>base64String<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div>]]></content:encoded>
+    </item>
+    <item>
+      <title>如何安装各种软件</title>
+      <link>https://mister-hope.github.io/blog/knowledge/tips/install/</link>
+      <guid>https://mister-hope.github.io/blog/knowledge/tips/install/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">如何安装各种软件</source>
+      <description>如何安装各种软件 常用软件列表 jdk idea node.js vscode git maven docker mysql/postgresql tomcat redis nginx datagrip/navicate secure crt/putty/xshell 7zip nvm 搜索引擎 不建议使用百度，百度的广告太多了。特别是学习编程时大部分...</description>
+      <pubDate>Thu, 29 Feb 2024 13:51:55 GMT</pubDate>
+      <content:encoded><![CDATA[
+<h2>常用软件列表</h2>
+<ol>
+<li>jdk</li>
+<li>idea</li>
+<li>node.js</li>
+<li>vscode</li>
+<li>git</li>
+<li>maven</li>
+<li>docker</li>
+<li>mysql/postgresql</li>
+<li>tomcat</li>
+<li>redis</li>
+<li>nginx</li>
+<li>datagrip/navicate</li>
+<li>secure crt/putty/xshell</li>
+<li>7zip</li>
+<li>nvm</li>
+</ol>
+<h2>搜索引擎</h2>
+<p>不建议使用百度，百度的广告太多了。特别是学习编程时大部分软件都来自外国，百度搜索出来的英文官网排名大部分都比较低。在国内推荐使用bing去检索，前三个结果基本上就是需要的内容了。</p>
+<h3>查找资源</h3>
+<p>从各个官方文档查找，或者从github中查找。</p>
+<h3>下载速度慢</h3>
+<p>开代理/从镜像网站如清华源中寻找。</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>搭建一个网站要准备哪些东西</title>
+      <link>https://mister-hope.github.io/blog/knowledge/tips/website/</link>
+      <guid>https://mister-hope.github.io/blog/knowledge/tips/website/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">搭建一个网站要准备哪些东西</source>
+      <description>搭建一个网站要准备哪些东西 1. 服务器 相信大家都听说过IP地址，IP地址根据可访问性来说可以分为：公网和内网。我们平常连接的宽带，WiFi，手机流量这些都是属于内网的。意味着我们可以访问其他公网上的资源，比如看公网上的视频（抖音，b站），网站（百度，淘宝网）等等。 服务器其实就是一台电脑，这台电脑它可以被所有人访问（公网ip），你可以在这台服务器上...</description>
+      <pubDate>Thu, 29 Feb 2024 13:51:55 GMT</pubDate>
+      <content:encoded><![CDATA[
+<h2>1. 服务器</h2>
+<p>相信大家都听说过IP地址，IP地址根据可访问性来说可以分为：公网和内网。我们平常连接的宽带，WiFi，手机流量这些都是属于内网的。意味着我们可以访问其他公网上的资源，比如看公网上的视频（抖音，b站），网站（百度，淘宝网）等等。</p>
+<p>服务器其实就是一台电脑，这台电脑它可以被所有人访问（公网ip），你可以在这台服务器上放网站供其他人访问。</p>
+<h2>2. 域名</h2>
+<p>由于公网ip太难记住，所以域名就诞生了。在浏览器中输入域名，域名会经过一系列的转换变成ip地址，最后通过ip地址访问到服务器上的资源。</p>
+<h2>3. 备案</h2>
+<p>在中国，域名必须备案，才能在互联网上使用。</p>
+<h2>4. shell连接工具</h2>
+<p>大家平常在Windows上用过向日葵、ToDesk用来远程控制其他Windows电脑。服务器上装的系统一般是Linux的发行版如Centos, RedHat, Ubuntu等。当然也有Windows Server系统。</p>
+<h2>5. 宝塔</h2>
+<p>大家在装机之后可能会用电脑管家安装一些常用的软件，同样服务器上有一款著名的软件“宝塔”，它可以快速的帮你安装各种的服务器软件，比如：Nginx，Apache，MySQL，php，phpMyAdmin等。</p>
+<h2>6. Nginx</h2>
+<p>所谓的网页实际上也是几个文本文件，比如html, css, js. 这些都是文本文件。浏览器会把这些文本文件解析成网页。可以说Nginx上可以存放一些文本文件，图片等小型文件，方便浏览器访问下载。</p>
+<h2>7. 数据库</h2>
+<p>用户网站上产生的数据会记录在数据库中。</p>
+<h2>8. 前端项目</h2>
+<p>前端的项目打包之后会生成html, css, js, 图片等文件，这些文件会放在Nginx上，浏览器通过域名访问Nginx上的文件。</p>
+<h2>9. 后端项目</h2>
+<p>后端项目</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>Vue+ElementUI动态显示图标</title>
       <link>https://mister-hope.github.io/blog/knowledge/tips/dynamic-icon/</link>
@@ -62,7 +264,7 @@ $ <span class="token function">pnpm</span> <span class="token function">install<
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Edit</span> <span class="token punctuation">/&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-icon</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">setup</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Edit <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@element-plus/icons-vue'</span>
 
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
