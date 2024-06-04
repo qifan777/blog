@@ -6,8 +6,8 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Mon, 03 Jun 2024 15:41:07 GMT</pubDate>
-    <lastBuildDate>Mon, 03 Jun 2024 15:41:07 GMT</lastBuildDate>
+    <pubDate>Tue, 04 Jun 2024 14:38:37 GMT</pubDate>
+    <lastBuildDate>Tue, 04 Jun 2024 14:38:37 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>消息角标</category>
@@ -30,7 +30,7 @@
       <link>https://mister-hope.github.io/blog/project/uni-ai/</link>
       <guid>https://mister-hope.github.io/blog/project/uni-ai/</guid>
       <source url="https://mister-hope.github.io/blog/rss.xml">UNI-AI（AI聚合）</source>
-      <description>UNI-AI（AI聚合） 项目内容 知识库 知识库知识库 图片理解 千问VL千问VL 智谱清言VL智谱清言VL 文本对话 markdown解析+流式对话+多种模型markdown解析+流式对话+多种模型 项目结构 uni-ai-admin 聊天界面+后台管理 scripts generate-api.js 请求后端生成src/apis下的接口和ts类型...</description>
+      <description>UNI-AI（AI聚合） 项目内容 知识库 知识库知识库 知识库使用教程 图片生成 图片生成图片生成 图片理解 千问VL千问VL 智谱清言VL智谱清言VL 文本对话 markdown解析+流式对话+多种模型markdown解析+流式对话+多种模型 项目安装 docker-compose方式快速安装 源码方式安装 项目结构 uni-ai-admin 聊天...</description>
       <pubDate>Mon, 03 Jun 2024 15:37:39 GMT</pubDate>
       <content:encoded><![CDATA[
 <h2>项目内容</h2>
