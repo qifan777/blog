@@ -6,8 +6,8 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Tue, 04 Jun 2024 14:38:37 GMT</pubDate>
-    <lastBuildDate>Tue, 04 Jun 2024 14:38:37 GMT</lastBuildDate>
+    <pubDate>Thu, 06 Jun 2024 12:22:30 GMT</pubDate>
+    <lastBuildDate>Thu, 06 Jun 2024 12:22:30 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>消息角标</category>
@@ -25,6 +25,70 @@
     <category>JPA</category>
     <category>Spring</category>
     <category>小程序</category>
+    <item>
+      <title>使用教程</title>
+      <link>https://mister-hope.github.io/blog/project/uni-ai/use/</link>
+      <guid>https://mister-hope.github.io/blog/project/uni-ai/use/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">使用教程</source>
+      <description>使用教程 AI厂商密钥配置 kimi api-key申请 智谱清言 api-key申请 百度千帆 access-key和secret-key 阿里灵积 api-key 讯飞星火 api-key、api-secret、appid 注意 有些ai厂商的api-key需要实名认证后才能使用，请务必确保先实名认证 将申请完的api-key填入对应ai厂商的配置...</description>
+      <pubDate>Thu, 06 Jun 2024 02:02:31 GMT</pubDate>
+      <content:encoded><![CDATA[
+<h2>AI厂商密钥配置</h2>
+<p><a href="https://platform.moonshot.cn/console/api-keys" target="_blank" rel="noopener noreferrer">kimi api-key申请</a><br>
+<a href="https://maas.aminer.cn/usercenter/apikeys" target="_blank" rel="noopener noreferrer">智谱清言 api-key申请</a><br>
+<a href="https://console.bce.baidu.com/iam/#/iam/accesslist" target="_blank" rel="noopener noreferrer">百度千帆 access-key和secret-key</a><br>
+<a href="https://dashscope.console.aliyun.com/apiKey" target="_blank" rel="noopener noreferrer">阿里灵积 api-key</a><br>
+<a href="https://console.xfyun.cn/app/myapp" target="_blank" rel="noopener noreferrer">讯飞星火 api-key、api-secret、appid</a></p>
+<div class="hint-container warning">
+<p class="hint-container-title">注意</p>
+<p>有些ai厂商的api-key需要实名认证后才能使用，请务必确保先实名认证</p>
+</div>
+<p>将申请完的api-key填入对应ai厂商的配置页面即可。<br>
+</p>
+<h2>知识库</h2>
+<h3>新建知识库</h3>
+<p>菜单路径：Ai助手/知识库</p>
+<figure><figcaption>知识库创建</figcaption></figure>
+<div class="hint-container warning">
+<p class="hint-container-title">注意</p>
+<p>知识库的英文名称只能包含字母和_</p>
+</div>
+<div class="hint-container info">
+<p class="hint-container-title">相关信息</p>
+<p>目前有四种嵌入模型embedding-2，bge-large-en，text-embedding-v2，text-embedding-3-small分别来自智谱清言、百度千帆、阿里灵积、OpenAi</p>
+</div>
+<h3>上传文档</h3>
+<p>菜单路径：Ai助手/文档管理</p>
+<figure><figcaption>上传文档</figcaption></figure>
+<h3>问答问答</h3>
+<p>菜单路径：Ai助手/聊天面板</p>
+<p>在面板中开启知识库，选择知识库发送消息即可。<br>
+</p>
+<h2>图片理解</h2>
+<h3>OSS配置</h3>
+<p>菜单路径：Ai配置/OSS配置</p>
+<p>要使用图片理解要发送图片，图片必须公网可以访问。因此在创建OSS的时候要设置bucket的策略为共有读</p>
+<p>目前可以支持阿里云OSS和腾讯云OSS.</p>
+<figure><figcaption>OSS配置</figcaption></figure>
+<div class="hint-container warning">
+<p class="hint-container-title">注意</p>
+<p>创建bucket记得设置共有读。允许所有域名访问。</p>
+</div>
+<h3>发送图片</h3>
+<p>菜单路径：Ai助手/聊天面板/模型类别</p>
+<p>在模型类别中选择图片理解，并且在下面的模型中选择需要的模型。最好选择国内的模型。<br>
+接着在输入框那边选择图片发送即可。</p>
+<figure><figcaption>模型类型选择</figcaption></figure>
+<h2>图片生成</h2>
+<p>菜单路径：Ai助手/聊天面板/模型类别</p>
+<p>在模型类别中选择图片生成，并且在下面的模型中选择需要的模型。最好选择国内的模型。<br>
+接着在输入框发送提示词即刻生成图片。</p>
+<div class="hint-container info">
+<p class="hint-container-title">相关信息</p>
+<p>目前图片生成的api不支持上下文。因此描述的时候描述的详细一些。</p>
+</div>
+]]></content:encoded>
+    </item>
     <item>
       <title>UNI-AI（AI聚合）</title>
       <link>https://mister-hope.github.io/blog/project/uni-ai/</link>
@@ -146,47 +210,6 @@ mysqld --character-set-server<span class="token operator">=</span>utf8mb4 <span 
 <p>访问 <code>http://localhost:5177</code></p>
 <p>账户：11111111111<br>
 密码：123456</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>使用教程</title>
-      <link>https://mister-hope.github.io/blog/project/uni-ai/get-started/use.html</link>
-      <guid>https://mister-hope.github.io/blog/project/uni-ai/get-started/use.html</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">使用教程</source>
-      <description>使用教程 AI厂商密钥配置 kimi api-key申请 智谱清言 api-key申请 百度千帆 access-key和secret-key 阿里灵积 api-key 讯飞星火 api-key、api-secret、appid 注意 有些ai厂商的api-key需要实名认证后才能使用，请务必确保先实名认证 将申请完的api-key填入对应ai厂商的配置...</description>
-      <pubDate>Mon, 03 Jun 2024 15:37:39 GMT</pubDate>
-      <content:encoded><![CDATA[
-<h2>AI厂商密钥配置</h2>
-<p><a href="https://platform.moonshot.cn/console/api-keys" target="_blank" rel="noopener noreferrer">kimi api-key申请</a><br>
-<a href="https://maas.aminer.cn/usercenter/apikeys" target="_blank" rel="noopener noreferrer">智谱清言 api-key申请</a><br>
-<a href="https://console.bce.baidu.com/iam/#/iam/accesslist" target="_blank" rel="noopener noreferrer">百度千帆 access-key和secret-key</a><br>
-<a href="https://dashscope.console.aliyun.com/apiKey" target="_blank" rel="noopener noreferrer">阿里灵积 api-key</a><br>
-<a href="https://console.xfyun.cn/app/myapp" target="_blank" rel="noopener noreferrer">讯飞星火 api-key、api-secret、appid</a></p>
-<div class="hint-container warning">
-<p class="hint-container-title">注意</p>
-<p>有些ai厂商的api-key需要实名认证后才能使用，请务必确保先实名认证</p>
-</div>
-<p>将申请完的api-key填入对应ai厂商的配置页面即可。<br>
-</p>
-<h2>知识库</h2>
-<h3>新建知识库</h3>
-<p>菜单路径：Ai助手/知识库</p>
-<figure><figcaption>知识库创建</figcaption></figure>
-<div class="hint-container warning">
-<p class="hint-container-title">注意</p>
-<p>知识库的英文名称只能包含字母和_</p>
-</div>
-<div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p>目前有四种嵌入模型embedding-2，bge-large-en，text-embedding-v2，text-embedding-3-small分别来自智谱清言、百度千帆、阿里灵积、OpenAi</p>
-</div>
-<h3>上传文档</h3>
-<p>菜单路径：Ai助手/文档管理</p>
-<figure><figcaption>上传文档</figcaption></figure>
-<h3>问答问答</h3>
-<p>菜单路径：Ai助手/聊天面板</p>
-<p>在面板中开启知识库，选择知识库发送消息即可。<br>
-</p>
 ]]></content:encoded>
     </item>
     <item>
