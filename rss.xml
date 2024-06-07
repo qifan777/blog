@@ -6,8 +6,8 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Thu, 06 Jun 2024 12:22:30 GMT</pubDate>
-    <lastBuildDate>Thu, 06 Jun 2024 12:22:30 GMT</lastBuildDate>
+    <pubDate>Fri, 07 Jun 2024 06:10:04 GMT</pubDate>
+    <lastBuildDate>Fri, 07 Jun 2024 06:10:04 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>消息角标</category>
@@ -25,6 +25,17 @@
     <category>JPA</category>
     <category>Spring</category>
     <category>小程序</category>
+    <item>
+      <title>知识库搭建</title>
+      <link>https://mister-hope.github.io/blog/project/uni-ai/rag/</link>
+      <guid>https://mister-hope.github.io/blog/project/uni-ai/rag/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">知识库搭建</source>
+      <description>知识库搭建 选择 </description>
+      <pubDate>Fri, 07 Jun 2024 02:33:25 GMT</pubDate>
+      <content:encoded><![CDATA[
+<h2>选择</h2>
+]]></content:encoded>
+    </item>
     <item>
       <title>使用教程</title>
       <link>https://mister-hope.github.io/blog/project/uni-ai/use/</link>
@@ -60,7 +71,7 @@
 <h3>上传文档</h3>
 <p>菜单路径：Ai助手/文档管理</p>
 <figure><figcaption>上传文档</figcaption></figure>
-<h3>问答问答</h3>
+<h3>知识库问答</h3>
 <p>菜单路径：Ai助手/聊天面板</p>
 <p>在面板中开启知识库，选择知识库发送消息即可。<br>
 </p>
@@ -94,7 +105,7 @@
       <link>https://mister-hope.github.io/blog/project/uni-ai/</link>
       <guid>https://mister-hope.github.io/blog/project/uni-ai/</guid>
       <source url="https://mister-hope.github.io/blog/rss.xml">UNI-AI（AI聚合）</source>
-      <description>UNI-AI（AI聚合） 项目内容 知识库 知识库知识库 知识库使用教程 图片生成 图片生成图片生成 图片理解 千问VL千问VL 智谱清言VL智谱清言VL 文本对话 markdown解析+流式对话+多种模型markdown解析+流式对话+多种模型 项目安装 docker-compose方式快速安装 源码方式安装 项目结构 uni-ai-admin 聊天...</description>
+      <description>UNI-AI（AI聚合） 项目内容 知识库 知识库知识库 图片生成 图片生成图片生成 图片理解 千问VL千问VL 智谱清言VL智谱清言VL 文本对话 markdown解析+流式对话+多种模型markdown解析+流式对话+多种模型 项目安装 docker-compose方式快速安装 源码方式安装 项目结构 uni-ai-admin 聊天界面+后台管理 ...</description>
       <pubDate>Mon, 03 Jun 2024 15:37:39 GMT</pubDate>
       <content:encoded><![CDATA[
 <h2>项目内容</h2>
@@ -120,8 +131,8 @@
 <h2>获取源码</h2>
 <div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">git</span> clone  https://github.com/qifan777/uni-ai
 </code></pre></div><h2>运行DockerCompose</h2>
-<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token builtin class-name">cd</span> uni/uni-ai-backend/scrips
-<span class="token function">docker-compose</span> up <span class="token parameter variable">-d</span>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token builtin class-name">cd</span> uni-ai/uni-ai-backend/scrips
+<span class="token function">docker-compose</span> up <span class="token parameter variable">-dc</span>
 </code></pre></div><h2>导入数据库</h2>
 <p>用可视化工具连接<code>localhost:3308</code>，用户名：<code>root</code>，密码：<code>123456</code>。<br>
 在<code>uni_ai</code>库下执行<code>uni-ai-backend/scripts/database.sql</code>。</p>
@@ -130,7 +141,7 @@
 <p>账户：11111111111<br>
 密码：123456</p>
 <h2>API-KEY配置</h2>
-<p>请参考<a href="/blog/project/uni-ai/get-started/use.md/#ai%E5%8E%82%E5%95%86%E5%AF%86%E9%92%A5%E9%85%8D%E7%BD%AE" target="_blank">API-KEY配置</a>。</p>
+<p>请参考<a href="/blog/project/uni-ai/use/#ai%E5%8E%82%E5%95%86%E5%AF%86%E9%92%A5%E9%85%8D%E7%BD%AE" target="_blank">API-KEY配置</a>。</p>
 ]]></content:encoded>
     </item>
     <item>
@@ -192,7 +203,7 @@ mysqld --character-set-server<span class="token operator">=</span>utf8mb4 <span 
 <p>如果数据库和redis-stack的安装方式是使用我上面提供的docker命令，密码都是123456.</p>
 </div>
 <h3>配置密钥</h3>
-<p><a href="/blog/project/uni-ai/get-started/use.md/#ai%E5%8E%82%E5%95%86%E5%AF%86%E9%92%A5%E9%85%8D%E7%BD%AE" target="_blank">申请密钥</a>完之后将相关信息填入<code>uni-ai-backend/server/src/main/resources/application.yml</code>。</p>
+<p><a href="/blog/project/uni-ai/use/#ai%E5%8E%82%E5%95%86%E5%AF%86%E9%92%A5%E9%85%8D%E7%BD%AE" target="_blank">申请密钥</a>完之后将相关信息填入<code>uni-ai-backend/server/src/main/resources/application.yml</code>。</p>
 <h3>运行后端服务</h3>
 <p><code>uni-ai-backend/server/src/main/java/io/qifan/server/ServerApplication.java</code></p>
 <h2>前端运行</h2>
