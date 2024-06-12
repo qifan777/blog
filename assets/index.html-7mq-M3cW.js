@@ -1,0 +1,1 @@
+import{_ as t}from"./plugin-vue_export-helper-x3n3nnut.js";import{o as n,c as o,d as e}from"./app-EopP4Mb8.js";const c={},s=e("h1",{id:"项目介绍",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#项目介绍"},[e("span",null,"项目介绍")])],-1),a=[s];function r(_,d){return n(),o("div",null,a)}const f=t(c,[["render",r],["__file","index.html.vue"]]);export{f as default};
