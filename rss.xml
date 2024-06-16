@@ -6,8 +6,8 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Sat, 15 Jun 2024 15:09:41 GMT</pubDate>
-    <lastBuildDate>Sat, 15 Jun 2024 15:09:41 GMT</lastBuildDate>
+    <pubDate>Sun, 16 Jun 2024 02:14:26 GMT</pubDate>
+    <lastBuildDate>Sun, 16 Jun 2024 02:14:26 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>消息角标</category>
@@ -24,6 +24,19 @@
     <category>CI/CD</category>
     <category>JPA</category>
     <category>Spring</category>
+    <item>
+      <title>UNI-AI（AI聚合）</title>
+      <link>https://mister-hope.github.io/blog/project/uni-ai/indro.html</link>
+      <guid>https://mister-hope.github.io/blog/project/uni-ai/indro.html</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">UNI-AI（AI聚合）</source>
+      <description>UNI-AI（AI聚合） 项目内容 知识库 知识库知识库 图片生成 图片生成图片生成 图片理解 千问VL千问VL 智谱清言VL智谱清言VL 文本对话 markdown解析+流式对话+多种模型markdown解析+流式对话+多种模型 项目安装 docker-compose方式快速安装 源码方式安装 项目结构 uni-ai-admin 聊天界面+后台管理 ...</description>
+      <pubDate>Sun, 16 Jun 2024 02:13:14 GMT</pubDate>
+      <content:encoded><![CDATA[
+<h2>项目内容</h2>
+<p>| 厂家     | 文本对话 | 图片理解 | 图片生成 | 知识库（向量数据库） | 预置角色 | 插件系统 |<br>
+|</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>ChatClient发送消息</title>
       <link>https://mister-hope.github.io/blog/project/spring-ai/chat.html</link>
@@ -250,25 +263,24 @@ data:{"result":{"output":{"messageType":"ASSISTANT","media":[],"metadata":{"mess
       <link>https://mister-hope.github.io/blog/project/spring-ai/history.html</link>
       <guid>https://mister-hope.github.io/blog/project/spring-ai/history.html</guid>
       <source url="https://mister-hope.github.io/blog/rss.xml">对话记录（内存存储）</source>
-      <description>对话记录（内存存储） 为了让AI记住你和它的对话，需要把对话信息存储起来。当你N+1次和AI聊天的时候，需要把之前的N次对话都带上这样AI才能记住你和它的对话。 不过有时候为了节省Token，并不一定把所有的对话都带上，可以只携带前面几条对话。 基础模型的接入 本案例使用的是阿里的灵积AI服务请参考。 其他AI厂商接入方式请参考下面的链接： Messa...</description>
+      <description>对话记录（内存存储） 为了让AI记住你和它的对话，需要把对话信息存储起来。当你N+1次和AI聊天的时候，需要把之前的N次对话都带上这样AI才能记住你和它的对话。 不过有时候为了节省Token，并不一定把所有的对话都带上，可以只携带前面几条对话。 基础模型的接入 本案例使用的是阿里的灵积AI服务请参考灵积接入。 其他AI厂商接入方式请参考下面的链接： 百...</description>
       <pubDate>Sat, 15 Jun 2024 15:08:23 GMT</pubDate>
       <content:encoded><![CDATA[
 <p>为了让AI记住你和它的对话，需要把对话信息存储起来。当你N+1次和AI聊天的时候，需要把之前的N次对话都带上这样AI才能记住你和它的对话。<br>
 不过有时候为了节省<code>Token</code>，并不一定把所有的对话都带上，可以只携带前面几条对话。</p>
 <h2>基础模型的接入</h2>
-<p>本案例使用的是阿里的灵积AI服务请参考<a href="/blog/project/config/dash-scope.html" target="_blank">灵积接入</a>。</p>
+<p>本案例使用的是阿里的灵积AI服务请参考<a href="https://www.jarcheng.top/blog/project/spring-ai/config/dash-scope.html" target="_blank" rel="noopener noreferrer">灵积接入</a>。</p>
 <p>其他AI厂商接入方式请参考下面的链接：<br>
-<a href="/blog/project/config/qian-fan.html" target="_blank">百度千帆</a><br>
-<a href="/blog/project/config/zhi-pu.html" target="_blank">智谱清言</a><br>
-<a href="/blog/project/config/spark.html" target="_blank">讯飞星火</a><br>
-<a href="/blog/project/config/kimi.html" target="_blank">kimi</a></p>
+<a href="https://www.jarcheng.top/blog/project/spring-ai/config/qian-fan.html" target="_blank" rel="noopener noreferrer">百度千帆</a><br>
+<a href="https://www.jarcheng.top/blog/project/spring-ai/config/zhi-pu.html" target="_blank" rel="noopener noreferrer">智谱清言</a><br>
+<a href="https://www.jarcheng.top/blog/project/spring-ai/config/spark.html" target="_blank" rel="noopener noreferrer">讯飞星火</a><br>
+<a href="https://www.jarcheng.top/blog/project/spring-ai/config/kimi.html" target="_blank" rel="noopener noreferrer">kimi</a></p>
 <h2>MessageChatMemoryAdvisor</h2>
 <p><code>MessageChatMemoryAdvisor</code>会读取会话id对应的消息列表，并把消息列表拼接到历史的消息中。</p>
 <p>历史消息的实现过程：</p>
 <ol>
 <li>提供ChatMemory，通过会话id查找历史消息。下面的例子提供的是<code>InMemoryChatMemory</code>，内存存储。</li>
-<li><code>MessageChatMemoryAdvisor</code>会在运行时调用<code>ChatMemory</code>，通过会话id查找历史消息。<br>
-然后把消息列表拼接到历史的消息中。</li>
+<li><code>MessageChatMemoryAdvisor</code>会在运行时调用<code>ChatMemory</code>，通过会话id查找历史消息。然后把消息列表拼接到历史的消息中。</li>
 <li>发送消息给大模型得到答案</li>
 </ol>
 <div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code>    <span class="token comment">// AI模型基座，可以切换不同的AI厂商模型</span>
@@ -705,17 +717,6 @@ data:{"result":{"output":{"messageType":"ASSISTANT","media":[],"metadata":{"mess
 ]]></content:encoded>
     </item>
     <item>
-      <title>知识库搭建</title>
-      <link>https://mister-hope.github.io/blog/project/uni-ai/rag/</link>
-      <guid>https://mister-hope.github.io/blog/project/uni-ai/rag/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">知识库搭建</source>
-      <description>知识库搭建 选择 </description>
-      <pubDate>Fri, 07 Jun 2024 02:33:25 GMT</pubDate>
-      <content:encoded><![CDATA[
-<h2>选择</h2>
-]]></content:encoded>
-    </item>
-    <item>
       <title>使用教程</title>
       <link>https://mister-hope.github.io/blog/project/uni-ai/use/</link>
       <guid>https://mister-hope.github.io/blog/project/uni-ai/use/</guid>
@@ -780,17 +781,11 @@ data:{"result":{"output":{"messageType":"ASSISTANT","media":[],"metadata":{"mess
 ]]></content:encoded>
     </item>
     <item>
-      <title>UNI-AI（AI聚合）</title>
+      <title>UNI-AI</title>
       <link>https://mister-hope.github.io/blog/project/uni-ai/</link>
       <guid>https://mister-hope.github.io/blog/project/uni-ai/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">UNI-AI（AI聚合）</source>
-      <description>UNI-AI（AI聚合） 项目内容 知识库 知识库知识库 图片生成 图片生成图片生成 图片理解 千问VL千问VL 智谱清言VL智谱清言VL 文本对话 markdown解析+流式对话+多种模型markdown解析+流式对话+多种模型 项目安装 docker-compose方式快速安装 源码方式安装 项目结构 uni-ai-admin 聊天界面+后台管理 ...</description>
+      <source url="https://mister-hope.github.io/blog/rss.xml">UNI-AI</source>
       <pubDate>Mon, 03 Jun 2024 15:37:39 GMT</pubDate>
-      <content:encoded><![CDATA[
-<h2>项目内容</h2>
-<p>| 厂家     | 文本对话 | 图片理解 | 图片生成 | 知识库（向量数据库） | 预置角色 | 插件系统 |<br>
-|</p>
-]]></content:encoded>
     </item>
     <item>
       <title>快速上手</title>
