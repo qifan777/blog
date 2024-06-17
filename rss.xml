@@ -6,8 +6,8 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 16 Jun 2024 02:14:26 GMT</pubDate>
-    <lastBuildDate>Sun, 16 Jun 2024 02:14:26 GMT</lastBuildDate>
+    <pubDate>Mon, 17 Jun 2024 02:39:21 GMT</pubDate>
+    <lastBuildDate>Mon, 17 Jun 2024 02:39:21 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>消息角标</category>
@@ -19,11 +19,140 @@
     <category>前端工程化</category>
     <category>网站搭建</category>
     <category>ChatGPT</category>
-    <category>多模块微服务</category>
     <category>IDEA技巧</category>
     <category>CI/CD</category>
+    <category>多模块微服务</category>
     <category>JPA</category>
     <category>Spring</category>
+    <item>
+      <title>嵌入模型</title>
+      <link>https://mister-hope.github.io/blog/project/spring-ai/embedding.html</link>
+      <guid>https://mister-hope.github.io/blog/project/spring-ai/embedding.html</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">嵌入模型</source>
+      <description>嵌入模型 如何用一段话去数据库查找数据？答案是向量求相似度。在高中的时候我们学过可以用cos求两个向量之间的夹角，cos值越大，夹角越小，夹角越小，相似度越高。 所以第一件事情需要将句子向量化，然后和向量数据库中的向量进行比较，找到最相似的向量。 嵌入模型就可以帮我们做到这件事情。 使用嵌入模型 请参考。本例使用的是阿里嵌入模型。 选择模型 文本嵌入 </description>
+      <pubDate>Mon, 17 Jun 2024 02:38:08 GMT</pubDate>
+      <content:encoded><![CDATA[
+<p>如何用一段话去数据库查找数据？答案是向量求相似度。在高中的时候我们学过可以用cos求两个向量之间的夹角，cos值越大，夹角越小，夹角越小，相似度越高。</p>
+<p>所以第一件事情需要将句子向量化，然后和向量数据库中的向量进行比较，找到最相似的向量。</p>
+<p>嵌入模型就可以帮我们做到这件事情。</p>
+<h2>使用嵌入模型</h2>
+<p>请参考<a href="/blog/project/spring-ai/config/base.html" target="_blank">基础配置</a>。本例使用的是阿里嵌入模型。</p>
+<p>选择模型</p>
+<div class="language-yaml" data-ext="yml" data-title="yml"><pre class="language-yaml"><code>    <span class="token comment"># 阿里灵积</span>
+    <span class="token key atrule">dash-scope</span><span class="token punctuation">:</span>
+      <span class="token key atrule">api-key</span><span class="token punctuation">:</span> xxx
+      <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+      <span class="token key atrule">chat</span><span class="token punctuation">:</span>
+        <span class="token key atrule">model</span><span class="token punctuation">:</span> qwen<span class="token punctuation">-</span>max
+      <span class="token key atrule">embedding</span><span class="token punctuation">:</span>
+        <span class="token comment"># 嵌入模型</span>
+        <span class="token key atrule">model</span><span class="token punctuation">:</span> text<span class="token punctuation">-</span>embedding<span class="token punctuation">-</span>v2
+</code></pre></div><p>文本嵌入</p>
+<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code>    <span class="token comment">// 阿里嵌入模型</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">DashScopeAiEmbeddingModel</span> embeddingModel<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">embeddingTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 文本嵌入</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Double</span><span class="token punctuation">&gt;</span></span> embed <span class="token operator">=</span> embeddingModel<span class="token punctuation">.</span><span class="token function">embed</span><span class="token punctuation">(</span><span class="token string">"你好，我的名字是起凡"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"文本转换得到的向量: {}"</span><span class="token punctuation">,</span> embed<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre></div>]]></content:encoded>
+    </item>
+    <item>
+      <title>ETL Pipeline</title>
+      <link>https://mister-hope.github.io/blog/project/spring-ai/etl-pipeline.html</link>
+      <guid>https://mister-hope.github.io/blog/project/spring-ai/etl-pipeline.html</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">ETL Pipeline</source>
+      <description>ETL Pipeline ETL是提取、转换、加载的缩写，从原始的文档到数据库需要经历提取（.doc、.ppt、.xlsx等）、转换（数据结构化、清理数据、数据分块）、写入向量数据库。这个过程可以进行多种处理，确保最后的数据适合AI问答。 SpringAI提供了ETL框架。它是搭建知识库框架的基石。 框架介绍 DocumentReader：文档读取器，...</description>
+      <pubDate>Mon, 17 Jun 2024 02:38:08 GMT</pubDate>
+      <content:encoded><![CDATA[
+<p>ETL是提取、转换、加载的缩写，从原始的文档到数据库需要经历提取（.doc、.ppt、.xlsx等）、转换（数据结构化、清理数据、数据分块）、写入向量数据库。这个过程可以进行多种处理，确保最后的数据适合AI问答。</p>
+<p>SpringAI提供了ETL框架。它是搭建知识库框架的基石。</p>
+<h2>框架介绍</h2>
+<ol>
+<li>DocumentReader：文档读取器，读取文档，比如PDF、Word、Excel等。如：<code>JsonReader</code>（读取JSON）,<code>TextReader</code>（读取文本）,<code>PagePdfDocumentReader</code>（读取PDF）,<code>TikaDocumentReader</code>（读取各种文件，大部分都可以支持.pdf,.xlsx,.docx,.pptx,.md,.json等）。上诉的这些reader都是<code>DocumentReader</code>的实现类。</li>
+<li>DocumentTransformer：文档转换器，处理文档。<code>TextSplitter</code>（文档切割成小块），<code>ContentFormatTransformer</code>（将文档变成键值对），<code>SummaryMetadataEnricher</code>（使用大模型总结文档），<code>KeywordMetadataEnricher</code>（使用大模型提取文档关键词）。</li>
+<li>DocumentWriter: 文档写入器，将文档写入向量数据库或者本地文件。<code>VectorStore</code>（向量数据库写入器），<code>FileDocumentWriter</code>（文件写入器）。</li>
+</ol>
+<figure><figcaption>ETL 流水线结构图</figcaption></figure>
+<h2>读取文件</h2>
+<p><code>TikaDocumentReader</code>比较全能大部分文件都可以读取，支持的文件格式可以参考<a href="https://tika.apache.org/2.9.0/formats.html" target="_blank" rel="noopener noreferrer">官方文档</a>。如果是比较个性化文档的场景，最好自己实现一个<code>Reader</code>，比如我们公司的有些excel里面存了各种的表格数据这种只能自己去读取处理。使用读取器读出来的数据乱乱的。</p>
+<p>引入依赖</p>
+<div class="language-xml" data-ext="xml" data-title="xml"><pre class="language-xml"><code>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.ai<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-ai-tika-document-reader<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+
+</code></pre></div><p>首先要明白<code>DocumentReader</code>会从<code>Resource</code>中读取文件。<code>Resource</code>是SpringIO中的一个接口，它表示一个资源，可以是文件、网络资源、内存资源等。<br>
+下面举几个读取文件的例子</p>
+<ol>
+<li>
+<p>从输入流中读取文件。像后端接收前端文件时，就可以使用。</p>
+<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@SneakyThrows</span>
+<span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"read/multipart-file"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">readMultipartFile</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestParam</span> <span class="token class-name">MultipartFile</span> file<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 从IO流中读取文件</span>
+    <span class="token class-name">Resource</span> resource <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">InputStreamResource</span><span class="token punctuation">(</span>file<span class="token punctuation">.</span><span class="token function">getInputStream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Document</span><span class="token punctuation">&gt;</span></span> documents <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TikaDocumentReader</span><span class="token punctuation">(</span>resource<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li>
+<li>
+<p>从本地文件读取文件。</p>
+<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">readFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">Resource</span> resource <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileSystemResource</span><span class="token punctuation">(</span><span class="token string">"D:\\简历.pdf"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Document</span><span class="token punctuation">&gt;</span></span> documents <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TikaDocumentReader</span><span class="token punctuation">(</span>resource<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li>
+<li>
+<p>从网络资源读取文件。</p>
+<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@SneakyThrows</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">readUrl</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">Resource</span> resource <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UrlResource</span><span class="token punctuation">(</span><span class="token string">"http://localhost/简历.pdf"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Document</span><span class="token punctuation">&gt;</span></span> documents <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TikaDocumentReader</span><span class="token punctuation">(</span>resource<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li>
+</ol>
+<p>为了体现资源的统一性我特意用<code>Resource</code>表示<code>InputStreamResource</code>、<code>FileSystemResource</code>、<code>UrlResource</code>。对于文档读取器来说，它不在乎文档来自哪里，只要它是一个<code>Resource</code>，它都可以读取。</p>
+<h2>转换文档</h2>
+<p><code>Document</code>对象是<code>ETL Pipeline</code>的核心对象，它包含了文档的元数据和内容。</p>
+<p>内容转换器：</p>
+<ul>
+<li><code>TokenTextSplitter</code>：可以把内容切割成更小的块方便<code>RAG</code>的时候提升响应速度节省<code>Token</code>。</li>
+<li><code>ContentFormatTransformer</code>：可以把元数据的内容变成键值对字符串。</li>
+</ul>
+<p>元数据转换器：</p>
+<ul>
+<li><code>SummaryMetadataEnricher</code>：使用大模型总结文档。会在元数据里面增加一个<code>summary</code>字段。</li>
+<li><code>KeywordMetadataEnricher</code>：使用大模型提取文档关键词。可以在元数据里面增加一个<code>keywords</code>字段。</li>
+</ul>
+<p>从前端传来文件，使用<code>TikaDocumentReader</code>读取文件，然后使用<code>TokenTextSplitter</code>将文本内容划分成更小的块。</p>
+<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code>        <span class="token comment">// 从IO流中读取文件</span>
+        <span class="token class-name">TikaDocumentReader</span> tikaDocumentReader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TikaDocumentReader</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">InputStreamResource</span><span class="token punctuation">(</span>file<span class="token punctuation">.</span><span class="token function">getInputStream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 将文本内容划分成更小的块</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Document</span><span class="token punctuation">&gt;</span></span> splitDocuments <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TokenTextSplitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>tikaDocumentReader<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h2>存储文档</h2>
+<p>经过前面的步骤，我们得到了一个文档列表，然后就可以将其存储到向量数据库或者本地文件中了。</p>
+<p>向量数据库的依赖和创建请参考<a href="/blog/project/spring-ai/vector-database.html" target="_blank">向量数据库</a>。</p>
+<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code>    <span class="token comment">// 注入向量数据库。</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">VectorStore</span> vectorStore<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@SneakyThrows</span>
+    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"embedding"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">Boolean</span> <span class="token function">embedding</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestParam</span> <span class="token class-name">MultipartFile</span> file<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 从IO流中读取文件</span>
+        <span class="token class-name">TikaDocumentReader</span> tikaDocumentReader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TikaDocumentReader</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">InputStreamResource</span><span class="token punctuation">(</span>file<span class="token punctuation">.</span><span class="token function">getInputStream</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 将文本内容划分成更小的块</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Document</span><span class="token punctuation">&gt;</span></span> splitDocuments <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TokenTextSplitter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>tikaDocumentReader<span class="token punctuation">.</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 存入向量数据库，这个过程会自动调用embeddingModel,将文本变成向量再存入。</span>
+        vectorStore<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>splitDocuments<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre></div>]]></content:encoded>
+    </item>
     <item>
       <title>UNI-AI（AI聚合）</title>
       <link>https://mister-hope.github.io/blog/project/uni-ai/indro.html</link>
@@ -47,12 +176,12 @@
       <content:encoded><![CDATA[
 <p>下面是一个简单的ChatClient结合ChatModel的消息发送实例。</p>
 <h2>AI厂商接入</h2>
-<p>本案例使用的是阿里的灵积AI服务请参考<a href="/blog/project/config/dash-scope.html" target="_blank">灵积接入</a>。</p>
+<p>本案例使用的是阿里的灵积AI服务请参考<a href="/blog/project/spring-ai/config/dash-scope.html" target="_blank">灵积接入</a>。</p>
 <p>其他AI厂商接入方式请参考下面的链接：<br>
-<a href="/blog/project/config/qian-fan.html" target="_blank">百度千帆</a><br>
-<a href="/blog/project/config/zhi-pu.html" target="_blank">智谱清言</a><br>
-<a href="/blog/project/config/spark.html" target="_blank">讯飞星火</a><br>
-<a href="/blog/project/config/kimi.html" target="_blank">kimi</a></p>
+<a href="/blog/project/spring-ai/config/qian-fan.html" target="_blank">百度千帆</a><br>
+<a href="/blog/project/spring-ai/config/zhi-pu.html" target="_blank">智谱清言</a><br>
+<a href="/blog/project/spring-ai/config/spark.html" target="_blank">讯飞星火</a><br>
+<a href="/blog/project/spring-ai/config/kimi.html" target="_blank">kimi</a></p>
 <h2>注入AI模型</h2>
 <p>我这边使用的阿里的灵积模型</p>
 <div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">DashScopeAiChatModel</span> dashScopeAiChatModel<span class="token punctuation">;</span>
@@ -225,12 +354,12 @@ data:{"result":{"output":{"messageType":"ASSISTANT","media":[],"metadata":{"mess
 <span class="token punctuation">}</span>
 
 </code></pre></div><h2>使用函数</h2>
-<p>注入AI模型基座，可以切换不同的AI厂商模型。本案例使用的是阿里的灵积AI服务请参考<a href="/blog/project/config/dash-scope.html" target="_blank">灵积接入</a>。</p>
+<p>注入AI模型基座，可以切换不同的AI厂商模型。本案例使用的是阿里的灵积AI服务请参考<a href="/blog/project/spring-ai/config/dash-scope.html" target="_blank">灵积接入</a>。</p>
 <div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">DashScopeAiChatModel</span> dashScopeAiChatModel<span class="token punctuation">;</span>
 </code></pre></div><p>具体哪些模型可以支持<code>function call</code>请阅读各个AI厂商的文档。其他AI厂商接入方式请参考下面的链接：<br>
-<a href="/blog/project/config/qian-fan.html" target="_blank">百度千帆</a><br>
-<a href="/blog/project/config/zhi-pu.html" target="_blank">智谱清言</a><br>
-<a href="/blog/project/config/kimi.html" target="_blank">kimi</a><br>
+<a href="/blog/project/spring-ai/config/qian-fan.html" target="_blank">百度千帆</a><br>
+<a href="/blog/project/spring-ai/config/zhi-pu.html" target="_blank">智谱清言</a><br>
+<a href="/blog/project/spring-ai/config/kimi.html" target="_blank">kimi</a><br>
 星火模型目前还未适配<code>function call</code>功能。</p>
 <p>在实际的开发中可以接收多个函数，通过<code>functions</code>参数传入。然后ai会根据提问从这些函数中选择一个执行。</p>
 <div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code>    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">DashScopeAiChatModel</span> dashScopeAiChatModel<span class="token punctuation">;</span>
@@ -263,18 +392,18 @@ data:{"result":{"output":{"messageType":"ASSISTANT","media":[],"metadata":{"mess
       <link>https://mister-hope.github.io/blog/project/spring-ai/history.html</link>
       <guid>https://mister-hope.github.io/blog/project/spring-ai/history.html</guid>
       <source url="https://mister-hope.github.io/blog/rss.xml">对话记录（内存存储）</source>
-      <description>对话记录（内存存储） 为了让AI记住你和它的对话，需要把对话信息存储起来。当你N+1次和AI聊天的时候，需要把之前的N次对话都带上这样AI才能记住你和它的对话。 不过有时候为了节省Token，并不一定把所有的对话都带上，可以只携带前面几条对话。 基础模型的接入 本案例使用的是阿里的灵积AI服务请参考灵积接入。 其他AI厂商接入方式请参考下面的链接： 百...</description>
+      <description>对话记录（内存存储） 为了让AI记住你和它的对话，需要把对话信息存储起来。当你N+1次和AI聊天的时候，需要把之前的N次对话都带上这样AI才能记住你和它的对话。 不过有时候为了节省Token，并不一定把所有的对话都带上，可以只携带前面几条对话。 基础模型的接入 本案例使用的是阿里的灵积AI服务请参考。 其他AI厂商接入方式请参考下面的链接： Messa...</description>
       <pubDate>Sat, 15 Jun 2024 15:08:23 GMT</pubDate>
       <content:encoded><![CDATA[
 <p>为了让AI记住你和它的对话，需要把对话信息存储起来。当你N+1次和AI聊天的时候，需要把之前的N次对话都带上这样AI才能记住你和它的对话。<br>
 不过有时候为了节省<code>Token</code>，并不一定把所有的对话都带上，可以只携带前面几条对话。</p>
 <h2>基础模型的接入</h2>
-<p>本案例使用的是阿里的灵积AI服务请参考<a href="https://www.jarcheng.top/blog/project/spring-ai/config/dash-scope.html" target="_blank" rel="noopener noreferrer">灵积接入</a>。</p>
+<p>本案例使用的是阿里的灵积AI服务请参考<a href="/blog/project/spring-ai/config/dash-scope.html" target="_blank">灵积接入</a>。</p>
 <p>其他AI厂商接入方式请参考下面的链接：<br>
-<a href="https://www.jarcheng.top/blog/project/spring-ai/config/qian-fan.html" target="_blank" rel="noopener noreferrer">百度千帆</a><br>
-<a href="https://www.jarcheng.top/blog/project/spring-ai/config/zhi-pu.html" target="_blank" rel="noopener noreferrer">智谱清言</a><br>
-<a href="https://www.jarcheng.top/blog/project/spring-ai/config/spark.html" target="_blank" rel="noopener noreferrer">讯飞星火</a><br>
-<a href="https://www.jarcheng.top/blog/project/spring-ai/config/kimi.html" target="_blank" rel="noopener noreferrer">kimi</a></p>
+<a href="/blog/project/spring-ai/config/qian-fan.html" target="_blank">百度千帆</a><br>
+<a href="/blog/project/spring-ai/config/zhi-pu.html" target="_blank">智谱清言</a><br>
+<a href="/blog/project/spring-ai/config/spark.html" target="_blank">讯飞星火</a><br>
+<a href="/blog/project/spring-ai/config/kimi.html" target="_blank">kimi</a></p>
 <h2>MessageChatMemoryAdvisor</h2>
 <p><code>MessageChatMemoryAdvisor</code>会读取会话id对应的消息列表，并把消息列表拼接到历史的消息中。</p>
 <p>历史消息的实现过程：</p>
@@ -339,7 +468,7 @@ data:{"result":{"output":{"messageType":"ASSISTANT","media":[],"metadata":{"mess
       <content:encoded><![CDATA[
 <p>要搭建自己的知识库除了文档嵌入到向量数据库之外，就是RAG了。当用户提问的时候先从想来数据库搜索相关的资料，再把相关的资料拼接到用户的提问中，再让模型生成答案。</p>
 <h2>文档嵌入</h2>
-<p>请参考<a href="/blog/project/vector-database/README.md/#%E6%96%87%E6%A1%A3%E5%B5%8C%E5%85%A5" target="_blank">文档嵌入</a>，向数据库中插入一些自己的文档。</p>
+<p>请参考<a href="/blog/project/spring-ai/vector-database.html#%E6%96%87%E6%A1%A3%E5%B5%8C%E5%85%A5" target="_blank">文档嵌入</a>，向数据库中插入一些自己的文档。</p>
 <h2>QuestionAnswerAdvisor</h2>
 <p><code>QuestionAnswerAdvisor</code>可以在用户发起的提问时，先向数据库查询相关的文档，再把相关的文档拼接到用户的提问中，再让模型生成答案。那就是<code>RAG</code>的实现了。</p>
 <p><code>RAG</code>的实现过程：</p>
@@ -374,10 +503,10 @@ data:{"result":{"output":{"messageType":"ASSISTANT","media":[],"metadata":{"mess
       <content:encoded><![CDATA[
 <p>向量数据库是AI记忆的核心组件，AI记忆除了历史的对话信息之外就是向量数据库中存储文档了，也就是大家常说的知识库。本节内容介绍如何向量数据库中存储文档和检索文档。为接下来的知识库(RAG)搭建做铺垫</p>
 <h2>基础模型的接入</h2>
-<p>本案例使用的是阿里的灵积AI服务请参考<a href="/blog/project/config/dash-scope.html" target="_blank">灵积接入</a>。</p>
+<p>本案例使用的是阿里的灵积AI服务请参考<a href="/blog/project/spring-ai/config/dash-scope.html" target="_blank">灵积接入</a>。</p>
 <p>其他AI厂商接入方式请参考下面的链接：<br>
-<a href="/blog/project/config/qian-fan.html" target="_blank">百度千帆</a><br>
-<a href="/blog/project/config/zhi-pu.html" target="_blank">智谱清言</a></p>
+<a href="/blog/project/spring-ai/config/qian-fan.html" target="_blank">百度千帆</a><br>
+<a href="/blog/project/spring-ai/config/zhi-pu.html" target="_blank">智谱清言</a></p>
 <p>kimi和星火目前不支持文档嵌入。</p>
 <h2>安装RedisStack</h2>
 <p>需要先禁用掉自己原本的redis，防止端口冲突。访问<code>localhost:8001</code>查看数据库的信息。用户名：<code>default</code>,密码：<code>123456</code>。</p>
@@ -487,7 +616,7 @@ data:{"result":{"output":{"messageType":"ASSISTANT","media":[],"metadata":{"mess
       <link>https://mister-hope.github.io/blog/project/spring-ai/config/base.html</link>
       <guid>https://mister-hope.github.io/blog/project/spring-ai/config/base.html</guid>
       <source url="https://mister-hope.github.io/blog/rss.xml">通用配置</source>
-      <description>通用配置 依赖清单导入 spring-ai-bom是spring-ai官方的依赖统一管理。 uni-ai-bom是我自己用spring-ai风格实现了国内的一些ai厂家的api并封装成starter。 版本号 依赖 仓库配置 </description>
+      <description>通用配置 依赖清单导入 spring-ai-bom是spring-ai官方的依赖统一管理。 uni-ai-bom是我自己用spring-ai风格实现了国内的一些ai厂家的api并封装成starter。 版本号 依赖 仓库配置 AI厂商配置 。 </description>
       <pubDate>Wed, 12 Jun 2024 08:47:49 GMT</pubDate>
       <content:encoded><![CDATA[
 <h2>依赖清单导入</h2>
@@ -551,7 +680,13 @@ data:{"result":{"output":{"messageType":"ASSISTANT","media":[],"metadata":{"mess
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repository</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>repositories</span><span class="token punctuation">&gt;</span></span>
 
-</code></pre></div>]]></content:encoded>
+</code></pre></div><h2>AI厂商配置</h2>
+<p><a href="/blog/project/spring-ai/config/dash-scope.html" target="_blank">阿里灵积</a>。<br>
+<a href="/blog/project/spring-ai/config/qian-fan.html" target="_blank">百度千帆</a><br>
+<a href="/blog/project/spring-ai/config/zhi-pu.html" target="_blank">智谱清言</a><br>
+<a href="/blog/project/spring-ai/config/spark.html" target="_blank">讯飞星火</a><br>
+<a href="/blog/project/spring-ai/config/kimi.html" target="_blank">kimi</a></p>
+]]></content:encoded>
     </item>
     <item>
       <title>灵积（通义千问）接入</title>
@@ -3507,6 +3642,419 @@ include /www/server/panel/vhost/nginx/*.conf;
 ]]></content:encoded>
     </item>
     <item>
+      <title>ChatGPT Next Web 搭建教程</title>
+      <link>https://mister-hope.github.io/blog/tools/chatgpt/</link>
+      <guid>https://mister-hope.github.io/blog/tools/chatgpt/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">ChatGPT Next Web 搭建教程</source>
+      <description>ChatGPT Next Web 搭建教程 1.2 介绍 1.2.1 自我介绍 我是起凡，一名全栈程序员，刚刚毕业于华侨大学。主要技术栈后端SpringBoot,Jpa, MongoDb等。前端Vue3, Typescript, Taro小程序。 1.2.2 ChatGPT Next Web 介绍 ChatGPT Next Web可以使用OpenAI官...</description>
+      <category>ChatGPT</category>
+      <pubDate>Wed, 10 May 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<h2>1.2 介绍</h2>
+<h3>1.2.1 自我介绍</h3>
+<p>我是起凡，一名全栈程序员，刚刚毕业于华侨大学。主要技术栈后端SpringBoot,Jpa, MongoDb等。前端Vue3, Typescript, Taro小程序。</p>
+<h3>1.2.2 ChatGPT Next Web 介绍</h3>
+<p>ChatGPT Next Web可以使用OpenAI官方提供的API。比如ChatGPT3.5模型，ChatGPT4.0模型等等。并且提供了一个WEB界面将我们输入的内容转发给OpenAI。同时支持多聊天窗口会话等。</p>
+<div style="text-align: center">
+
+</div>
+<h3>1.2.3 被封锁的中国区域</h3>
+<p>在中国地区无法调用OpenAI的接口，意味着即使你在本地部署了ChatGPT Next Web你无法与之对话。要解决上面的问题只能通过代理。</p>
+<ul>
+<li>使用稳定的代理服务软件和节点比如Windows的Clash for windows/v2ayN, linux的v2raya, mac下的Clash for mac等。</li>
+<li>配置代理软件让ChatGPT Next Web能够走代理</li>
+</ul>
+<h2>1.3 先决条件</h2>
+<h3>1.3.1 Docker</h3>
+<p>ChatGPT Next<br>
+Web可以通过源码安装，这种方式对于不熟悉开发的人来说要安装许多的软件和配置很多环境所以不推荐。使用Docker安装只需要一行命令。所以我推荐使用Docker来安装。如果是Windows或者Mac用户下载Docker<br>
+Desktop。</p>
+<p>请根据不同的操作系统安装docker。下面以Centos7操作系统为例安装docker。</p>
+<p>| 家族      | 发行版                                                              |<br>
+|</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>IDEA——强大的Shell工具</title>
+      <link>https://mister-hope.github.io/blog/tools/idea/shell.html</link>
+      <guid>https://mister-hope.github.io/blog/tools/idea/shell.html</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">IDEA——强大的Shell工具</source>
+      <description>IDEA——强大的Shell工具 SSH 在使用Shell工具时最常用的是SSH输入命令操控远程服务器。在idea中使用SSH也是很简单的事情。 settings -&amp;gt; tools -&amp;gt; ssh congratulations alt+f12打开命令行，在右上角的下拉框中选择上面配置好的SSH会话。之后直接在命令行中就可以向服务器发送命令了。 SFTP...</description>
+      <category>IDEA技巧</category>
+      <pubDate>Sun, 24 Sep 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<h2>SSH</h2>
+<p>在使用Shell工具时最常用的是SSH输入命令操控远程服务器。在idea中使用SSH也是很简单的事情。</p>
+<p>settings -&gt; tools -&gt; ssh congratulations</p>
+
+<p>alt+f12打开命令行，在右上角的下拉框中选择上面配置好的SSH会话。之后直接在命令行中就可以向服务器发送命令了。</p>
+
+<h2>SFTP</h2>
+<p>在控制远程服务器时除了发送命令行，自然少不了互传文件，文件预览编辑的功能。幸运的是强大的idea也有这个功能</p>
+<p>settings -&gt; deployment。点击左上角的➕添加sftp服务器，可以从之前已经配置的ssh session中选择。</p>
+
+<p>默认情况下idea没有显示远程sftp服务器的菜单，需要手动打开。</p>
+
+<p>在右侧的菜单栏中打开sftp服务器列表，选择已经配置好的sftp服务器，确认后下面就可以显示服务器内的文件了，可以编辑，可以下载，可以拖动本地文件到远程文件夹。</p>
+
+<h2>Database</h2>
+<p>作为一名软件开发程序员，经常需要远程查看服务器上的数据库。所以除了shell工具之外还需准备数据库连接工具。</p>
+
+<p>在ssh/ssl页签中选择已经配置好的ssh。之后切换到general页签输入数据库的账号密码，记住不需要修改host。</p>
+
+<p>连接数据库后你使用这</p>
+<ul>
+<li>
+<p>数据库迁移<br>
+在服务器上部署新项目的时候需要在服务器上新建数据库，然后把本地的表迁移到服务器上，在idea中就可以实现这个操作。</p>
+</li>
+<li>
+<p>结构对比<br>
+如果你在本地的数据库修改了某个字段，然后想同步到服务器上，idea的数据库/表结构对比非常好用。</p>
+</li>
+<li>
+<p>数据导出导入</p>
+</li>
+</ul>
+<h2>部署</h2>
+<p>settings -&gt; deployment</p>
+<p>将本地编译后的文件映射到服务器的目录。</p>
+
+<p>在本地映射到服务器的文件上右键，上传。</p>
+
+<h2>远程命令</h2>
+<p>在部署完之后一般需要执行命令或者脚本，这边我演示将远程服务器的nginx命令映射到idea里面。</p>
+
+
+<h2>远程执行</h2>
+<p>如果大家有做过支付功能可以知道它必须用于公网ip，我们在本地调试不了支付功能（除非内网穿透），只能将应用打包放到服务器上运行。这样做每次修改代码都需要重新打包部署很费时间。这个远程执行的功能就很好用了，可以直接指定你的应用运行机器。</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>工作必用的Jenkins</title>
+      <link>https://mister-hope.github.io/blog/tools/jenkins/</link>
+      <guid>https://mister-hope.github.io/blog/tools/jenkins/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">工作必用的Jenkins</source>
+      <description>工作必用的Jenkins Jenkins是一个可扩展的自动化服务器，Jenkins 可以作为一个简单的 CI 服务器使用，或者成为任何项目的持续交付中心。 CI/CD 通过上面这张图可以分三部分来理解CI/CD 第一部分 先看看软件开发生命周期（SDLC）和CI/CD是如何结合的。软件开发一般包含几个重要的阶段：开发（Develop），测试（Test）...</description>
+      <category>CI/CD</category>
+      <pubDate>Tue, 22 Aug 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<p>Jenkins是一个可扩展的自动化服务器，Jenkins 可以作为一个简单的 CI 服务器使用，或者成为任何项目的持续交付中心。</p>
+<h2>CI/CD</h2>
+
+<p>通过上面这张图可以分三部分来理解CI/CD</p>
+<ul>
+<li><strong>第一部分</strong></li>
+</ul>
+<p>先看看软件开发生命周期（SDLC）和CI/CD是如何结合的。软件开发一般包含几个重要的阶段：开发（Develop），测试（Test），部署（Deploy），维护（Maintain）。CI/CD可以将上述的流程流程串联一起来形成一个自动化的闭环，使得每次发布都更快更可靠。</p>
+<ul>
+<li><strong>第二部分</strong></li>
+</ul>
+<p>Continuous Integration(CI) 持续集成会不断的监听仓库并且执行构建测试确保最后合并到发布分支是没问题的。这样可以提早的发现问题，而不是累计了多次提交等合并到发布分支的时候才发现问题，这样回滚的时候会比较麻烦。</p>
+<p>Continuous Delivery(CD) 持续交付主要是在部署方面的自动化，它也会运行一些测试，每次发布分支有更新CD就会把CI构建好的代码部署到生产上。</p>
+<ul>
+<li><strong>第三部分</strong></li>
+</ul>
+<p>总结一下整体的流程可以有如下步骤</p>
+<ul>
+<li>开发者提交代码到参考</li>
+<li>CI 服务器检测到代码更新触发构建</li>
+<li>构建好代码并且测试</li>
+<li>生成测试结果报告</li>
+<li>部署打包的代码到模拟环境</li>
+<li>后续可能会有模拟环境的测试</li>
+<li>最后发布到生成环境</li>
+</ul>
+<p>那CI/CD是如何工作的呢？它其实不神秘，你把它看成一个软件（Jenkins），它可以运行在你的电脑上也可以单独运行在服务器上。它首先会监听你的代码仓库，每次有代码提交到仓库上它就会开始运转第一部分的流程图，先是把代码拉取下来在本地编译（Jenkins所在的机器）和测试(<br>
+测试环境)。然后用前端的自动化测试模拟用户点击（e2e<br>
+test），这步通过后就可以部署到模拟环境（Staging）或者生成环境（Production）。如果出现了问题就会通知开发者，开发者根据报错日志修改bug并且提交代码，接着又重复上述的流程。</p>
+<h2>Jenkins安装</h2>
+<p>本教程以windows为例安装jenkins，其他系统请参照官方文档。</p>
+<ul>
+<li>第一步<br>
+在<a href="https://www.jenkins.io/doc/book/installing/windows/" target="_blank" rel="noopener noreferrer">官网</a><br>
+下载<a href="https://www.jenkins.io/download/#downloading-jenkins" target="_blank" rel="noopener noreferrer">安装包</a></li>
+</ul>
+<p>打开安装包链接出现图1网页，再点击Windows即可下载。</p>
+
+<ul>
+<li>第二步</li>
+</ul>
+<p>按照提示走到这边。在这边输入你windows的用户名和密码。然后点击验证凭证。</p>
+
+<p>如果出错请按照以下步骤添加权限</p>
+<ol>
+<li>打开开始，输入<code>本地安全策略</code></li>
+<li>展开<code>本地策略</code>并点击右侧的<code>用户权限分配</code></li>
+<li>在右侧面板中找到<code>作为服务登录</code>，右键-&gt;属性</li>
+<li>点击<code>添加用户或组</code></li>
+<li>在输入框内输入你的Windows用户名，然后点击<code>检查名称</code>再点击确定。</li>
+</ol>
+
+<ul>
+<li>第三步</li>
+</ul>
+<p>在选择好端口和jdk路径后就安装结束了。安装成功后在任务管理器的服务中可以看见Jenkins服务</p>
+
+<ul>
+<li>第四步</li>
+</ul>
+<p>在浏览器中打开<code>http://localhost:8080</code>，如果你是安装时选择的端口号不是8080那替换成你选择的端口。打开后出现图5页面，根据红色的提示路径获取初始密码（图6）</p>
+
+
+<ul>
+<li>第五步</li>
+</ul>
+<p>安装推荐的插件，并且创建一个用户。</p>
+<h2>博客CI/CD案例</h2>
+<p>以前我每次写完博客需要自己编译打包部署。有时候部署完后发现格式或者内容出了一些问题又要重新打包部署，每次重复的干这些事显然是很枯燥无味的。使用Jenkins编写pipeline就可以帮助我完成这些重复的工作。</p>
+<h3>安装插件</h3>
+<p>除了安装推荐的插件之外还需要安装下面两个插件</p>
+<ul>
+<li><code>Publish Over SSH</code> 用于发送构建好的文件到服务器</li>
+<li><code>NodeJS Plugin</code> 管理不同版本的Node.js</li>
+</ul>
+<h3>配置</h3>
+<ul>
+<li><strong>配置服务器信息</strong></li>
+</ul>
+<p><code>Dashboard-&gt; Manage Jenkins-&gt; System -&gt; Publish over SSH -&gt; 新增SSH Server</code></p>
+
+<ul>
+<li><strong>配置Node.js</strong></li>
+</ul>
+<p><code>Dashboard-&gt; Manage Jenkins-&gt; Tools -&gt; NodeJS -&gt; 新增NodeJS</code></p>
+
+<h3>新建Pipeline项目</h3>
+<p><code>Dashboard -&gt; 新建Item -&gt; Pipeline</code></p>
+
+<h3>编写Pipeline</h3>
+<p><code>Dashboard -&gt; qifan-blog(你的项目) -&gt; 配置</code></p>
+<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code>pipeline {
+    agent any
+    // 选择node 16
+    tools {
+      nodejs 'node 16'
+    }
+   // 将整个构建部署分成三个阶段，整个分成几个阶段没有一个标准，全部合成一个阶段也可以。
+   // 分成多个阶段的好处的优点有 1. 逻辑清晰 2. 对于大项目如果其中某个阶段失败了，下次可以从失败的地方再运行。已经成功的阶段就不需要运行了。可以节省时间。3. 方便统计每个阶段的运行时间，好定位问题。
+    stages {
+        // 从git参考获取代码
+        stage('Git Checkout') {
+            steps {
+              // 从github获取代码，这边使用的是你本机的git。相当于你自己执行了git clone https://github.com/qifan777/qifan-blog-vuepress2.git
+              // git checkout master
+              git branch: 'master', url: 'https://github.com/qifan777/qifan-blog-vuepress2.git'
+            }
+        }
+        // 获取代码后在node16上构建博客代码
+        stage('Build') {
+            steps {
+                bat "node -v"
+                bat "npm install"
+                bat "npm run docs:build"
+            }
+        }
+        // 将构建好的博客上传到服务器上
+        stage('SSH Punlisher') {
+            steps{
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'centos7',
+                 transfers: [sshTransfer( execCommand: 'nginx -s reopen',
+                 remoteDirectory: '/www/server/nginx/html/blog',
+                 removePrefix: 'docs/.vuepress/dist',
+                  sourceFiles: 'docs/.vuepress/dist/**')])])
+            }
+        }
+    }
+}
+
+</code></pre></div><p>点击保存</p>
+<h3>构建Pipeline</h3>
+<p><code>Dashboard -&gt; qifan-blog(你的项目) -&gt; Build Now</code></p>
+
+<h2>Pipeline介绍</h2>
+<h3>概念介绍</h3>
+<p>pipeline流水线以<code>pipeline {}</code>开始，<code>pipeline{}</code>下可以包含<code>Sections</code>,<code>Steps</code>,<code>Directives</code>, 赋值语句。</p>
+
+
+<p>通过上面的例子相信大家对pipeline有了初步的了解。</p>
+<p>我们看图11中pipeline启动的方式可以是监听git仓库，每次git仓库有代码推送就会自动启动pipeline。前面的例子中我们是手动点击<code>Build Now</code><br>
+启动Pipeline的。</p>
+<p>在观察图中有多个Stage，对照我们之前写的例子其中有<code>Git Checkout</code>,<code>Build</code>和<code>SSH Punlisher</code><br>
+三个Stage。Stage的作用就是将整个构建部署流程从逻辑上划分成多个阶段。</p>
+<p>每个阶段（Stage）中又可以添加<code>Steps</code>，在<code>Steps</code>下可以添加<code>Directives</code>。我们看一下之前例子中的<code>Build</code>阶段，该阶段下有一个<br>
+<code>Steps</code>其中包含了三条<code>Directives</code>。在同一个<code>Steps</code>下的指令是可以共享局部变量，比如你可以在<code>Steps</code>中顶一个变量<code>def count=1</code>，下面的指令都可以使用count变量。</p>
+<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code>steps {
+    bat "node -v"
+    bat "npm install"
+    bat "npm run docs:build"
+}
+</code></pre></div><h3>如何编写Pipeline</h3>
+<p>一般分如下几个步骤</p>
+<ol>
+<li>确定Pipeline运行的<code>agent（机器/环境）</code></li>
+</ol>
+<p>如果是本机直接填写<code>agent: any</code>，还可以运行在docker，其他服务器，k8s上。可以参考官方文档中的<code>agent</code>参数。</p>
+<ol start="2">
+<li>配置需要工具</li>
+</ol>
+<p>如果你安装了git，maven插件，下面你tools你也可以添加。其他的工具也可以在插件市场中找到，安装完插件配置工具的版本，然后在<code>tools{}</code><br>
+中选择相应的版本。</p>
+<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code> tools {
+    nodejs 'node 16'
+    git '配置的git版本'
+    maven '配置的maven版本'
+ }
+</code></pre></div><ol start="3">
+<li>划分stage</li>
+</ol>
+<p>参考我写的例子</p>
+<ol start="4">
+<li>在每个stage中使用指令(Directives)</li>
+</ol>
+<p>编写指令的时候，如果你不知道如何使用指令可以参考这个指令生成器和片段生成器。<br>
+指令生成器生成（Declarative Directive<br>
+Generator）的是官方提供的语法，片段生成器可以生成你下载的插件指令。比如之前写的例子中<code>tools</code>,<code>bat</code><br>
+就是官方的指令，<code>git</code>,<code>sshPublisher</code>就是我安装的插件提供的指令。</p>
+<p><code>Dashboard -&gt; qifan-blog(你的项目)  -&gt; 流水线语法 -&gt; Declarative Directive Generator</code></p>
+<p><code>Dashboard -&gt; qifan-blog(你的项目)  -&gt; 流水线语法 -&gt; 片段生成器</code></p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>远程开发工具分享</title>
+      <link>https://mister-hope.github.io/blog/tools/remote-develop/</link>
+      <guid>https://mister-hope.github.io/blog/tools/remote-develop/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">远程开发工具分享</source>
+      <description>远程开发工具分享 想到远程开发工具，大家必然会想到远程操控软件如TeamView，向日葵远程操控，ToDesk等等。在使用远程操控我们可以明显感觉到以下几个缺点 1. 画质低 大部人是使用免费的远程操控软件，平常我们写代码的时候字体本来就不是很大加上画面一糊根本就看不见代码。即使看得见也很难受，我自己是很难接受长时间在这种画质下写代码。 2. 延迟高 ...</description>
+      <category>IDEA技巧</category>
+      <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<p>想到远程开发工具，大家必然会想到远程操控软件如TeamView，向日葵远程操控，ToDesk等等。在使用远程操控我们可以明显感觉到以下几个缺点</p>
+<h5>1. 画质低</h5>
+<p>大部人是使用免费的远程操控软件，平常我们写代码的时候字体本来就不是很大加上画面一糊根本就看不见代码。即使看得见也很难受，我自己是很难接受长时间在这种画质下写代码。</p>
+<h5>2. 延迟高</h5>
+<p>我在使用远程操控写代码时候经常因为输入了一段代码但是还没反应过来导致我以为还没输入，然后又重新输入了一遍。更难受的时候，这个时候我删除也会出现同样的情况</p>
+<h5>3. 无法访问服务</h5>
+<p>我们在远程电脑假设运行了一个后端服务，或者前端项目，因为远程电脑没有拥有公网IP，我们没有办法在本机上访问到远程电脑上运行的服务。</p>
+<p>当然远程操控软件也有很明显的有点，那就是你可以拥有你电脑完整的操控权，你可以打开电脑上的各种软件，文档，随时的复制粘贴等。<br>
+所以如果我们能在远程操控软件的基础上解决画质低，延迟高，公网访问那岂不是完美了！</p>
+<p>ps：其实还有一个文件传输，这个只能通过微信QQ这种通讯工具解决了。</p>
+<h2>Idea插件Code With Me</h2>
+<p>Jetbrains 下面的旗舰版IDE如 IDEA，Pycharm，Webstorm都自带这个插件。也是可以和IDE一起破解的。</p>
+<p>使用介绍：在上诉介绍的IDE（2023版本）中，双击 <code>SHIFT</code> 输入<code>Code With Me</code>（图 1）。随后在右上角的弹出框中选择<code>Start Session</code>（图<br>
+2）。然后我们再选择第三个选项<code>Full Access</code>开放所有权限（图 3），最后点击 <code>Start Session</code><br>
+。启动后会自动把控制链接复制到粘贴板。然后你就可以在本机电脑的IDEA打开<code>Code With Me</code>然后<code>Join Session</code><br>
+在弹出框中输入刚刚远程机上得到是链接就可以远程开发了。</p>
+
+
+
+<h2>Jetbrains Gateway</h2>
+<p>总所周知，IDEA的内存占用至少那就是3，4个G。如果我们在本机电脑上打开IDEA去控制远程电脑上的IDEA这样本机电脑的IDEA内存占用就有些浪费了，因为我们没有在本机电脑的IDEA上写代码，现在本机电脑的IDEA只是一个远程操控软件。所以针对这种需求场景，JetBrains有一款产品叫<code>JetBrains Gateway</code><br>
+它就是专门用来操控远程JetBrains下的IDE，内存占用也会少。</p>
+<p>下面们就对比下IDEA和JetBrains的内存占用情况。可以看到Gateway的内存占用1G不到，IDEA内存占用高达4.5G。所以我们如果只是为了远程控制IDEA只需要在本机开Gateway就行了。</p>
+
+
+<p>使用介绍：我们在Gateway的首页上点击左侧菜单栏<code>Connect with a Link</code>（图6），将我们之前远程机中开启<code>Code With Me</code>得到的链接复制到里面再点击<code>Connect</code>。随后我们需要在远程机同意控制（图7）。</p>
+
+
+<p>Gateway的右下角可以看见延迟，我目前最高在100以内，大部分都是在30左右非常稳定。</p>
+
+<p>如果你需要开启远程端口访问，来访问远程机上的服务，你可以在远程机的IDEA上双击Shift输入<code>Port Foward</code>。在右侧的面板中添加需要转发的端口，比如我的后端服务端口是8890。开启后你在本机上就可以通过localhost:8890来访访问远程机上的8890了。</p>
+
+]]></content:encoded>
+    </item>
+    <item>
+      <title>VuePress2搭建自己的博客/官方网站</title>
+      <link>https://mister-hope.github.io/blog/tools/vue-press2/</link>
+      <guid>https://mister-hope.github.io/blog/tools/vue-press2/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">VuePress2搭建自己的博客/官方网站</source>
+      <description>VuePress2搭建自己的博客/官方网站 VuePress 是一个以 Markdown 为中心的静态网站生成器。你可以使用 Markdown 来书写内容（如文档、博客等），然后 VuePress 会帮助你生成一个静态网站来展示它们。 ps: 以上介绍摘自官网 平常我写博客只需要用markdown写好，然后运行打包命令，就可以将markdown转成ht...</description>
+      <category>网站搭建</category>
+      <pubDate>Tue, 15 Aug 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<figure><figcaption></figcaption></figure>
+
+<p>VuePress 是一个以 Markdown 为中心的静态网站生成器。你可以使用 Markdown 来书写内容（如文档、博客等），然后 VuePress<br>
+会帮助你生成一个静态网站来展示它们。</p>
+<blockquote>
+<p>ps: 以上介绍摘自官网</p>
+</blockquote>
+<p>平常我写博客只需要用markdown写好，然后运行打包命令，就可以将markdown转成html。接着将打包好的文件到nginx服务器上就可以供用户访问了。</p>
+<h2>快速上手</h2>
+<h3>依赖环境</h3>
+<ul>
+<li>Node.js v16.19.0+</li>
+</ul>
+<h3>手动安装</h3>
+<ul>
+<li><strong>步骤 1</strong>: 创建并进入一个新目录</li>
+</ul>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">mkdir</span> vuepress-starter
+<span class="token builtin class-name">cd</span> vuepress-starter
+</code></pre></div><ul>
+<li><strong>步骤 2</strong>: 初始化项目</li>
+</ul>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">git</span> init
+<span class="token function">pnpm</span> init
+</code></pre></div><ul>
+<li><strong>步骤 3</strong>: 将 VuePress 安装为本地依赖</li>
+</ul>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">pnpm</span> <span class="token function">add</span> <span class="token parameter variable">-D</span> vuepress@next @vuepress/client@next vue
+</code></pre></div><ul>
+<li>步骤 4: 在 package.json 中添加一些 scripts</li>
+</ul>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"docs:dev"</span><span class="token operator">:</span> <span class="token string">"vuepress dev docs"</span><span class="token punctuation">,</span>
+    <span class="token property">"docs:build"</span><span class="token operator">:</span> <span class="token string">"vuepress build docs"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul>
+<li>步骤 5: 在 .gitignore 文件中添加下面内容</li>
+</ul>
+<div class="language-ignorelang" data-ext="ignorelang" data-title="ignorelang"><pre class="language-ignorelang"><code>.DS_Store
+node_modules
+/dist
+.temp
+.cache
+
+docs/.vuepress/dist
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea/
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+</code></pre></div><ul>
+<li><strong>步骤 6</strong>: 创建你的第一篇文档</li>
+</ul>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">mkdir</span> docs
+<span class="token builtin class-name">echo</span> <span class="token string">'# Hello VuePress'</span> <span class="token operator">&gt;</span> docs/README.md
+</code></pre></div><ul>
+<li><strong>步骤 7</strong>: 在本地启动服务器来开发你的文档网站</li>
+</ul>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">pnpm</span> docs:dev
+</code></pre></div><h2>页面</h2>
+<h3>页面路由</h3>
+<p>vuepress会读取docs目录下所有的markdown文件转成html。然后通过浏览器的输入对应的路径就可以访问了。<br>
+比如下面几个例子，左侧是文件在目录中的位置和文件名，右侧是在浏览器中的路由地址。</p>
+<p>| 相对路径	                      | 路由路径                        |<br>
+|</p>
+]]></content:encoded>
+    </item>
+    <item>
       <title>ChatGPT二次开发</title>
       <link>https://mister-hope.github.io/blog/project/chatgpt-assistant/</link>
       <guid>https://mister-hope.github.io/blog/project/chatgpt-assistant/</guid>
@@ -5625,419 +6173,6 @@ qq：1507906763</p>
 <h3>微信小程序端</h3>
 <p>在小程序端我选择使用京东的<code>Taro</code>小程序开发框架。其实采用<code>Taro</code>，<code>Uni-App</code>，<code>微信小程序官方语法</code>这三个框架开发并没有多大的差别。它们的配置，目录结构，API，都是遵循统一的规范。主要差别是在于<code>Taro</code>对于<code>Vue3</code>+<code>TypeScript</code>支持较好。</p>
 <p>| 技术         | 说明                                                                | 官网                                                     |<br>
-|</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>ChatGPT Next Web 搭建教程</title>
-      <link>https://mister-hope.github.io/blog/tools/chatgpt/</link>
-      <guid>https://mister-hope.github.io/blog/tools/chatgpt/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">ChatGPT Next Web 搭建教程</source>
-      <description>ChatGPT Next Web 搭建教程 1.2 介绍 1.2.1 自我介绍 我是起凡，一名全栈程序员，刚刚毕业于华侨大学。主要技术栈后端SpringBoot,Jpa, MongoDb等。前端Vue3, Typescript, Taro小程序。 1.2.2 ChatGPT Next Web 介绍 ChatGPT Next Web可以使用OpenAI官...</description>
-      <category>ChatGPT</category>
-      <pubDate>Wed, 10 May 2023 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[
-<h2>1.2 介绍</h2>
-<h3>1.2.1 自我介绍</h3>
-<p>我是起凡，一名全栈程序员，刚刚毕业于华侨大学。主要技术栈后端SpringBoot,Jpa, MongoDb等。前端Vue3, Typescript, Taro小程序。</p>
-<h3>1.2.2 ChatGPT Next Web 介绍</h3>
-<p>ChatGPT Next Web可以使用OpenAI官方提供的API。比如ChatGPT3.5模型，ChatGPT4.0模型等等。并且提供了一个WEB界面将我们输入的内容转发给OpenAI。同时支持多聊天窗口会话等。</p>
-<div style="text-align: center">
-
-</div>
-<h3>1.2.3 被封锁的中国区域</h3>
-<p>在中国地区无法调用OpenAI的接口，意味着即使你在本地部署了ChatGPT Next Web你无法与之对话。要解决上面的问题只能通过代理。</p>
-<ul>
-<li>使用稳定的代理服务软件和节点比如Windows的Clash for windows/v2ayN, linux的v2raya, mac下的Clash for mac等。</li>
-<li>配置代理软件让ChatGPT Next Web能够走代理</li>
-</ul>
-<h2>1.3 先决条件</h2>
-<h3>1.3.1 Docker</h3>
-<p>ChatGPT Next<br>
-Web可以通过源码安装，这种方式对于不熟悉开发的人来说要安装许多的软件和配置很多环境所以不推荐。使用Docker安装只需要一行命令。所以我推荐使用Docker来安装。如果是Windows或者Mac用户下载Docker<br>
-Desktop。</p>
-<p>请根据不同的操作系统安装docker。下面以Centos7操作系统为例安装docker。</p>
-<p>| 家族      | 发行版                                                              |<br>
-|</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>IDEA——强大的Shell工具</title>
-      <link>https://mister-hope.github.io/blog/tools/idea/shell.html</link>
-      <guid>https://mister-hope.github.io/blog/tools/idea/shell.html</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">IDEA——强大的Shell工具</source>
-      <description>IDEA——强大的Shell工具 SSH 在使用Shell工具时最常用的是SSH输入命令操控远程服务器。在idea中使用SSH也是很简单的事情。 settings -&amp;gt; tools -&amp;gt; ssh congratulations alt+f12打开命令行，在右上角的下拉框中选择上面配置好的SSH会话。之后直接在命令行中就可以向服务器发送命令了。 SFTP...</description>
-      <category>IDEA技巧</category>
-      <pubDate>Sun, 24 Sep 2023 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[
-<h2>SSH</h2>
-<p>在使用Shell工具时最常用的是SSH输入命令操控远程服务器。在idea中使用SSH也是很简单的事情。</p>
-<p>settings -&gt; tools -&gt; ssh congratulations</p>
-
-<p>alt+f12打开命令行，在右上角的下拉框中选择上面配置好的SSH会话。之后直接在命令行中就可以向服务器发送命令了。</p>
-
-<h2>SFTP</h2>
-<p>在控制远程服务器时除了发送命令行，自然少不了互传文件，文件预览编辑的功能。幸运的是强大的idea也有这个功能</p>
-<p>settings -&gt; deployment。点击左上角的➕添加sftp服务器，可以从之前已经配置的ssh session中选择。</p>
-
-<p>默认情况下idea没有显示远程sftp服务器的菜单，需要手动打开。</p>
-
-<p>在右侧的菜单栏中打开sftp服务器列表，选择已经配置好的sftp服务器，确认后下面就可以显示服务器内的文件了，可以编辑，可以下载，可以拖动本地文件到远程文件夹。</p>
-
-<h2>Database</h2>
-<p>作为一名软件开发程序员，经常需要远程查看服务器上的数据库。所以除了shell工具之外还需准备数据库连接工具。</p>
-
-<p>在ssh/ssl页签中选择已经配置好的ssh。之后切换到general页签输入数据库的账号密码，记住不需要修改host。</p>
-
-<p>连接数据库后你使用这</p>
-<ul>
-<li>
-<p>数据库迁移<br>
-在服务器上部署新项目的时候需要在服务器上新建数据库，然后把本地的表迁移到服务器上，在idea中就可以实现这个操作。</p>
-</li>
-<li>
-<p>结构对比<br>
-如果你在本地的数据库修改了某个字段，然后想同步到服务器上，idea的数据库/表结构对比非常好用。</p>
-</li>
-<li>
-<p>数据导出导入</p>
-</li>
-</ul>
-<h2>部署</h2>
-<p>settings -&gt; deployment</p>
-<p>将本地编译后的文件映射到服务器的目录。</p>
-
-<p>在本地映射到服务器的文件上右键，上传。</p>
-
-<h2>远程命令</h2>
-<p>在部署完之后一般需要执行命令或者脚本，这边我演示将远程服务器的nginx命令映射到idea里面。</p>
-
-
-<h2>远程执行</h2>
-<p>如果大家有做过支付功能可以知道它必须用于公网ip，我们在本地调试不了支付功能（除非内网穿透），只能将应用打包放到服务器上运行。这样做每次修改代码都需要重新打包部署很费时间。这个远程执行的功能就很好用了，可以直接指定你的应用运行机器。</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>工作必用的Jenkins</title>
-      <link>https://mister-hope.github.io/blog/tools/jenkins/</link>
-      <guid>https://mister-hope.github.io/blog/tools/jenkins/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">工作必用的Jenkins</source>
-      <description>工作必用的Jenkins Jenkins是一个可扩展的自动化服务器，Jenkins 可以作为一个简单的 CI 服务器使用，或者成为任何项目的持续交付中心。 CI/CD 通过上面这张图可以分三部分来理解CI/CD 第一部分 先看看软件开发生命周期（SDLC）和CI/CD是如何结合的。软件开发一般包含几个重要的阶段：开发（Develop），测试（Test）...</description>
-      <category>CI/CD</category>
-      <pubDate>Tue, 22 Aug 2023 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[
-<p>Jenkins是一个可扩展的自动化服务器，Jenkins 可以作为一个简单的 CI 服务器使用，或者成为任何项目的持续交付中心。</p>
-<h2>CI/CD</h2>
-
-<p>通过上面这张图可以分三部分来理解CI/CD</p>
-<ul>
-<li><strong>第一部分</strong></li>
-</ul>
-<p>先看看软件开发生命周期（SDLC）和CI/CD是如何结合的。软件开发一般包含几个重要的阶段：开发（Develop），测试（Test），部署（Deploy），维护（Maintain）。CI/CD可以将上述的流程流程串联一起来形成一个自动化的闭环，使得每次发布都更快更可靠。</p>
-<ul>
-<li><strong>第二部分</strong></li>
-</ul>
-<p>Continuous Integration(CI) 持续集成会不断的监听仓库并且执行构建测试确保最后合并到发布分支是没问题的。这样可以提早的发现问题，而不是累计了多次提交等合并到发布分支的时候才发现问题，这样回滚的时候会比较麻烦。</p>
-<p>Continuous Delivery(CD) 持续交付主要是在部署方面的自动化，它也会运行一些测试，每次发布分支有更新CD就会把CI构建好的代码部署到生产上。</p>
-<ul>
-<li><strong>第三部分</strong></li>
-</ul>
-<p>总结一下整体的流程可以有如下步骤</p>
-<ul>
-<li>开发者提交代码到参考</li>
-<li>CI 服务器检测到代码更新触发构建</li>
-<li>构建好代码并且测试</li>
-<li>生成测试结果报告</li>
-<li>部署打包的代码到模拟环境</li>
-<li>后续可能会有模拟环境的测试</li>
-<li>最后发布到生成环境</li>
-</ul>
-<p>那CI/CD是如何工作的呢？它其实不神秘，你把它看成一个软件（Jenkins），它可以运行在你的电脑上也可以单独运行在服务器上。它首先会监听你的代码仓库，每次有代码提交到仓库上它就会开始运转第一部分的流程图，先是把代码拉取下来在本地编译（Jenkins所在的机器）和测试(<br>
-测试环境)。然后用前端的自动化测试模拟用户点击（e2e<br>
-test），这步通过后就可以部署到模拟环境（Staging）或者生成环境（Production）。如果出现了问题就会通知开发者，开发者根据报错日志修改bug并且提交代码，接着又重复上述的流程。</p>
-<h2>Jenkins安装</h2>
-<p>本教程以windows为例安装jenkins，其他系统请参照官方文档。</p>
-<ul>
-<li>第一步<br>
-在<a href="https://www.jenkins.io/doc/book/installing/windows/" target="_blank" rel="noopener noreferrer">官网</a><br>
-下载<a href="https://www.jenkins.io/download/#downloading-jenkins" target="_blank" rel="noopener noreferrer">安装包</a></li>
-</ul>
-<p>打开安装包链接出现图1网页，再点击Windows即可下载。</p>
-
-<ul>
-<li>第二步</li>
-</ul>
-<p>按照提示走到这边。在这边输入你windows的用户名和密码。然后点击验证凭证。</p>
-
-<p>如果出错请按照以下步骤添加权限</p>
-<ol>
-<li>打开开始，输入<code>本地安全策略</code></li>
-<li>展开<code>本地策略</code>并点击右侧的<code>用户权限分配</code></li>
-<li>在右侧面板中找到<code>作为服务登录</code>，右键-&gt;属性</li>
-<li>点击<code>添加用户或组</code></li>
-<li>在输入框内输入你的Windows用户名，然后点击<code>检查名称</code>再点击确定。</li>
-</ol>
-
-<ul>
-<li>第三步</li>
-</ul>
-<p>在选择好端口和jdk路径后就安装结束了。安装成功后在任务管理器的服务中可以看见Jenkins服务</p>
-
-<ul>
-<li>第四步</li>
-</ul>
-<p>在浏览器中打开<code>http://localhost:8080</code>，如果你是安装时选择的端口号不是8080那替换成你选择的端口。打开后出现图5页面，根据红色的提示路径获取初始密码（图6）</p>
-
-
-<ul>
-<li>第五步</li>
-</ul>
-<p>安装推荐的插件，并且创建一个用户。</p>
-<h2>博客CI/CD案例</h2>
-<p>以前我每次写完博客需要自己编译打包部署。有时候部署完后发现格式或者内容出了一些问题又要重新打包部署，每次重复的干这些事显然是很枯燥无味的。使用Jenkins编写pipeline就可以帮助我完成这些重复的工作。</p>
-<h3>安装插件</h3>
-<p>除了安装推荐的插件之外还需要安装下面两个插件</p>
-<ul>
-<li><code>Publish Over SSH</code> 用于发送构建好的文件到服务器</li>
-<li><code>NodeJS Plugin</code> 管理不同版本的Node.js</li>
-</ul>
-<h3>配置</h3>
-<ul>
-<li><strong>配置服务器信息</strong></li>
-</ul>
-<p><code>Dashboard-&gt; Manage Jenkins-&gt; System -&gt; Publish over SSH -&gt; 新增SSH Server</code></p>
-
-<ul>
-<li><strong>配置Node.js</strong></li>
-</ul>
-<p><code>Dashboard-&gt; Manage Jenkins-&gt; Tools -&gt; NodeJS -&gt; 新增NodeJS</code></p>
-
-<h3>新建Pipeline项目</h3>
-<p><code>Dashboard -&gt; 新建Item -&gt; Pipeline</code></p>
-
-<h3>编写Pipeline</h3>
-<p><code>Dashboard -&gt; qifan-blog(你的项目) -&gt; 配置</code></p>
-<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code>pipeline {
-    agent any
-    // 选择node 16
-    tools {
-      nodejs 'node 16'
-    }
-   // 将整个构建部署分成三个阶段，整个分成几个阶段没有一个标准，全部合成一个阶段也可以。
-   // 分成多个阶段的好处的优点有 1. 逻辑清晰 2. 对于大项目如果其中某个阶段失败了，下次可以从失败的地方再运行。已经成功的阶段就不需要运行了。可以节省时间。3. 方便统计每个阶段的运行时间，好定位问题。
-    stages {
-        // 从git参考获取代码
-        stage('Git Checkout') {
-            steps {
-              // 从github获取代码，这边使用的是你本机的git。相当于你自己执行了git clone https://github.com/qifan777/qifan-blog-vuepress2.git
-              // git checkout master
-              git branch: 'master', url: 'https://github.com/qifan777/qifan-blog-vuepress2.git'
-            }
-        }
-        // 获取代码后在node16上构建博客代码
-        stage('Build') {
-            steps {
-                bat "node -v"
-                bat "npm install"
-                bat "npm run docs:build"
-            }
-        }
-        // 将构建好的博客上传到服务器上
-        stage('SSH Punlisher') {
-            steps{
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'centos7',
-                 transfers: [sshTransfer( execCommand: 'nginx -s reopen',
-                 remoteDirectory: '/www/server/nginx/html/blog',
-                 removePrefix: 'docs/.vuepress/dist',
-                  sourceFiles: 'docs/.vuepress/dist/**')])])
-            }
-        }
-    }
-}
-
-</code></pre></div><p>点击保存</p>
-<h3>构建Pipeline</h3>
-<p><code>Dashboard -&gt; qifan-blog(你的项目) -&gt; Build Now</code></p>
-
-<h2>Pipeline介绍</h2>
-<h3>概念介绍</h3>
-<p>pipeline流水线以<code>pipeline {}</code>开始，<code>pipeline{}</code>下可以包含<code>Sections</code>,<code>Steps</code>,<code>Directives</code>, 赋值语句。</p>
-
-
-<p>通过上面的例子相信大家对pipeline有了初步的了解。</p>
-<p>我们看图11中pipeline启动的方式可以是监听git仓库，每次git仓库有代码推送就会自动启动pipeline。前面的例子中我们是手动点击<code>Build Now</code><br>
-启动Pipeline的。</p>
-<p>在观察图中有多个Stage，对照我们之前写的例子其中有<code>Git Checkout</code>,<code>Build</code>和<code>SSH Punlisher</code><br>
-三个Stage。Stage的作用就是将整个构建部署流程从逻辑上划分成多个阶段。</p>
-<p>每个阶段（Stage）中又可以添加<code>Steps</code>，在<code>Steps</code>下可以添加<code>Directives</code>。我们看一下之前例子中的<code>Build</code>阶段，该阶段下有一个<br>
-<code>Steps</code>其中包含了三条<code>Directives</code>。在同一个<code>Steps</code>下的指令是可以共享局部变量，比如你可以在<code>Steps</code>中顶一个变量<code>def count=1</code>，下面的指令都可以使用count变量。</p>
-<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code>steps {
-    bat "node -v"
-    bat "npm install"
-    bat "npm run docs:build"
-}
-</code></pre></div><h3>如何编写Pipeline</h3>
-<p>一般分如下几个步骤</p>
-<ol>
-<li>确定Pipeline运行的<code>agent（机器/环境）</code></li>
-</ol>
-<p>如果是本机直接填写<code>agent: any</code>，还可以运行在docker，其他服务器，k8s上。可以参考官方文档中的<code>agent</code>参数。</p>
-<ol start="2">
-<li>配置需要工具</li>
-</ol>
-<p>如果你安装了git，maven插件，下面你tools你也可以添加。其他的工具也可以在插件市场中找到，安装完插件配置工具的版本，然后在<code>tools{}</code><br>
-中选择相应的版本。</p>
-<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code> tools {
-    nodejs 'node 16'
-    git '配置的git版本'
-    maven '配置的maven版本'
- }
-</code></pre></div><ol start="3">
-<li>划分stage</li>
-</ol>
-<p>参考我写的例子</p>
-<ol start="4">
-<li>在每个stage中使用指令(Directives)</li>
-</ol>
-<p>编写指令的时候，如果你不知道如何使用指令可以参考这个指令生成器和片段生成器。<br>
-指令生成器生成（Declarative Directive<br>
-Generator）的是官方提供的语法，片段生成器可以生成你下载的插件指令。比如之前写的例子中<code>tools</code>,<code>bat</code><br>
-就是官方的指令，<code>git</code>,<code>sshPublisher</code>就是我安装的插件提供的指令。</p>
-<p><code>Dashboard -&gt; qifan-blog(你的项目)  -&gt; 流水线语法 -&gt; Declarative Directive Generator</code></p>
-<p><code>Dashboard -&gt; qifan-blog(你的项目)  -&gt; 流水线语法 -&gt; 片段生成器</code></p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>远程开发工具分享</title>
-      <link>https://mister-hope.github.io/blog/tools/remote-develop/</link>
-      <guid>https://mister-hope.github.io/blog/tools/remote-develop/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">远程开发工具分享</source>
-      <description>远程开发工具分享 想到远程开发工具，大家必然会想到远程操控软件如TeamView，向日葵远程操控，ToDesk等等。在使用远程操控我们可以明显感觉到以下几个缺点 1. 画质低 大部人是使用免费的远程操控软件，平常我们写代码的时候字体本来就不是很大加上画面一糊根本就看不见代码。即使看得见也很难受，我自己是很难接受长时间在这种画质下写代码。 2. 延迟高 ...</description>
-      <category>IDEA技巧</category>
-      <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[
-<p>想到远程开发工具，大家必然会想到远程操控软件如TeamView，向日葵远程操控，ToDesk等等。在使用远程操控我们可以明显感觉到以下几个缺点</p>
-<h5>1. 画质低</h5>
-<p>大部人是使用免费的远程操控软件，平常我们写代码的时候字体本来就不是很大加上画面一糊根本就看不见代码。即使看得见也很难受，我自己是很难接受长时间在这种画质下写代码。</p>
-<h5>2. 延迟高</h5>
-<p>我在使用远程操控写代码时候经常因为输入了一段代码但是还没反应过来导致我以为还没输入，然后又重新输入了一遍。更难受的时候，这个时候我删除也会出现同样的情况</p>
-<h5>3. 无法访问服务</h5>
-<p>我们在远程电脑假设运行了一个后端服务，或者前端项目，因为远程电脑没有拥有公网IP，我们没有办法在本机上访问到远程电脑上运行的服务。</p>
-<p>当然远程操控软件也有很明显的有点，那就是你可以拥有你电脑完整的操控权，你可以打开电脑上的各种软件，文档，随时的复制粘贴等。<br>
-所以如果我们能在远程操控软件的基础上解决画质低，延迟高，公网访问那岂不是完美了！</p>
-<p>ps：其实还有一个文件传输，这个只能通过微信QQ这种通讯工具解决了。</p>
-<h2>Idea插件Code With Me</h2>
-<p>Jetbrains 下面的旗舰版IDE如 IDEA，Pycharm，Webstorm都自带这个插件。也是可以和IDE一起破解的。</p>
-<p>使用介绍：在上诉介绍的IDE（2023版本）中，双击 <code>SHIFT</code> 输入<code>Code With Me</code>（图 1）。随后在右上角的弹出框中选择<code>Start Session</code>（图<br>
-2）。然后我们再选择第三个选项<code>Full Access</code>开放所有权限（图 3），最后点击 <code>Start Session</code><br>
-。启动后会自动把控制链接复制到粘贴板。然后你就可以在本机电脑的IDEA打开<code>Code With Me</code>然后<code>Join Session</code><br>
-在弹出框中输入刚刚远程机上得到是链接就可以远程开发了。</p>
-
-
-
-<h2>Jetbrains Gateway</h2>
-<p>总所周知，IDEA的内存占用至少那就是3，4个G。如果我们在本机电脑上打开IDEA去控制远程电脑上的IDEA这样本机电脑的IDEA内存占用就有些浪费了，因为我们没有在本机电脑的IDEA上写代码，现在本机电脑的IDEA只是一个远程操控软件。所以针对这种需求场景，JetBrains有一款产品叫<code>JetBrains Gateway</code><br>
-它就是专门用来操控远程JetBrains下的IDE，内存占用也会少。</p>
-<p>下面们就对比下IDEA和JetBrains的内存占用情况。可以看到Gateway的内存占用1G不到，IDEA内存占用高达4.5G。所以我们如果只是为了远程控制IDEA只需要在本机开Gateway就行了。</p>
-
-
-<p>使用介绍：我们在Gateway的首页上点击左侧菜单栏<code>Connect with a Link</code>（图6），将我们之前远程机中开启<code>Code With Me</code>得到的链接复制到里面再点击<code>Connect</code>。随后我们需要在远程机同意控制（图7）。</p>
-
-
-<p>Gateway的右下角可以看见延迟，我目前最高在100以内，大部分都是在30左右非常稳定。</p>
-
-<p>如果你需要开启远程端口访问，来访问远程机上的服务，你可以在远程机的IDEA上双击Shift输入<code>Port Foward</code>。在右侧的面板中添加需要转发的端口，比如我的后端服务端口是8890。开启后你在本机上就可以通过localhost:8890来访访问远程机上的8890了。</p>
-
-]]></content:encoded>
-    </item>
-    <item>
-      <title>VuePress2搭建自己的博客/官方网站</title>
-      <link>https://mister-hope.github.io/blog/tools/vue-press2/</link>
-      <guid>https://mister-hope.github.io/blog/tools/vue-press2/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">VuePress2搭建自己的博客/官方网站</source>
-      <description>VuePress2搭建自己的博客/官方网站 VuePress 是一个以 Markdown 为中心的静态网站生成器。你可以使用 Markdown 来书写内容（如文档、博客等），然后 VuePress 会帮助你生成一个静态网站来展示它们。 ps: 以上介绍摘自官网 平常我写博客只需要用markdown写好，然后运行打包命令，就可以将markdown转成ht...</description>
-      <category>网站搭建</category>
-      <pubDate>Tue, 15 Aug 2023 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[
-<figure><figcaption></figcaption></figure>
-
-<p>VuePress 是一个以 Markdown 为中心的静态网站生成器。你可以使用 Markdown 来书写内容（如文档、博客等），然后 VuePress<br>
-会帮助你生成一个静态网站来展示它们。</p>
-<blockquote>
-<p>ps: 以上介绍摘自官网</p>
-</blockquote>
-<p>平常我写博客只需要用markdown写好，然后运行打包命令，就可以将markdown转成html。接着将打包好的文件到nginx服务器上就可以供用户访问了。</p>
-<h2>快速上手</h2>
-<h3>依赖环境</h3>
-<ul>
-<li>Node.js v16.19.0+</li>
-</ul>
-<h3>手动安装</h3>
-<ul>
-<li><strong>步骤 1</strong>: 创建并进入一个新目录</li>
-</ul>
-<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">mkdir</span> vuepress-starter
-<span class="token builtin class-name">cd</span> vuepress-starter
-</code></pre></div><ul>
-<li><strong>步骤 2</strong>: 初始化项目</li>
-</ul>
-<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">git</span> init
-<span class="token function">pnpm</span> init
-</code></pre></div><ul>
-<li><strong>步骤 3</strong>: 将 VuePress 安装为本地依赖</li>
-</ul>
-<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">pnpm</span> <span class="token function">add</span> <span class="token parameter variable">-D</span> vuepress@next @vuepress/client@next vue
-</code></pre></div><ul>
-<li>步骤 4: 在 package.json 中添加一些 scripts</li>
-</ul>
-<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code><span class="token punctuation">{</span>
-  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"docs:dev"</span><span class="token operator">:</span> <span class="token string">"vuepress dev docs"</span><span class="token punctuation">,</span>
-    <span class="token property">"docs:build"</span><span class="token operator">:</span> <span class="token string">"vuepress build docs"</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre></div><ul>
-<li>步骤 5: 在 .gitignore 文件中添加下面内容</li>
-</ul>
-<div class="language-ignorelang" data-ext="ignorelang" data-title="ignorelang"><pre class="language-ignorelang"><code>.DS_Store
-node_modules
-/dist
-.temp
-.cache
-
-docs/.vuepress/dist
-# local env files
-.env.local
-.env.*.local
-
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# Editor directories and files
-.idea/
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-</code></pre></div><ul>
-<li><strong>步骤 6</strong>: 创建你的第一篇文档</li>
-</ul>
-<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">mkdir</span> docs
-<span class="token builtin class-name">echo</span> <span class="token string">'# Hello VuePress'</span> <span class="token operator">&gt;</span> docs/README.md
-</code></pre></div><ul>
-<li><strong>步骤 7</strong>: 在本地启动服务器来开发你的文档网站</li>
-</ul>
-<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">pnpm</span> docs:dev
-</code></pre></div><h2>页面</h2>
-<h3>页面路由</h3>
-<p>vuepress会读取docs目录下所有的markdown文件转成html。然后通过浏览器的输入对应的路径就可以访问了。<br>
-比如下面几个例子，左侧是文件在目录中的位置和文件名，右侧是在浏览器中的路由地址。</p>
-<p>| 相对路径	                      | 路由路径                        |<br>
 |</p>
 ]]></content:encoded>
     </item>
@@ -13530,594 +13665,6 @@ type ProductSkuScope <span class="token operator">=</span> Scope<span class="tok
       <link>https://mister-hope.github.io/blog/project/qifan-mall/reference/front/</link>
       <guid>https://mister-hope.github.io/blog/project/qifan-mall/reference/front/</guid>
       <source url="https://mister-hope.github.io/blog/rss.xml">后台管理端</source>
-      <pubDate>Sun, 04 Feb 2024 11:55:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>代码生成器</title>
-      <link>https://mister-hope.github.io/blog/project/qifan-mall/reference/generator/</link>
-      <guid>https://mister-hope.github.io/blog/project/qifan-mall/reference/generator/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">代码生成器</source>
-      <description>代码生成器 注解 @GenEntity 在需要生成增删改查的实体类上添加该注解。 @GenField 生成字段的类型如下，每一种字段类型在前端对应的组件也不一样。 后端模板 dto：根据entity生成dto Input：inputDto用于接收前端的参数，比如修改和创建场景，可以定义哪些字段不能为空。 Spec：specDto用于前端的查询，因为查询...</description>
-      <pubDate>Sun, 04 Feb 2024 11:55:25 GMT</pubDate>
-      <content:encoded><![CDATA[
-<h2>注解</h2>
-<h3>@GenEntity</h3>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span><span class="token constant">TYPE</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span><span class="token constant">RUNTIME</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">GenEntity</span> <span class="token punctuation">{</span>
-
-<span class="token punctuation">}</span>
-
-</code></pre></div><p>在需要生成增删改查的实体类上添加该注解。</p>
-<h3>@GenField</h3>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span><span class="token constant">RUNTIME</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@Inherited</span>
-<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span><span class="token constant">METHOD</span><span class="token punctuation">,</span> <span class="token class-name">ElementType</span><span class="token punctuation">.</span><span class="token constant">FIELD</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">GenField</span> <span class="token punctuation">{</span>
-
-    <span class="token comment">// 字段注释</span>
-    <span class="token class-name">String</span> <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token string">""</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 生成前端表单时选用的组件根据此字段生成。比如：ElInput,ELInputNumber</span>
-    <span class="token class-name">ItemType</span> <span class="token function">type</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token class-name">ItemType</span><span class="token punctuation">.</span><span class="token constant">AUTO</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 字段的展示顺序</span>
-    <span class="token keyword">int</span> <span class="token function">order</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token number">9999</span><span class="token punctuation">;</span>
-
-    <span class="token comment">// 当类型为下拉框时，填写字典编号</span>
-    <span class="token keyword">int</span> <span class="token function">dictId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">default</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre></div><p>生成字段的类型如下，每一种字段类型在前端对应的组件也不一样。</p>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@Getter</span>
-<span class="token keyword">public</span> <span class="token keyword">enum</span> <span class="token class-name">ItemType</span> <span class="token punctuation">{</span>
-    <span class="token function">AUTO</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">"自动判断"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function">SELECTABLE</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">"下拉框"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function">INPUT_TEXT</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"文本输入框"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function">INPUT_TEXT_AREA</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"文本域"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function">INPUT_NUMBER</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"数字输入框"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function">PICTURE</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token string">"图片"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function">DATETIME</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token string">"日期"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function">NONE</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">"不生成"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Integer</span> code<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span>
-
-    <span class="token class-name">ItemType</span><span class="token punctuation">(</span><span class="token class-name">Integer</span> code<span class="token punctuation">,</span> <span class="token class-name">String</span> name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>code <span class="token operator">=</span> code<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre></div><h2>后端模板</h2>
-
-<ul>
-<li><a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/object/view/dto-language/#3-viewinput%E5%92%8Cspecification" target="_blank" rel="noopener noreferrer">dto</a>：根据entity生成dto
-<ul>
-<li>Input：inputDto用于接收前端的参数，比如修改和创建场景，可以定义哪些字段不能为空。</li>
-<li>Spec：specDto用于前端的查询，因为查询条件字段不一定对应实体的字段，且查询条件的字段都是可选的。</li>
-</ul>
-</li>
-<li>controller：save（创建，更新）、findById（根据id查询）、query（查询）、delete(批量删除).</li>
-<li>service：对应controller中的api。</li>
-<li>repository：jimmer通用增删改查。</li>
-<li>entity：对应数据库的表</li>
-</ul>
-<h3><a class="header-anchor" href="#dto"><span></span></a><a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/object/view/dto-language" target="_blank" rel="noopener noreferrer">Dto</a></h3>
-<p>Dto语言是jimmer的一个强大功能，你可以通过几行简单的描述为不同的业务场景创建Dto。具体的语法可以参考官网。</p>
-<h4>Input</h4>
-<p><code>#allScalars(Menu)</code>：取得Menu实体类中的所有字段</p>
-<p><code>id?</code>：增加id字段（？代表可选）</p>
-<h4>Spec</h4>
-<p><code>#allScalars</code>：生成Menu实体类中所有字段的查询条件，包含其父类BaseEntity（id, createdTime, editedTime）。</p>
-<p><code>like/i(name)</code>：由于生成的默认查询条件是"相等"，如果你想自定义某个字段的判断条件，<br>
-可以像我一样在下面补充<code>like/i(name)</code>覆盖掉默认的比较条件改成左右模糊查询。ge, le等等...</p>
-<p>这个功能叫<a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/query/super_qbe" target="_blank" rel="noopener noreferrer">超级QBE</a>，也是jimmer提供的一个强大功能，结合Dto语言的灵活表达能力可以快速生成各种查询条件。</p>
-<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code>input MenuInput {
-    #allScalars(Menu)
-    id?
-}
-
-specification MenuSpec {
-    #allScalars
-    like/i(name)
-    like/i(parentId)
-    like/i(id)
-    ge(editedTime)
-    le(editedTime)
-    ge(createdTime)
-    le(createdTime)
-}
-</code></pre></div><h3>Repository</h3>
-<p><a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/query/dynamic-where" target="_blank" rel="noopener noreferrer"><code>MenuTable</code></a>对象包含了相关查询条件，可以参考jimmer官方文档，使用<code>MenuTable</code>对象可以快速的编程动态查询条件。</p>
-<p><a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/query/object-fetcher/" target="_blank" rel="noopener noreferrer"><code>MenuFetcher</code></a>对象用于抓取任意的字段甚至是关联对象的任意字段。下面代码中的<code>COMPLEX_FETCHER</code>代表选择Menu表中的所有字段。</p>
-<p><a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/query/super_qbe" target="_blank" rel="noopener noreferrer"><code>MenuSpec</code></a>之前介绍过Spec对象，它的dto类型中的一种，专门为查询服务。既然这种dto的面向查询而生，那当前端在Spec对象中填写了值时，可否相应的生成相应的查询条件？<br>
-答案是可以的，这个功能在jimmer中叫超级QBE，可以参考官方文档。</p>
-<p><code>Pageable</code>SpringData中的分页对象，Jimmer提供了Repository风格所以这边可以使用SpringData中的分页对象。</p>
-<p><code>.orderBy(SpringOrders.toOrders(menuTable, pageable.getSort()))</code>代表动态的orderBy，前端的表格中可以传需要排序的列。</p>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">MenuRepository</span> <span class="token keyword">extends</span> <span class="token class-name">JRepository</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Menu</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
-    <span class="token class-name">MenuTable</span> menuTable <span class="token operator">=</span> <span class="token class-name">MenuTable</span><span class="token punctuation">.</span>$<span class="token punctuation">;</span>
-    <span class="token class-name">MenuFetcher</span> <span class="token constant">COMPLEX_FETCHER</span> <span class="token operator">=</span> <span class="token class-name">MenuFetcher</span><span class="token punctuation">.</span>$<span class="token punctuation">.</span><span class="token function">allScalarFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token doc-comment comment">/**
-     * <span class="token keyword">@param</span> <span class="token parameter">queryRequest</span> 查询条件
-     * <span class="token keyword">@param</span> <span class="token parameter">fetcher</span> 字段选择器，可以选择任意字段
-     * <span class="token keyword">@return</span> 分页结果
-     */</span>
-    <span class="token keyword">default</span> <span class="token class-name">Page</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Menu</span><span class="token punctuation">&gt;</span></span> <span class="token function">findPage</span><span class="token punctuation">(</span><span class="token class-name">QueryRequest</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">MenuSpec</span><span class="token punctuation">&gt;</span></span> queryRequest<span class="token punctuation">,</span> <span class="token class-name">Fetcher</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Menu</span><span class="token punctuation">&gt;</span></span> fetcher<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">MenuSpec</span> query <span class="token operator">=</span> queryRequest<span class="token punctuation">.</span><span class="token function">getQuery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">Pageable</span> pageable <span class="token operator">=</span> queryRequest<span class="token punctuation">.</span><span class="token function">toPageable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token function">pager</span><span class="token punctuation">(</span>pageable<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token function">sql</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">createQuery</span><span class="token punctuation">(</span>menuTable<span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span>query<span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">orderBy</span><span class="token punctuation">(</span><span class="token class-name">SpringOrders</span><span class="token punctuation">.</span><span class="token function">toOrders</span><span class="token punctuation">(</span>menuTable<span class="token punctuation">,</span> pageable<span class="token punctuation">.</span><span class="token function">getSort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span>menuTable<span class="token punctuation">.</span><span class="token function">fetch</span><span class="token punctuation">(</span>fetcher<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre></div><h3>Service</h3>
-<p>在<code>findById</code>中第二个参数传入的是Fetcher对象，代表你需要选择那些字段。<code>MenuRepository.COMPLEX_FETCHER</code>是定义在<a href="#repository"><code>Repository</code></a>中的通用字段选择器</p>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@Service</span>
-<span class="token annotation punctuation">@Slf4j</span>
-<span class="token annotation punctuation">@AllArgsConstructor</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MenuService</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">MenuRepository</span> menuRepository<span class="token punctuation">;</span>
-
-    <span class="token keyword">public</span> <span class="token class-name">Menu</span> <span class="token function">findById</span><span class="token punctuation">(</span><span class="token class-name">String</span> id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> menuRepository<span class="token punctuation">.</span><span class="token function">findById</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> <span class="token class-name">MenuRepository</span><span class="token punctuation">.</span><span class="token constant">COMPLEX_FETCHER</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token keyword">new</span> <span class="token class-name">BusinessException</span><span class="token punctuation">(</span><span class="token class-name">ResultCode<span class="token punctuation">.</span>NotFindError</span><span class="token punctuation">,</span> <span class="token string">"数据不存在"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">save</span><span class="token punctuation">(</span><span class="token class-name">MenuInput</span> menuInput<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> menuRepository<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>menuInput<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token class-name">Page</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Menu</span><span class="token punctuation">&gt;</span></span> <span class="token function">query</span><span class="token punctuation">(</span><span class="token class-name">QueryRequest</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">MenuSpec</span><span class="token punctuation">&gt;</span></span> queryRequest<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> menuRepository<span class="token punctuation">.</span><span class="token function">findPage</span><span class="token punctuation">(</span>queryRequest<span class="token punctuation">,</span> <span class="token class-name">MenuRepository</span><span class="token punctuation">.</span><span class="token constant">COMPLEX_FETCHER</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">delete</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> ids<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        menuRepository<span class="token punctuation">.</span><span class="token function">deleteAllById</span><span class="token punctuation">(</span>ids<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre></div><h3>Controller</h3>
-<p>controller对外提供增删改查。</p>
-<p><code>@FetchBy(value = "SIMPLE_FETCHER", ownerType = MenuRepository.class)</code>的作用是告诉前端该接口返回了哪些字段。具体返回了哪些字段那就是取决于Fetcher对象了。<br>
-<a href="#repository"><code>MenuRepository</code></a>中定义了通用字段选择器<code>COMPLEX_FETCHER</code>其实相当于定义了一种返回类型。可以参考<a href="#%E5%89%8D%E7%AB%AFtypescriptapi%E7%94%9F%E6%88%90%E5%99%A8">Typescript类型生成器</a></p>
-<p><code>QueryRequest&lt;MenuSpec&gt;</code>接收前端的分页查询</p>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@RestController</span>
-<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"menu"</span><span class="token punctuation">)</span>
-<span class="token annotation punctuation">@AllArgsConstructor</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MenuController</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">MenuService</span> menuService<span class="token punctuation">;</span>
-
-    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"{id}"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token annotation punctuation">@FetchBy</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"COMPLEX_FETCHER"</span><span class="token punctuation">,</span> ownerType <span class="token operator">=</span> <span class="token class-name">MenuRepository</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token class-name">Menu</span> <span class="token function">findById</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span> <span class="token class-name">String</span> id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> menuService<span class="token punctuation">.</span><span class="token function">findById</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"query"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">Page</span><span class="token operator">&lt;</span><span class="token annotation punctuation">@FetchBy</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"COMPLEX_FETCHER"</span><span class="token punctuation">,</span> ownerType <span class="token operator">=</span> <span class="token class-name">MenuRepository</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token class-name">Menu</span><span class="token operator">&gt;</span> <span class="token function">query</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">QueryRequest</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">MenuSpec</span><span class="token punctuation">&gt;</span></span> queryRequest<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> menuService<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>queryRequest<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"save"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">save</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">MenuInput</span> menu<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> menuService<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>menu<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"delete"</span><span class="token punctuation">)</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">delete</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">&gt;</span></span> ids<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> menuService<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>ids<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre></div><h2>前端模板</h2>
-
-<ul>
-<li>view：展示页面</li>
-<li>query：查询框</li>
-<li>table：数据展示</li>
-<li>dialog：对话框，内涵create表单和update表单。</li>
-<li>createForm：创建表单</li>
-<li>updateForm：更新表单</li>
-<li>store：状态管理</li>
-</ul>
-<h3>View</h3>
-
-<p>View页面内包含了Query, Table, Dialog。三个组件。View页面组合这些组件并将页面注册到路由中用于访问。</p>
-<div class="language-vue" data-ext="vue" data-title="vue"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ts<span class="token punctuation">"</span></span> <span class="token attr-name">setup</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
-<span class="token keyword">import</span> MenuTable <span class="token keyword">from</span> <span class="token string">'./components/MenuTable.vue'</span>
-<span class="token keyword">import</span> MenuQuery <span class="token keyword">from</span> <span class="token string">'./components/MenuQuery.vue'</span>
-<span class="token keyword">import</span> MenuDialog <span class="token keyword">from</span> <span class="token string">'./components/MenuDialog.vue'</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MenuQuery</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>MenuQuery</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MenuDialog</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>MenuDialog</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MenuTable</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>MenuTable</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span> 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>scss<span class="token punctuation">"</span></span> <span class="token attr-name">scoped</span><span class="token punctuation">&gt;</span></span><span class="token style"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
-
-</code></pre></div><h3>Query</h3>
-<p>Query组件点击查询会携带当前的条件去分页请求数组并且刷新表格<code>menuStore.reloadTableData({ query: query, likeMode: 'ANYWHERE' })</code>。</p>
-<div class="language-vue" data-ext="vue" data-title="vue"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ts<span class="token punctuation">"</span></span> <span class="token attr-name">setup</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
-<span class="token keyword">import</span> <span class="token punctuation">{</span> toRefs <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vue'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> useMenuStore <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../store/menu-store'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> storeToRefs <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'pinia'</span>
-<span class="token keyword">import</span> DictSelect <span class="token keyword">from</span> <span class="token string">'@/components/dict/DictSelect.vue'</span>
-
-<span class="token keyword">const</span> menuStore <span class="token operator">=</span> <span class="token function">useMenuStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> <span class="token punctuation">{</span> queryData <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">storeToRefs</span><span class="token punctuation">(</span>menuStore<span class="token punctuation">)</span>
-<span class="token keyword">const</span> <span class="token punctuation">{</span> query <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">toRefs</span><span class="token punctuation">(</span>queryData<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>search<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form</span> <span class="token attr-name">inline</span> <span class="token attr-name">label-width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>80<span class="token punctuation">"</span></span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>small<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form-item</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>菜单名称<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-input</span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>query.name<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-input</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form-item</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form-item</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>父菜单Id<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-input</span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>query.parentId<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-input</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form-item</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form-item</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>排序号<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-input</span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>query.orderNum<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-input</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form-item</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form-item</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>菜单类型<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dict-select</span> <span class="token attr-name">:dict-id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1002<span class="token punctuation">"</span></span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>query.menuType<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dict-select</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form-item</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form-item</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span> <span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>btn-wrapper<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-button</span>
-                  <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>primary<span class="token punctuation">"</span></span>
-                  <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>small<span class="token punctuation">"</span></span>
-                  <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>menuStore.reloadTableData({ query: query, likeMode: 'ANYWHERE' })<span class="token punctuation">"</span></span>
-          <span class="token punctuation">&gt;</span></span>
-            查询
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-button</span><span class="token punctuation">&gt;</span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>warning<span class="token punctuation">"</span></span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>small<span class="token punctuation">"</span></span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>menuStore.restQuery()<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span> 重置<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-button</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form-item</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>scss<span class="token punctuation">"</span></span> <span class="token attr-name">scoped</span><span class="token punctuation">&gt;</span></span><span class="token style"><span class="token language-css">
-  <span class="token selector">:deep(.el-form-item)</span> <span class="token punctuation">{</span>
-    <span class="token property">margin-bottom</span><span class="token punctuation">:</span> 5px<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-
-  <span class="token selector">.search</span> <span class="token punctuation">{</span>
-    <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
-    <span class="token property">flex-flow</span><span class="token punctuation">:</span> column nowrap<span class="token punctuation">;</span>
-    <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
-
-    <span class="token selector">.btn-wrapper</span> <span class="token punctuation">{</span>
-      <span class="token property">margin-left</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
-
-</code></pre></div><div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p><a href="#store">useMenuStore</a> MenuStore中包含query查询条件。双向绑定到Query组件。</p>
-</div>
-<h3>Table</h3>
-<p>Table组件有如下功能</p>
-<ol>
-<li>使用ElPagination分页加载数据：<code>loadTableData</code></li>
-<li>点击新增/编辑按钮弹出对话框：<code>handleEdit</code>，<code>handleCreate</code></li>
-<li>多选/单选删除：<code>handleBatchDelete</code>，<code>handleSingleDelete</code>，<code>onSelection-change={handleSelectChange}（多选）</code></li>
-<li>点击列头可以升序/降序排序数据（后端排序）：<code>onSort-change={handleSortChange}</code></li>
-<li>请求后端数据时显示加载动画：<code>v-loading={tableData.value.loading}</code></li>
-</ol>
-<div class="language-vue" data-ext="vue" data-title="vue"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ts<span class="token punctuation">"</span></span> <span class="token attr-name">setup</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
-<span class="token keyword">import</span> <span class="token punctuation">{</span> onMounted <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vue'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> storeToRefs <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'pinia'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> assertSuccess <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/utils/common'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> api <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/utils/api-instance'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> ElMessageBox <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'element-plus'</span>
-<span class="token keyword">import</span> type <span class="token punctuation">{</span> Scope <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/typings'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> useMenuStore <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../store/menu-store'</span>
-<span class="token keyword">import</span> type <span class="token punctuation">{</span> MenuDto <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/api/__generated/model/dto'</span>
-<span class="token keyword">import</span> type <span class="token punctuation">{</span> MenuInput <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/api/__generated/model/static'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> Delete<span class="token punctuation">,</span> Edit<span class="token punctuation">,</span> Plus <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@element-plus/icons-vue'</span>
-<span class="token keyword">import</span> DictColumn <span class="token keyword">from</span> <span class="token string">'@/components/dict/DictColumn.vue'</span>
-
-type MenuScope <span class="token operator">=</span> Scope<span class="token operator">&lt;</span>MenuDto<span class="token punctuation">[</span><span class="token string">'MenuRepository/COMPLEX_FETCHER'</span><span class="token punctuation">]</span><span class="token operator">&gt;</span>
-<span class="token keyword">const</span> menuStore <span class="token operator">=</span> <span class="token function">useMenuStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> <span class="token punctuation">{</span>
-  loadTableData<span class="token punctuation">,</span>
-  reloadTableData<span class="token punctuation">,</span>
-  openDialog<span class="token punctuation">,</span>
-  handleSortChange<span class="token punctuation">,</span>
-  handleSelectChange<span class="token punctuation">,</span>
-  getTableSelectedRows
-<span class="token punctuation">}</span> <span class="token operator">=</span> menuStore
-<span class="token keyword">const</span> <span class="token punctuation">{</span> pageData<span class="token punctuation">,</span> loading<span class="token punctuation">,</span> queryRequest<span class="token punctuation">,</span> table<span class="token punctuation">,</span> updateForm<span class="token punctuation">,</span> createForm <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">storeToRefs</span><span class="token punctuation">(</span>menuStore<span class="token punctuation">)</span>
-<span class="token function">onMounted</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  <span class="token function">reloadTableData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> handleEdit <span class="token operator">=</span> <span class="token punctuation">(</span>row<span class="token operator">:</span> MenuDto<span class="token punctuation">[</span><span class="token string">'MenuRepository/COMPLEX_FETCHER'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  <span class="token function">openDialog</span><span class="token punctuation">(</span><span class="token string">'UPDATE'</span><span class="token punctuation">)</span>
-  updateForm<span class="token punctuation">.</span>value <span class="token operator">=</span> row
-<span class="token punctuation">}</span>
-<span class="token keyword">const</span> <span class="token function-variable function">handleCreate</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  <span class="token function">openDialog</span><span class="token punctuation">(</span><span class="token string">'CREATE'</span><span class="token punctuation">)</span>
-  createForm<span class="token punctuation">.</span>value <span class="token operator">=</span> menuStore<span class="token punctuation">.</span>initForm
-<span class="token punctuation">}</span>
-<span class="token keyword">const</span> <span class="token function-variable function">handleSingleDelete</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">row</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">id</span><span class="token operator">:</span> string <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  <span class="token function">handleDelete</span><span class="token punctuation">(</span><span class="token punctuation">[</span>row<span class="token punctuation">.</span>id<span class="token punctuation">]</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">const</span> <span class="token function-variable function">handleBatchDelete</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  <span class="token function">handleDelete</span><span class="token punctuation">(</span>
-    <span class="token function">getTableSelectedRows</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">row</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-      <span class="token keyword">return</span> row<span class="token punctuation">.</span>id <span class="token operator">||</span> <span class="token string">''</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-  <span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">const</span> <span class="token function-variable function">handleDelete</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">ids</span><span class="token operator">:</span> string<span class="token punctuation">[</span><span class="token punctuation">]</span></span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  ElMessageBox<span class="token punctuation">.</span><span class="token function">confirm</span><span class="token punctuation">(</span><span class="token string">'此操作将删除数据且无法恢复, 是否继续?'</span><span class="token punctuation">,</span> <span class="token string">'警告'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
-    <span class="token literal-property property">confirmButtonText</span><span class="token operator">:</span> <span class="token string">'确定'</span><span class="token punctuation">,</span>
-    <span class="token literal-property property">cancelButtonText</span><span class="token operator">:</span> <span class="token string">'取消'</span><span class="token punctuation">,</span>
-    <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'warning'</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-    api<span class="token punctuation">.</span>menuController<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">body</span><span class="token operator">:</span> ids <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-      <span class="token function">assertSuccess</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">reloadTableData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>button-section<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>success<span class="token punctuation">"</span></span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>small<span class="token punctuation">"</span></span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>handleCreate()<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-icon</span><span class="token punctuation">&gt;</span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>plus</span> <span class="token punctuation">/&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-icon</span><span class="token punctuation">&gt;</span></span>
-        新增
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-button</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>danger<span class="token punctuation">"</span></span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>small<span class="token punctuation">"</span></span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>handleBatchDelete<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-icon</span><span class="token punctuation">&gt;</span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>delete</span> <span class="token punctuation">/&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-icon</span><span class="token punctuation">&gt;</span></span>
-        删除
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-button</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table</span>
-      <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>table<span class="token punctuation">"</span></span>
-      <span class="token attr-name">:data</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>pageData.content<span class="token punctuation">"</span></span>
-      <span class="token attr-name">:border</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>
-      <span class="token attr-name">@selection-change</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>handleSelectChange<span class="token punctuation">"</span></span>
-      <span class="token attr-name">@sort-change</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>handleSortChange<span class="token punctuation">"</span></span>
-      <span class="token attr-name">v-loading</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>loading<span class="token punctuation">"</span></span>
-    <span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table-column</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>selection<span class="token punctuation">"</span></span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>55<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-table-column</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table-column</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>菜单名称<span class="token punctuation">"</span></span> <span class="token attr-name">prop</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token attr-name">sortable</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>custom<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name"><span class="token namespace">v-slot:</span>default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{ row }: MenuScope<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-          {{ row.name }}
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-table-column</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table-column</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>父菜单Id<span class="token punctuation">"</span></span> <span class="token attr-name">prop</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>parentId<span class="token punctuation">"</span></span> <span class="token attr-name">sortable</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>custom<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name"><span class="token namespace">v-slot:</span>default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{ row }: MenuScope<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-          {{ row.parentId }}
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-table-column</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table-column</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>排序号<span class="token punctuation">"</span></span> <span class="token attr-name">prop</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>orderNum<span class="token punctuation">"</span></span> <span class="token attr-name">sortable</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>custom<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name"><span class="token namespace">v-slot:</span>default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{ row }: MenuScope<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-          {{ row.orderNum }}
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-table-column</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table-column</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>菜单类型<span class="token punctuation">"</span></span> <span class="token attr-name">prop</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>menuType<span class="token punctuation">"</span></span> <span class="token attr-name">sortable</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>custom<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name"><span class="token namespace">v-slot:</span>default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{ row }: MenuScope<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dict-column</span> <span class="token attr-name">:dict-id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1002<span class="token punctuation">"</span></span> <span class="token attr-name">:value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>row.menuType<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dict-column</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-table-column</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table-column</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>图标<span class="token punctuation">"</span></span> <span class="token attr-name">prop</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span> <span class="token attr-name">sortable</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>custom<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name"><span class="token namespace">v-slot:</span>default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{ row }: MenuScope<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-avatar</span> <span class="token attr-name">:src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>row.icon<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-avatar</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-table-column</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-table-column</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>操作<span class="token punctuation">"</span></span> <span class="token attr-name">fixed</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>right<span class="token punctuation">"</span></span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{280}<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name"><span class="token namespace">v-slot:</span>default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{ row }<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>edit-btn<span class="token punctuation">"</span></span> <span class="token attr-name">link</span> <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>small<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>primary<span class="token punctuation">"</span></span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>handleEdit(row)<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-icon</span><span class="token punctuation">&gt;</span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>edit</span> <span class="token punctuation">/&gt;</span></span>
-              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-icon</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-button</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-button</span>
-              <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>delete-btn<span class="token punctuation">"</span></span>
-              <span class="token attr-name">link</span>
-              <span class="token attr-name">size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>small<span class="token punctuation">"</span></span>
-              <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>primary<span class="token punctuation">"</span></span>
-              <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>handleSingleDelete(row)<span class="token punctuation">"</span></span>
-            <span class="token punctuation">&gt;</span></span>
-              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-icon</span><span class="token punctuation">&gt;</span></span>
-                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>delete</span> <span class="token punctuation">/&gt;</span></span>
-              <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-icon</span><span class="token punctuation">&gt;</span></span>
-            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-button</span><span class="token punctuation">&gt;</span></span>
-          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-table-column</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-table</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>page<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-pagination</span>
-        <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">margin-top</span><span class="token punctuation">:</span> 30px</span><span class="token punctuation">"</span></span></span>
-        <span class="token attr-name">:current-page</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>queryRequest.pageNum<span class="token punctuation">"</span></span>
-        <span class="token attr-name">:page-size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>queryRequest.pageSize<span class="token punctuation">"</span></span>
-        <span class="token attr-name">:page-sizes</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>[10, 20, 30, 40, 50]<span class="token punctuation">"</span></span>
-        <span class="token attr-name">:total</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>pageData.totalElements<span class="token punctuation">"</span></span>
-        <span class="token attr-name">background</span>
-        <span class="token attr-name">small</span>
-        <span class="token attr-name">layout</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>prev, pager, next, jumper, total, sizes<span class="token punctuation">"</span></span>
-        <span class="token attr-name">@current-change</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>(pageNum) =&gt; loadTableData({ pageNum })<span class="token punctuation">"</span></span>
-        <span class="token attr-name">@size-change</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>(pageSize) =&gt; loadTableData({ pageSize })<span class="token punctuation">"</span></span>
-      <span class="token punctuation">/&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>scss<span class="token punctuation">"</span></span> <span class="token attr-name">scoped</span><span class="token punctuation">&gt;</span></span><span class="token style"><span class="token language-css">
-<span class="token selector">.button-section</span> <span class="token punctuation">{</span>
-  <span class="token property">margin</span><span class="token punctuation">:</span> 20px 0<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token selector">.page</span> <span class="token punctuation">{</span>
-  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
-  <span class="token property">justify-content</span><span class="token punctuation">:</span> flex-end<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
-</code></pre></div><div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p><a href="#store">useMenuStore</a> MenuStore中包含Table组件中通用的pageData（分页结果），queryRequest（分页请求），table（ElTable实例），loading（加载动画控制）以及其他函数。</p>
-</div>
-<h3>Dialog</h3>
-<p>点击编辑或者新增按钮时，会修改Store中的dialogData。由于Dialog和Table中使用的都是全局状态管理共享dialogData变量。因此Dialog会弹出，对话框内部根据是编辑还是新增显示updateFrom或者createForm。</p>
-<div class="language-vue" data-ext="vue" data-title="vue"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ts<span class="token punctuation">"</span></span> <span class="token attr-name">setup</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
-<span class="token keyword">import</span> <span class="token punctuation">{</span> type Component <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vue'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> storeToRefs <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'pinia'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> useMenuStore <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../store/menu-store'</span>
-<span class="token keyword">import</span> MenuCreateForm <span class="token keyword">from</span> <span class="token string">'./MenuCreateForm.vue'</span>
-<span class="token keyword">import</span> MenuUpdateForm <span class="token keyword">from</span> <span class="token string">'./MenuUpdateForm.vue'</span>
-<span class="token keyword">import</span> type <span class="token punctuation">{</span> EditMode <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/typings'</span>
-<span class="token keyword">const</span> menuStore <span class="token operator">=</span> <span class="token function">useMenuStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> <span class="token punctuation">{</span> dialogData <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">storeToRefs</span><span class="token punctuation">(</span>menuStore<span class="token punctuation">)</span>
-
-<span class="token keyword">const</span> <span class="token literal-property property">formMap</span><span class="token operator">:</span> Record<span class="token operator">&lt;</span>EditMode<span class="token punctuation">,</span> Component<span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
-  <span class="token constant">CREATE</span><span class="token operator">:</span> MenuCreateForm<span class="token punctuation">,</span>
-  <span class="token constant">UPDATE</span><span class="token operator">:</span> MenuUpdateForm
-<span class="token punctuation">}</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-dialog</span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dialogData.visible<span class="token punctuation">"</span></span> <span class="token attr-name">:title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dialogData.title<span class="token punctuation">"</span></span> <span class="token attr-name">:width</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dialogData.width<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>component</span> <span class="token attr-name">:is</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>formMap[dialogData.mode]<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>component</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-dialog</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>scss<span class="token punctuation">"</span></span> <span class="token attr-name">scoped</span><span class="token punctuation">&gt;</span></span><span class="token style"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
-</code></pre></div><div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p><a href="#store">useMenuStore</a> MenuStore中包含Dialog组件中通用的dialogData以及其他函数。</p>
-</div>
-<h3>UpdateForm</h3>
-<p>更新表单功能如下</p>
-<ol>
-<li>监听对话框是否打开，打开则执行init方法，根据id请求数据：<code>watch</code>。</li>
-<li>请求数据之后需要将后端返回的数据转成前端可以使用的格式：<code>..._.omitBy(后端数据,_.isNull)</code>。</li>
-<li>提交表单时对数据进行处理，提交成功后关闭对话框并刷新表格：<code>handleConfirm</code>。</li>
-</ol>
-<div class="language-vue" data-ext="vue" data-title="vue"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ts<span class="token punctuation">"</span></span> <span class="token attr-name">setup</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
-<span class="token keyword">import</span> <span class="token punctuation">{</span> storeToRefs <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'pinia'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> watch <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vue'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> useMenuStore <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../store/menu-store'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> assertSuccess <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/utils/common'</span>
-<span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> api <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/utils/api-instance'</span>
-<span class="token keyword">import</span> AvatarUpload <span class="token keyword">from</span> <span class="token string">'@/components/avatar/AvatarUpload.vue'</span>
-<span class="token keyword">import</span> FooterButton <span class="token keyword">from</span> <span class="token string">'@/components/base/dialog/FooterButton.vue'</span>
-<span class="token keyword">import</span> DictSelect <span class="token keyword">from</span> <span class="token string">'@/components/dict/DictSelect.vue'</span>
-
-<span class="token keyword">const</span> menuStore <span class="token operator">=</span> <span class="token function">useMenuStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> <span class="token punctuation">{</span> closeDialog<span class="token punctuation">,</span> reloadTableData <span class="token punctuation">}</span> <span class="token operator">=</span> menuStore
-<span class="token keyword">const</span> <span class="token punctuation">{</span> updateForm<span class="token punctuation">,</span> dialogData <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">storeToRefs</span><span class="token punctuation">(</span>menuStore<span class="token punctuation">)</span>
-<span class="token keyword">const</span> <span class="token function-variable function">init</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  dialogData<span class="token punctuation">.</span>value<span class="token punctuation">.</span>title <span class="token operator">=</span> <span class="token string">'编辑'</span>
-  updateForm<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token punctuation">{</span>
-    <span class="token operator">...</span>updateForm<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
-    <span class="token operator">...</span>_<span class="token punctuation">.</span><span class="token function">omitBy</span><span class="token punctuation">(</span><span class="token keyword">await</span> api<span class="token punctuation">.</span>menuController<span class="token punctuation">.</span><span class="token function">findById</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">id</span><span class="token operator">:</span> updateForm<span class="token punctuation">.</span>value<span class="token punctuation">.</span>id <span class="token operator">||</span> <span class="token string">''</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span> _<span class="token punctuation">.</span>isNull<span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token function">watch</span><span class="token punctuation">(</span>
-  <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> dialogData<span class="token punctuation">.</span>value<span class="token punctuation">.</span>visible<span class="token punctuation">,</span>
-  <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token punctuation">{</span> <span class="token literal-property property">immediate</span><span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span>
-<span class="token punctuation">)</span>
-<span class="token keyword">const</span> <span class="token function-variable function">handleConfirm</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  api<span class="token punctuation">.</span>menuController<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">body</span><span class="token operator">:</span> updateForm<span class="token punctuation">.</span>value <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter">res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-    <span class="token function">assertSuccess</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-      <span class="token function">closeDialog</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-      <span class="token function">reloadTableData</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>update-form<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form</span> <span class="token attr-name">labelWidth</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>120<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form-item</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>菜单名称<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-input</span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>updateForm.name<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-input</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form-item</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form-item</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>父菜单Id<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-input</span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>updateForm.parentId<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-input</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form-item</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form-item</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>排序号<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-input-number</span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>updateForm.orderNum<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-input-number</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form-item</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form-item</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>菜单类型<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dict-select</span> <span class="token attr-name">:dict-id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>1002<span class="token punctuation">"</span></span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>updateForm.menuType<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dict-select</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form-item</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form-item</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>图标<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>AvatarUpload</span> <span class="token attr-name"><span class="token namespace">v-model:</span>avatar</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>updateForm.icon<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>AvatarUpload</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form-item</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>FooterButton</span> <span class="token attr-name">@close</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>closeDialog<span class="token punctuation">"</span></span> <span class="token attr-name">@confirm</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>handleConfirm<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>FooterButton</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>scss<span class="token punctuation">"</span></span> <span class="token attr-name">scoped</span><span class="token punctuation">&gt;</span></span><span class="token style"><span class="token language-css">
-<span class="token selector">.update-form</span> <span class="token punctuation">{</span>
-  <span class="token property">margin-right</span><span class="token punctuation">:</span> 30px<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
-
-</code></pre></div><div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p><a href="#store">useMenuStore</a> MenuStore中包含Form组件中通用的updateForm</p>
-</div>
-<h3>CreateForm</h3>
-<p>创建表单和更新表单类似。</p>
-<h3>Store</h3>
-<p>Store同一管理Query,Table,Dialog,Form中涉及的通用变量。方便各个组件都可以对这些变量进行修改。比如当点击新增按钮时，Table组件会修改dialogData打开Dialog。</p>
-<div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p>针对增删改查中场景的变量用组合式的思想抽取出来，方便后续快速编写增删改查。<br>
-<a href="/blog/project/qifan-mall/reference/front/helper-tool.md/#tablehelper" target="_blank">useTableHelper</a> 抽取Table中常用的变量和函数。<br>
-<a href="/blog/project/qifan-mall/reference/front/helper-tool.md/#dialoghelper" target="_blank">useDialogHelper</a> 抽取Dialog中常用的变量和函数。<br>
-<a href="/blog/project/qifan-mall/reference/front/helper-tool.md/#queryhelper" target="_blank">useQueryHelper</a> 抽取Query中的通用变量和函数。</p>
-</div>
-<div class="language-typescript" data-ext="ts" data-title="ts"><pre class="language-typescript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> defineStore <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'pinia'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> useTableHelper <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/components/base/table/table-helper'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> useDialogHelper <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/components/base/dialog/dialog-helper'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> useQueryHelper <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/components/base/query/query-helper'</span>
-<span class="token keyword">import</span> <span class="token keyword">type</span> <span class="token punctuation">{</span> MenuInput<span class="token punctuation">,</span> MenuSpec <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/api/__generated/model/static'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> api <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/utils/api-instance'</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> ref <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vue'</span>
-<span class="token keyword">import</span> <span class="token keyword">type</span> <span class="token punctuation">{</span> MenuDto <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/api/__generated/model/dto'</span>
-
-<span class="token keyword">export</span> <span class="token keyword">const</span> useMenuStore <span class="token operator">=</span> <span class="token function">defineStore</span><span class="token punctuation">(</span><span class="token string">'menu'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> initQuery<span class="token operator">:</span> MenuSpec <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-  <span class="token keyword">const</span> initForm<span class="token operator">:</span> MenuInput <span class="token operator">=</span> <span class="token punctuation">{</span> menuType<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span> parentId<span class="token operator">:</span> <span class="token string">''</span> <span class="token punctuation">}</span>
-  <span class="token keyword">const</span> tableHelper <span class="token operator">=</span> <span class="token function">useTableHelper</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span>menuController<span class="token punctuation">.</span>query<span class="token punctuation">,</span> api<span class="token punctuation">.</span>menuController<span class="token punctuation">,</span> initQuery<span class="token punctuation">)</span>
-  <span class="token keyword">const</span> dialogHelper <span class="token operator">=</span> <span class="token function">useDialogHelper</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token keyword">const</span> queryHelper <span class="token operator">=</span> <span class="token generic-function"><span class="token function">useQueryHelper</span><span class="token generic class-name"><span class="token operator">&lt;</span>MenuSpec<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>initQuery<span class="token punctuation">)</span>
-  <span class="token keyword">const</span> updateForm <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token keyword">as</span> MenuDto<span class="token punctuation">[</span><span class="token string">'MenuRepository/COMPLEX_FETCHER'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-  <span class="token keyword">const</span> createForm <span class="token operator">=</span> <span class="token generic-function"><span class="token function">ref</span><span class="token generic class-name"><span class="token operator">&lt;</span>MenuInput<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>initForm<span class="token punctuation">)</span>
-  <span class="token keyword">return</span> <span class="token punctuation">{</span> <span class="token operator">...</span>tableHelper<span class="token punctuation">,</span> <span class="token operator">...</span>dialogHelper<span class="token punctuation">,</span> <span class="token operator">...</span>queryHelper<span class="token punctuation">,</span> updateForm<span class="token punctuation">,</span> createForm<span class="token punctuation">,</span> initForm <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span>
-</code></pre></div><h2>前端TypescriptAPI生成器</h2>
-<p>你可以看到上面的模板中有<code>api.menuController.query</code>，<code>api.menuController.delete</code>等与后端controller对应的api，这些如果让自己去写ts定义显然是很累人的一件事。好消息是jimmer提供了<a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/spring/client/api#%E7%94%9F%E6%88%90%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BB%A3%E7%A0%81" target="_blank" rel="noopener noreferrer">ts生成器</a>。<br>
-只需要运行<code>npm run api</code>就会调用<code>scripts/generate-api.js</code>生成代码。</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>小程序端</title>
-      <link>https://mister-hope.github.io/blog/project/qifan-mall/reference/mp/</link>
-      <guid>https://mister-hope.github.io/blog/project/qifan-mall/reference/mp/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">小程序端</source>
       <pubDate>Sun, 04 Feb 2024 11:55:25 GMT</pubDate>
     </item>
   </channel>
