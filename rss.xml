@@ -6,8 +6,8 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Tue, 18 Jun 2024 14:46:07 GMT</pubDate>
-    <lastBuildDate>Tue, 18 Jun 2024 14:46:07 GMT</lastBuildDate>
+    <pubDate>Wed, 19 Jun 2024 01:50:06 GMT</pubDate>
+    <lastBuildDate>Wed, 19 Jun 2024 01:50:06 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>消息角标</category>
@@ -36,9 +36,54 @@
       <link>https://mister-hope.github.io/blog/project/spring-ai/chat-page/backend.html</link>
       <guid>https://mister-hope.github.io/blog/project/spring-ai/chat-page/backend.html</guid>
       <source url="https://mister-hope.github.io/blog/rss.xml">后端实现</source>
-      <description>后端实现 实体设计 消息实体设计 消息表 消息实体类 会话实体设计 会话表 会话实体类 AiMessageChatMemory（数据库消息记录） AiMessageChatMemory实现了ChatMemory接口，用于保存聊天记录到数据库。 可以把AiMessageChatMemory注入到MessageChatMemoryAdvisor中。 Mes...</description>
+      <description>后端实现 后端实现会话和消息记录必然要先从建表开始，然后编写增删改查，最后实现一些功能。 会话 会话保存接口 会话保存dto 会话列表接口 获取当前登录用户id作为查询条件 一对多关联获取会话内的消息 会话删除接口 根据会话id列表批量删除 删除会话时，会话内的消息也一并级联删除 会话id查询接口 一对多关联获取会话内的消息 消息 消息发送接口 消息保...</description>
       <pubDate>Tue, 18 Jun 2024 14:44:49 GMT</pubDate>
       <content:encoded><![CDATA[
+<p>后端实现会话和消息记录必然要先从建表开始，然后编写增删改查，最后实现一些功能。</p>
+<p>会话</p>
+<ul>
+<li>会话保存接口
+<ul>
+<li>会话保存dto</li>
+</ul>
+</li>
+<li>会话列表接口
+<ul>
+<li>获取当前登录用户id作为查询条件</li>
+<li>一对多关联获取会话内的消息</li>
+</ul>
+</li>
+<li>会话删除接口
+<ul>
+<li>根据会话id列表批量删除</li>
+<li>删除会话时，会话内的消息也一并级联删除</li>
+</ul>
+</li>
+<li>会话id查询接口
+<ul>
+<li>一对多关联获取会话内的消息</li>
+</ul>
+</li>
+</ul>
+<p>消息</p>
+<ul>
+<li>消息发送接口
+<ul>
+<li>消息保存dto（接收前端发送的消息）</li>
+<li>消息实体内容设计，支持图片/语音/文字</li>
+<li><code>MessageChatMemoryAdvisor</code>历史消息增强和消息自动保存，调用<code>AiMessageChatMemory</code>的<code>get</code>方法获取会话的历史消息和<code>add</code>方法保存消息。</li>
+<li>使用<code>ChatClient</code>填写用户发送的消息（可能包含图片/语言），填写<code>MessageChatMemoryAdvisor</code>。最后发起流式请求，获取AI回复的消息。</li>
+</ul>
+</li>
+<li>历史消息实现
+<ul>
+<li><code>add</code>方法，保存用户发送的消息和AI回复的消息。因为需要填写创建人id，创建人id是在请求里面存储的。保存的时候是在异步的线程里面，要模拟请求环境才能插入数据到数据库。</li>
+<li><code>get</code>方法，获取会话历史消息</li>
+<li><code>clear</code>方法，清空会话的历史消息</li>
+<li>消息转换器，将消息实体转换为SpringAI的<code>Message</code>，将<code>Message</code>转换为消息实体。互相转换。</li>
+</ul>
+</li>
+</ul>
 <h2>实体设计</h2>
 <h3>消息实体设计</h3>
 <p>消息表</p>
@@ -52,7 +97,7 @@
     editor_id     <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
     <span class="token keyword">type</span>          <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span> <span class="token keyword">comment</span> <span class="token string">'消息类型(用户/ 助手/ 系统)'</span><span class="token punctuation">,</span>
     text_content  <span class="token keyword">text</span>        <span class="token operator">not</span> <span class="token boolean">null</span> <span class="token keyword">comment</span> <span class="token string">'消息内容'</span><span class="token punctuation">,</span>
-    medias        json        <span class="token boolean">null</span><span class="token punctuation">,</span>
+    medias        json        <span class="token boolean">null</span> <span class="token keyword">comment</span> <span class="token string">'媒体内容如图片链接、语音链接'</span><span class="token punctuation">,</span>
     ai_session_id <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span> <span class="token keyword">comment</span> <span class="token string">'会话id'</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre></div><p>消息实体类</p>
@@ -250,9 +295,31 @@
       <link>https://mister-hope.github.io/blog/project/spring-ai/chat-page/frontend.html</link>
       <guid>https://mister-hope.github.io/blog/project/spring-ai/chat-page/frontend.html</guid>
       <source url="https://mister-hope.github.io/blog/rss.xml">前端实现</source>
-      <description>前端实现 会话列表 会话列表会话列表 for循环遍历会话列表用会话组件显示，并监听点击事件和删除事件。点击时切换到被点击的会话，删除时从会话列表中提出被删除的会话。 会话的创建、删除、加载逻辑。 消息发送和展示 消息发送和展示消息发送和展示 用户发送的逻辑，使用sse.js发送消息，并监听sse消息。 遍历会话中的消息并展示 </description>
+      <description>前端实现 聊天面板 前端的聊天面板组件是以chat-view.vue为核心，聊天面板的结构如下 聊天面板 会话面板（左） 标题（上） 会话列表（中），进入页面的时候获取用户的会话列表使用session-item组件，该组件有删除按钮点击触发handleDeleteSession 创建会话按钮（下）, 触发点击事件调用handleCreateSessio...</description>
       <pubDate>Tue, 18 Jun 2024 14:44:49 GMT</pubDate>
       <content:encoded><![CDATA[
+<p><br>
+前端的聊天面板组件是以<code>chat-view.vue</code>为核心，聊天面板的结构如下</p>
+<ul>
+<li>聊天面板
+<ul>
+<li>会话面板（左）
+<ul>
+<li>标题（上）</li>
+<li>会话列表（中），进入页面的时候获取用户的会话列表使用<code>session-item</code>组件，该组件有删除按钮点击触发<code>handleDeleteSession</code></li>
+<li>创建会话按钮（下）, 触发点击事件调用<code>handleCreateSession</code></li>
+</ul>
+</li>
+<li>消息面板（右）
+<ul>
+<li>会话详情（上），可编辑会话名称调用<code>handleUpdateSession</code></li>
+<li>消息列表（中），for循环遍历<code>activeSession</code>当前会话中的消息使用<code>message-row</code>组件展示文本消息、图片消息、语音消息</li>
+<li>输入框使用（下），<code>message-input</code>组件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2>会话列表</h2>
 <figure><figcaption>会话列表</figcaption></figure>
 <p>for循环遍历会话列表用会话组件显示，并监听点击事件和删除事件。点击时切换到被点击的会话，删除时从会话列表中提出被删除的会话。</p>
