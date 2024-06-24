@@ -6,8 +6,8 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Mon, 24 Jun 2024 06:13:41 GMT</pubDate>
-    <lastBuildDate>Mon, 24 Jun 2024 06:13:41 GMT</lastBuildDate>
+    <pubDate>Mon, 24 Jun 2024 07:08:46 GMT</pubDate>
+    <lastBuildDate>Mon, 24 Jun 2024 07:08:46 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>消息角标</category>
@@ -1246,11 +1246,12 @@ data:{"result":{"output":{"messageType":"ASSISTANT","media":[],"metadata":{"mess
       <link>https://mister-hope.github.io/blog/project/spring-ai/intro.html</link>
       <guid>https://mister-hope.github.io/blog/project/spring-ai/intro.html</guid>
       <source url="https://mister-hope.github.io/blog/rss.xml">项目介绍</source>
-      <description>项目介绍 项目内容项目内容 本项目是的讲解版，即SpringAI教程包含SSE流/FuntionCall/Embedding/VectorDatabase/RAG/历史消息/图片生成/图片理解/提示词工程等知识点。UNI集成了各个AI厂家并且实现了文本对话、图片理解、图片生成、知识库、预置角色、插件系统等功能。 源码地址 </description>
+      <description>项目介绍 项目内容项目内容 知识点知识点 SpringAI教程包含Agent（智能体）/SSE流/FunctionCall/Embedding/VectorDatabase/RAG/历史消息/图片理解/等知识点。 源码地址 </description>
       <pubDate>Sat, 15 Jun 2024 15:08:23 GMT</pubDate>
       <content:encoded><![CDATA[
 <figure><figcaption>项目内容</figcaption></figure>
-<p>本项目是<a href="/blog/project/uni-ai/" target="_blank">UNI-AI</a>的讲解版，即SpringAI教程包含SSE流/FuntionCall/Embedding/VectorDatabase/RAG/历史消息/图片生成/图片理解/提示词工程等知识点。UNI集成了各个AI厂家并且实现了文本对话、图片理解、图片生成、知识库、预置角色、插件系统等功能。</p>
+<figure><figcaption>知识点</figcaption></figure>
+<p>SpringAI教程包含Agent（智能体）/SSE流/FunctionCall/Embedding/VectorDatabase/RAG/历史消息/图片理解/等知识点。</p>
 <p><a href="https://github.com/qifan777/KnowledgeBaseChatSpringAI" target="_blank" rel="noopener noreferrer">源码地址</a></p>
 ]]></content:encoded>
     </item>
