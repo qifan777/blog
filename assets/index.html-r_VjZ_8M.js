@@ -1,0 +1,6 @@
+import{_ as a}from"./plugin-vue_export-helper-x3n3nnut.js";import{o as n,c as s,a as e}from"./app-UxvkHG6A.js";const t={},c=e(`<h1 id="v2fly内网穿透" tabindex="-1"><a class="header-anchor" href="#v2fly内网穿透"><span>V2fly内网穿透</span></a></h1><div class="language-bash line-numbers-mode" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> v2ray <span class="token punctuation">\\</span>
+ <span class="token parameter variable">-v</span> /path/to/config.json:/etc/v2ray/config.json <span class="token punctuation">\\</span>
+ <span class="token parameter variable">-p</span> <span class="token number">10086</span>:10086 <span class="token punctuation">\\</span>
+ v2fly/v2fly-core <span class="token punctuation">\\</span>
+ run <span class="token parameter variable">-c</span> /etc/v2ray/config.json <span class="token punctuation">\\</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div>`,2),i=[c];function r(l,o){return n(),s("div",null,i)}const u=a(t,[["render",r],["__file","index.html.vue"]]);export{u as default};

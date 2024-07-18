@@ -6,8 +6,8 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Thu, 18 Jul 2024 07:15:38 GMT</pubDate>
-    <lastBuildDate>Thu, 18 Jul 2024 07:15:38 GMT</lastBuildDate>
+    <pubDate>Thu, 18 Jul 2024 09:57:31 GMT</pubDate>
+    <lastBuildDate>Thu, 18 Jul 2024 09:57:31 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>消息角标</category>
@@ -19,11 +19,91 @@
     <category>前端工程化</category>
     <category>网站搭建</category>
     <category>ChatGPT</category>
-    <category>多模块微服务</category>
     <category>IDEA技巧</category>
     <category>CI/CD</category>
+    <category>多模块微服务</category>
     <category>JPA</category>
     <category>Spring</category>
+    <item>
+      <title>图片理解</title>
+      <link>https://mister-hope.github.io/blog/project/spring-ai/vision.html</link>
+      <guid>https://mister-hope.github.io/blog/project/spring-ai/vision.html</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">图片理解</source>
+      <description>图片理解 模型配置 选择支持图片理解的模型 注意 如果使用的是灵积，需要注入private final DashScopeAiVLChatModel dashScopeAiVLChatModel;。 而不是private final DashScopeAiChatModel dashScopeAiChatModel;要不会报错。 图片上传 依赖引用 我...</description>
+      <pubDate>Thu, 18 Jul 2024 09:55:53 GMT</pubDate>
+      <content:encoded><![CDATA[
+<h2>模型配置</h2>
+<p>选择支持图片理解的模型</p>
+<div class="language-yaml" data-ext="yml" data-title="yml"><pre class="language-yaml"><code>    <span class="token key atrule">dash-scope</span><span class="token punctuation">:</span>
+      <span class="token key atrule">api-key</span><span class="token punctuation">:</span> xxx
+      <span class="token key atrule">chat</span><span class="token punctuation">:</span>
+        <span class="token key atrule">model</span><span class="token punctuation">:</span> qwen<span class="token punctuation">-</span>vl<span class="token punctuation">-</span>plus
+</code></pre></div><div class="hint-container warning">
+<p class="hint-container-title">注意</p>
+<p>如果使用的是灵积，需要注入<code>private final DashScopeAiVLChatModel dashScopeAiVLChatModel;</code>。<br>
+而不是<code>private final DashScopeAiChatModel dashScopeAiChatModel;</code>要不会报错。</p>
+</div>
+<h2>图片上传</h2>
+<h3>依赖引用</h3>
+<p>我自己封装了一下阿里云、腾讯云、本地nginx的OSS上传starter</p>
+<div class="language-xml" data-ext="xml" data-title="xml"><pre class="language-xml"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>io.github.qifan777<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-boot-starter-oss<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+
+</code></pre></div><h3>OSS配置</h3>
+<div class="language-yaml" data-ext="yml" data-title="yml"><pre class="language-yaml"><code><span class="token key atrule">oss</span><span class="token punctuation">:</span>
+  <span class="token key atrule">provider</span><span class="token punctuation">:</span> ali_yun
+  <span class="token comment"># 阿里云oss配置</span>
+  <span class="token key atrule">ali-yun</span><span class="token punctuation">:</span>
+    <span class="token key atrule">access-key-id</span><span class="token punctuation">:</span> xxx
+    <span class="token key atrule">access-key-secret</span><span class="token punctuation">:</span> xxx
+    <span class="token key atrule">endpoint</span><span class="token punctuation">:</span> oss<span class="token punctuation">-</span>cn<span class="token punctuation">-</span>qingdao.aliyuncs.com
+    <span class="token key atrule">bucket-name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>community
+  <span class="token comment"># 腾讯云oss配置</span>
+  <span class="token key atrule">tencent</span><span class="token punctuation">:</span>
+    <span class="token key atrule">bucket</span><span class="token punctuation">:</span> wechat<span class="token punctuation">-</span>aaa
+    <span class="token key atrule">secret-id</span><span class="token punctuation">:</span> xxx
+    <span class="token key atrule">secret-key</span><span class="token punctuation">:</span> xxx
+    <span class="token key atrule">region</span><span class="token punctuation">:</span> ap<span class="token punctuation">-</span>beijing
+</code></pre></div><h3>图片上传Controller</h3>
+<p>接收前端图片，返回url</p>
+<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"oss"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@AllArgsConstructor</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">OSSController</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">OSSService</span> ossService<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"upload"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">upload</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestParam</span> <span class="token class-name">MultipartFile</span> file<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> ossService<span class="token punctuation">.</span><span class="token function">upload</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3>前端上传</h3>
+<p>使用<code>image-upload</code>组件，可以快速上传图片</p>
+<div class="language-html" data-ext="html" data-title="html"><pre class="language-html"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>image-upload</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>image<span class="token punctuation">"</span></span> <span class="token attr-name">:size</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>40<span class="token punctuation">"</span></span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>message.image<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>image-upload</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><h2>发送媒体（图片）消息</h2>
+<p>请参考<a href="/blog/project/spring-ai/chat.html" target="_blank">发送消息</a>，在用户发送消息时，判断是否有图片，如果有，则添加到<code>medias</code>中。</p>
+<div class="language-javascript" data-ext="js" data-title="js"><pre class="language-javascript"><code>  <span class="token comment">// 图片/语音</span>
+  <span class="token keyword">const</span> <span class="token literal-property property">medias</span><span class="token operator">:</span> AiMessage<span class="token punctuation">[</span><span class="token string">'medias'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>message<span class="token punctuation">.</span>image<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    medias<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">type</span><span class="token operator">:</span> <span class="token string">'image'</span><span class="token punctuation">,</span> <span class="token literal-property property">data</span><span class="token operator">:</span> message<span class="token punctuation">.</span>image <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+</code></pre></div><p>SpringAI的<code>UserMessage</code>支持发送媒体对象，因此只需将接收的<code>medias</code>添加的<code>UserMessage</code>即可。</p>
+<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code>    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">toPrompt</span><span class="token punctuation">(</span><span class="token class-name">ChatClient<span class="token punctuation">.</span>PromptUserSpec</span> promptUserSpec<span class="token punctuation">,</span> <span class="token class-name">AiMessageInput</span> input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// AiMessageInput转成Message</span>
+        <span class="token class-name">Message</span> message <span class="token operator">=</span> <span class="token class-name">AiMessageChatMemory</span><span class="token punctuation">.</span><span class="token function">toSpringAiMessage</span><span class="token punctuation">(</span>input<span class="token punctuation">.</span><span class="token function">toEntity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token class-name">CollectionUtils</span><span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span><span class="token function">getMedia</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 用户发送的图片/语言</span>
+            <span class="token class-name">Media</span><span class="token punctuation">[</span><span class="token punctuation">]</span> medias <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Media</span><span class="token punctuation">[</span>message<span class="token punctuation">.</span><span class="token function">getMedia</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            promptUserSpec<span class="token punctuation">.</span><span class="token function">media</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span><span class="token function">getMedia</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span>medias<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 用户发送的文本</span>
+        promptUserSpec<span class="token punctuation">.</span><span class="token function">text</span><span class="token punctuation">(</span>message<span class="token punctuation">.</span><span class="token function">getContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+</code></pre></div>]]></content:encoded>
+    </item>
     <item>
       <title>Company构建</title>
       <link>https://mister-hope.github.io/blog/project/spring-ai/graph/company.html</link>
@@ -4934,6 +5014,419 @@ include /www/server/panel/vhost/nginx/*.conf;
 ]]></content:encoded>
     </item>
     <item>
+      <title>ChatGPT Next Web 搭建教程</title>
+      <link>https://mister-hope.github.io/blog/tools/chatgpt/</link>
+      <guid>https://mister-hope.github.io/blog/tools/chatgpt/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">ChatGPT Next Web 搭建教程</source>
+      <description>ChatGPT Next Web 搭建教程 1.2 介绍 1.2.1 自我介绍 我是起凡，一名全栈程序员，刚刚毕业于华侨大学。主要技术栈后端SpringBoot,Jpa, MongoDb等。前端Vue3, Typescript, Taro小程序。 1.2.2 ChatGPT Next Web 介绍 ChatGPT Next Web可以使用OpenAI官...</description>
+      <category>ChatGPT</category>
+      <pubDate>Wed, 10 May 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<h2>1.2 介绍</h2>
+<h3>1.2.1 自我介绍</h3>
+<p>我是起凡，一名全栈程序员，刚刚毕业于华侨大学。主要技术栈后端SpringBoot,Jpa, MongoDb等。前端Vue3, Typescript, Taro小程序。</p>
+<h3>1.2.2 ChatGPT Next Web 介绍</h3>
+<p>ChatGPT Next Web可以使用OpenAI官方提供的API。比如ChatGPT3.5模型，ChatGPT4.0模型等等。并且提供了一个WEB界面将我们输入的内容转发给OpenAI。同时支持多聊天窗口会话等。</p>
+<div style="text-align: center">
+
+</div>
+<h3>1.2.3 被封锁的中国区域</h3>
+<p>在中国地区无法调用OpenAI的接口，意味着即使你在本地部署了ChatGPT Next Web你无法与之对话。要解决上面的问题只能通过代理。</p>
+<ul>
+<li>使用稳定的代理服务软件和节点比如Windows的Clash for windows/v2ayN, linux的v2raya, mac下的Clash for mac等。</li>
+<li>配置代理软件让ChatGPT Next Web能够走代理</li>
+</ul>
+<h2>1.3 先决条件</h2>
+<h3>1.3.1 Docker</h3>
+<p>ChatGPT Next<br>
+Web可以通过源码安装，这种方式对于不熟悉开发的人来说要安装许多的软件和配置很多环境所以不推荐。使用Docker安装只需要一行命令。所以我推荐使用Docker来安装。如果是Windows或者Mac用户下载Docker<br>
+Desktop。</p>
+<p>请根据不同的操作系统安装docker。下面以Centos7操作系统为例安装docker。</p>
+<p>| 家族      | 发行版                                                              |<br>
+|</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>IDEA——强大的Shell工具</title>
+      <link>https://mister-hope.github.io/blog/tools/idea/shell.html</link>
+      <guid>https://mister-hope.github.io/blog/tools/idea/shell.html</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">IDEA——强大的Shell工具</source>
+      <description>IDEA——强大的Shell工具 SSH 在使用Shell工具时最常用的是SSH输入命令操控远程服务器。在idea中使用SSH也是很简单的事情。 settings -&amp;gt; tools -&amp;gt; ssh congratulations alt+f12打开命令行，在右上角的下拉框中选择上面配置好的SSH会话。之后直接在命令行中就可以向服务器发送命令了。 SFTP...</description>
+      <category>IDEA技巧</category>
+      <pubDate>Sun, 24 Sep 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<h2>SSH</h2>
+<p>在使用Shell工具时最常用的是SSH输入命令操控远程服务器。在idea中使用SSH也是很简单的事情。</p>
+<p>settings -&gt; tools -&gt; ssh congratulations</p>
+
+<p>alt+f12打开命令行，在右上角的下拉框中选择上面配置好的SSH会话。之后直接在命令行中就可以向服务器发送命令了。</p>
+
+<h2>SFTP</h2>
+<p>在控制远程服务器时除了发送命令行，自然少不了互传文件，文件预览编辑的功能。幸运的是强大的idea也有这个功能</p>
+<p>settings -&gt; deployment。点击左上角的➕添加sftp服务器，可以从之前已经配置的ssh session中选择。</p>
+
+<p>默认情况下idea没有显示远程sftp服务器的菜单，需要手动打开。</p>
+
+<p>在右侧的菜单栏中打开sftp服务器列表，选择已经配置好的sftp服务器，确认后下面就可以显示服务器内的文件了，可以编辑，可以下载，可以拖动本地文件到远程文件夹。</p>
+
+<h2>Database</h2>
+<p>作为一名软件开发程序员，经常需要远程查看服务器上的数据库。所以除了shell工具之外还需准备数据库连接工具。</p>
+
+<p>在ssh/ssl页签中选择已经配置好的ssh。之后切换到general页签输入数据库的账号密码，记住不需要修改host。</p>
+
+<p>连接数据库后你使用这</p>
+<ul>
+<li>
+<p>数据库迁移<br>
+在服务器上部署新项目的时候需要在服务器上新建数据库，然后把本地的表迁移到服务器上，在idea中就可以实现这个操作。</p>
+</li>
+<li>
+<p>结构对比<br>
+如果你在本地的数据库修改了某个字段，然后想同步到服务器上，idea的数据库/表结构对比非常好用。</p>
+</li>
+<li>
+<p>数据导出导入</p>
+</li>
+</ul>
+<h2>部署</h2>
+<p>settings -&gt; deployment</p>
+<p>将本地编译后的文件映射到服务器的目录。</p>
+
+<p>在本地映射到服务器的文件上右键，上传。</p>
+
+<h2>远程命令</h2>
+<p>在部署完之后一般需要执行命令或者脚本，这边我演示将远程服务器的nginx命令映射到idea里面。</p>
+
+
+<h2>远程执行</h2>
+<p>如果大家有做过支付功能可以知道它必须用于公网ip，我们在本地调试不了支付功能（除非内网穿透），只能将应用打包放到服务器上运行。这样做每次修改代码都需要重新打包部署很费时间。这个远程执行的功能就很好用了，可以直接指定你的应用运行机器。</p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>工作必用的Jenkins</title>
+      <link>https://mister-hope.github.io/blog/tools/jenkins/</link>
+      <guid>https://mister-hope.github.io/blog/tools/jenkins/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">工作必用的Jenkins</source>
+      <description>工作必用的Jenkins Jenkins是一个可扩展的自动化服务器，Jenkins 可以作为一个简单的 CI 服务器使用，或者成为任何项目的持续交付中心。 CI/CD 通过上面这张图可以分三部分来理解CI/CD 第一部分 先看看软件开发生命周期（SDLC）和CI/CD是如何结合的。软件开发一般包含几个重要的阶段：开发（Develop），测试（Test）...</description>
+      <category>CI/CD</category>
+      <pubDate>Tue, 22 Aug 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<p>Jenkins是一个可扩展的自动化服务器，Jenkins 可以作为一个简单的 CI 服务器使用，或者成为任何项目的持续交付中心。</p>
+<h2>CI/CD</h2>
+
+<p>通过上面这张图可以分三部分来理解CI/CD</p>
+<ul>
+<li><strong>第一部分</strong></li>
+</ul>
+<p>先看看软件开发生命周期（SDLC）和CI/CD是如何结合的。软件开发一般包含几个重要的阶段：开发（Develop），测试（Test），部署（Deploy），维护（Maintain）。CI/CD可以将上述的流程流程串联一起来形成一个自动化的闭环，使得每次发布都更快更可靠。</p>
+<ul>
+<li><strong>第二部分</strong></li>
+</ul>
+<p>Continuous Integration(CI) 持续集成会不断的监听仓库并且执行构建测试确保最后合并到发布分支是没问题的。这样可以提早的发现问题，而不是累计了多次提交等合并到发布分支的时候才发现问题，这样回滚的时候会比较麻烦。</p>
+<p>Continuous Delivery(CD) 持续交付主要是在部署方面的自动化，它也会运行一些测试，每次发布分支有更新CD就会把CI构建好的代码部署到生产上。</p>
+<ul>
+<li><strong>第三部分</strong></li>
+</ul>
+<p>总结一下整体的流程可以有如下步骤</p>
+<ul>
+<li>开发者提交代码到参考</li>
+<li>CI 服务器检测到代码更新触发构建</li>
+<li>构建好代码并且测试</li>
+<li>生成测试结果报告</li>
+<li>部署打包的代码到模拟环境</li>
+<li>后续可能会有模拟环境的测试</li>
+<li>最后发布到生成环境</li>
+</ul>
+<p>那CI/CD是如何工作的呢？它其实不神秘，你把它看成一个软件（Jenkins），它可以运行在你的电脑上也可以单独运行在服务器上。它首先会监听你的代码仓库，每次有代码提交到仓库上它就会开始运转第一部分的流程图，先是把代码拉取下来在本地编译（Jenkins所在的机器）和测试(<br>
+测试环境)。然后用前端的自动化测试模拟用户点击（e2e<br>
+test），这步通过后就可以部署到模拟环境（Staging）或者生成环境（Production）。如果出现了问题就会通知开发者，开发者根据报错日志修改bug并且提交代码，接着又重复上述的流程。</p>
+<h2>Jenkins安装</h2>
+<p>本教程以windows为例安装jenkins，其他系统请参照官方文档。</p>
+<ul>
+<li>第一步<br>
+在<a href="https://www.jenkins.io/doc/book/installing/windows/" target="_blank" rel="noopener noreferrer">官网</a><br>
+下载<a href="https://www.jenkins.io/download/#downloading-jenkins" target="_blank" rel="noopener noreferrer">安装包</a></li>
+</ul>
+<p>打开安装包链接出现图1网页，再点击Windows即可下载。</p>
+
+<ul>
+<li>第二步</li>
+</ul>
+<p>按照提示走到这边。在这边输入你windows的用户名和密码。然后点击验证凭证。</p>
+
+<p>如果出错请按照以下步骤添加权限</p>
+<ol>
+<li>打开开始，输入<code>本地安全策略</code></li>
+<li>展开<code>本地策略</code>并点击右侧的<code>用户权限分配</code></li>
+<li>在右侧面板中找到<code>作为服务登录</code>，右键-&gt;属性</li>
+<li>点击<code>添加用户或组</code></li>
+<li>在输入框内输入你的Windows用户名，然后点击<code>检查名称</code>再点击确定。</li>
+</ol>
+
+<ul>
+<li>第三步</li>
+</ul>
+<p>在选择好端口和jdk路径后就安装结束了。安装成功后在任务管理器的服务中可以看见Jenkins服务</p>
+
+<ul>
+<li>第四步</li>
+</ul>
+<p>在浏览器中打开<code>http://localhost:8080</code>，如果你是安装时选择的端口号不是8080那替换成你选择的端口。打开后出现图5页面，根据红色的提示路径获取初始密码（图6）</p>
+
+
+<ul>
+<li>第五步</li>
+</ul>
+<p>安装推荐的插件，并且创建一个用户。</p>
+<h2>博客CI/CD案例</h2>
+<p>以前我每次写完博客需要自己编译打包部署。有时候部署完后发现格式或者内容出了一些问题又要重新打包部署，每次重复的干这些事显然是很枯燥无味的。使用Jenkins编写pipeline就可以帮助我完成这些重复的工作。</p>
+<h3>安装插件</h3>
+<p>除了安装推荐的插件之外还需要安装下面两个插件</p>
+<ul>
+<li><code>Publish Over SSH</code> 用于发送构建好的文件到服务器</li>
+<li><code>NodeJS Plugin</code> 管理不同版本的Node.js</li>
+</ul>
+<h3>配置</h3>
+<ul>
+<li><strong>配置服务器信息</strong></li>
+</ul>
+<p><code>Dashboard-&gt; Manage Jenkins-&gt; System -&gt; Publish over SSH -&gt; 新增SSH Server</code></p>
+
+<ul>
+<li><strong>配置Node.js</strong></li>
+</ul>
+<p><code>Dashboard-&gt; Manage Jenkins-&gt; Tools -&gt; NodeJS -&gt; 新增NodeJS</code></p>
+
+<h3>新建Pipeline项目</h3>
+<p><code>Dashboard -&gt; 新建Item -&gt; Pipeline</code></p>
+
+<h3>编写Pipeline</h3>
+<p><code>Dashboard -&gt; qifan-blog(你的项目) -&gt; 配置</code></p>
+<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code>pipeline {
+    agent any
+    // 选择node 16
+    tools {
+      nodejs 'node 16'
+    }
+   // 将整个构建部署分成三个阶段，整个分成几个阶段没有一个标准，全部合成一个阶段也可以。
+   // 分成多个阶段的好处的优点有 1. 逻辑清晰 2. 对于大项目如果其中某个阶段失败了，下次可以从失败的地方再运行。已经成功的阶段就不需要运行了。可以节省时间。3. 方便统计每个阶段的运行时间，好定位问题。
+    stages {
+        // 从git参考获取代码
+        stage('Git Checkout') {
+            steps {
+              // 从github获取代码，这边使用的是你本机的git。相当于你自己执行了git clone https://github.com/qifan777/qifan-blog-vuepress2.git
+              // git checkout master
+              git branch: 'master', url: 'https://github.com/qifan777/qifan-blog-vuepress2.git'
+            }
+        }
+        // 获取代码后在node16上构建博客代码
+        stage('Build') {
+            steps {
+                bat "node -v"
+                bat "npm install"
+                bat "npm run docs:build"
+            }
+        }
+        // 将构建好的博客上传到服务器上
+        stage('SSH Punlisher') {
+            steps{
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'centos7',
+                 transfers: [sshTransfer( execCommand: 'nginx -s reopen',
+                 remoteDirectory: '/www/server/nginx/html/blog',
+                 removePrefix: 'docs/.vuepress/dist',
+                  sourceFiles: 'docs/.vuepress/dist/**')])])
+            }
+        }
+    }
+}
+
+</code></pre></div><p>点击保存</p>
+<h3>构建Pipeline</h3>
+<p><code>Dashboard -&gt; qifan-blog(你的项目) -&gt; Build Now</code></p>
+
+<h2>Pipeline介绍</h2>
+<h3>概念介绍</h3>
+<p>pipeline流水线以<code>pipeline {}</code>开始，<code>pipeline{}</code>下可以包含<code>Sections</code>,<code>Steps</code>,<code>Directives</code>, 赋值语句。</p>
+
+
+<p>通过上面的例子相信大家对pipeline有了初步的了解。</p>
+<p>我们看图11中pipeline启动的方式可以是监听git仓库，每次git仓库有代码推送就会自动启动pipeline。前面的例子中我们是手动点击<code>Build Now</code><br>
+启动Pipeline的。</p>
+<p>在观察图中有多个Stage，对照我们之前写的例子其中有<code>Git Checkout</code>,<code>Build</code>和<code>SSH Punlisher</code><br>
+三个Stage。Stage的作用就是将整个构建部署流程从逻辑上划分成多个阶段。</p>
+<p>每个阶段（Stage）中又可以添加<code>Steps</code>，在<code>Steps</code>下可以添加<code>Directives</code>。我们看一下之前例子中的<code>Build</code>阶段，该阶段下有一个<br>
+<code>Steps</code>其中包含了三条<code>Directives</code>。在同一个<code>Steps</code>下的指令是可以共享局部变量，比如你可以在<code>Steps</code>中顶一个变量<code>def count=1</code>，下面的指令都可以使用count变量。</p>
+<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code>steps {
+    bat "node -v"
+    bat "npm install"
+    bat "npm run docs:build"
+}
+</code></pre></div><h3>如何编写Pipeline</h3>
+<p>一般分如下几个步骤</p>
+<ol>
+<li>确定Pipeline运行的<code>agent（机器/环境）</code></li>
+</ol>
+<p>如果是本机直接填写<code>agent: any</code>，还可以运行在docker，其他服务器，k8s上。可以参考官方文档中的<code>agent</code>参数。</p>
+<ol start="2">
+<li>配置需要工具</li>
+</ol>
+<p>如果你安装了git，maven插件，下面你tools你也可以添加。其他的工具也可以在插件市场中找到，安装完插件配置工具的版本，然后在<code>tools{}</code><br>
+中选择相应的版本。</p>
+<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code> tools {
+    nodejs 'node 16'
+    git '配置的git版本'
+    maven '配置的maven版本'
+ }
+</code></pre></div><ol start="3">
+<li>划分stage</li>
+</ol>
+<p>参考我写的例子</p>
+<ol start="4">
+<li>在每个stage中使用指令(Directives)</li>
+</ol>
+<p>编写指令的时候，如果你不知道如何使用指令可以参考这个指令生成器和片段生成器。<br>
+指令生成器生成（Declarative Directive<br>
+Generator）的是官方提供的语法，片段生成器可以生成你下载的插件指令。比如之前写的例子中<code>tools</code>,<code>bat</code><br>
+就是官方的指令，<code>git</code>,<code>sshPublisher</code>就是我安装的插件提供的指令。</p>
+<p><code>Dashboard -&gt; qifan-blog(你的项目)  -&gt; 流水线语法 -&gt; Declarative Directive Generator</code></p>
+<p><code>Dashboard -&gt; qifan-blog(你的项目)  -&gt; 流水线语法 -&gt; 片段生成器</code></p>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>远程开发工具分享</title>
+      <link>https://mister-hope.github.io/blog/tools/remote-develop/</link>
+      <guid>https://mister-hope.github.io/blog/tools/remote-develop/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">远程开发工具分享</source>
+      <description>远程开发工具分享 想到远程开发工具，大家必然会想到远程操控软件如TeamView，向日葵远程操控，ToDesk等等。在使用远程操控我们可以明显感觉到以下几个缺点 1. 画质低 大部人是使用免费的远程操控软件，平常我们写代码的时候字体本来就不是很大加上画面一糊根本就看不见代码。即使看得见也很难受，我自己是很难接受长时间在这种画质下写代码。 2. 延迟高 ...</description>
+      <category>IDEA技巧</category>
+      <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<p>想到远程开发工具，大家必然会想到远程操控软件如TeamView，向日葵远程操控，ToDesk等等。在使用远程操控我们可以明显感觉到以下几个缺点</p>
+<h5>1. 画质低</h5>
+<p>大部人是使用免费的远程操控软件，平常我们写代码的时候字体本来就不是很大加上画面一糊根本就看不见代码。即使看得见也很难受，我自己是很难接受长时间在这种画质下写代码。</p>
+<h5>2. 延迟高</h5>
+<p>我在使用远程操控写代码时候经常因为输入了一段代码但是还没反应过来导致我以为还没输入，然后又重新输入了一遍。更难受的时候，这个时候我删除也会出现同样的情况</p>
+<h5>3. 无法访问服务</h5>
+<p>我们在远程电脑假设运行了一个后端服务，或者前端项目，因为远程电脑没有拥有公网IP，我们没有办法在本机上访问到远程电脑上运行的服务。</p>
+<p>当然远程操控软件也有很明显的有点，那就是你可以拥有你电脑完整的操控权，你可以打开电脑上的各种软件，文档，随时的复制粘贴等。<br>
+所以如果我们能在远程操控软件的基础上解决画质低，延迟高，公网访问那岂不是完美了！</p>
+<p>ps：其实还有一个文件传输，这个只能通过微信QQ这种通讯工具解决了。</p>
+<h2>Idea插件Code With Me</h2>
+<p>Jetbrains 下面的旗舰版IDE如 IDEA，Pycharm，Webstorm都自带这个插件。也是可以和IDE一起破解的。</p>
+<p>使用介绍：在上诉介绍的IDE（2023版本）中，双击 <code>SHIFT</code> 输入<code>Code With Me</code>（图 1）。随后在右上角的弹出框中选择<code>Start Session</code>（图<br>
+2）。然后我们再选择第三个选项<code>Full Access</code>开放所有权限（图 3），最后点击 <code>Start Session</code><br>
+。启动后会自动把控制链接复制到粘贴板。然后你就可以在本机电脑的IDEA打开<code>Code With Me</code>然后<code>Join Session</code><br>
+在弹出框中输入刚刚远程机上得到是链接就可以远程开发了。</p>
+
+
+
+<h2>Jetbrains Gateway</h2>
+<p>总所周知，IDEA的内存占用至少那就是3，4个G。如果我们在本机电脑上打开IDEA去控制远程电脑上的IDEA这样本机电脑的IDEA内存占用就有些浪费了，因为我们没有在本机电脑的IDEA上写代码，现在本机电脑的IDEA只是一个远程操控软件。所以针对这种需求场景，JetBrains有一款产品叫<code>JetBrains Gateway</code><br>
+它就是专门用来操控远程JetBrains下的IDE，内存占用也会少。</p>
+<p>下面们就对比下IDEA和JetBrains的内存占用情况。可以看到Gateway的内存占用1G不到，IDEA内存占用高达4.5G。所以我们如果只是为了远程控制IDEA只需要在本机开Gateway就行了。</p>
+
+
+<p>使用介绍：我们在Gateway的首页上点击左侧菜单栏<code>Connect with a Link</code>（图6），将我们之前远程机中开启<code>Code With Me</code>得到的链接复制到里面再点击<code>Connect</code>。随后我们需要在远程机同意控制（图7）。</p>
+
+
+<p>Gateway的右下角可以看见延迟，我目前最高在100以内，大部分都是在30左右非常稳定。</p>
+
+<p>如果你需要开启远程端口访问，来访问远程机上的服务，你可以在远程机的IDEA上双击Shift输入<code>Port Foward</code>。在右侧的面板中添加需要转发的端口，比如我的后端服务端口是8890。开启后你在本机上就可以通过localhost:8890来访访问远程机上的8890了。</p>
+
+]]></content:encoded>
+    </item>
+    <item>
+      <title>VuePress2搭建自己的博客/官方网站</title>
+      <link>https://mister-hope.github.io/blog/tools/vue-press2/</link>
+      <guid>https://mister-hope.github.io/blog/tools/vue-press2/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">VuePress2搭建自己的博客/官方网站</source>
+      <description>VuePress2搭建自己的博客/官方网站 VuePress 是一个以 Markdown 为中心的静态网站生成器。你可以使用 Markdown 来书写内容（如文档、博客等），然后 VuePress 会帮助你生成一个静态网站来展示它们。 ps: 以上介绍摘自官网 平常我写博客只需要用markdown写好，然后运行打包命令，就可以将markdown转成ht...</description>
+      <category>网站搭建</category>
+      <pubDate>Tue, 15 Aug 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[
+<figure><figcaption></figcaption></figure>
+
+<p>VuePress 是一个以 Markdown 为中心的静态网站生成器。你可以使用 Markdown 来书写内容（如文档、博客等），然后 VuePress<br>
+会帮助你生成一个静态网站来展示它们。</p>
+<blockquote>
+<p>ps: 以上介绍摘自官网</p>
+</blockquote>
+<p>平常我写博客只需要用markdown写好，然后运行打包命令，就可以将markdown转成html。接着将打包好的文件到nginx服务器上就可以供用户访问了。</p>
+<h2>快速上手</h2>
+<h3>依赖环境</h3>
+<ul>
+<li>Node.js v16.19.0+</li>
+</ul>
+<h3>手动安装</h3>
+<ul>
+<li><strong>步骤 1</strong>: 创建并进入一个新目录</li>
+</ul>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">mkdir</span> vuepress-starter
+<span class="token builtin class-name">cd</span> vuepress-starter
+</code></pre></div><ul>
+<li><strong>步骤 2</strong>: 初始化项目</li>
+</ul>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">git</span> init
+<span class="token function">pnpm</span> init
+</code></pre></div><ul>
+<li><strong>步骤 3</strong>: 将 VuePress 安装为本地依赖</li>
+</ul>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">pnpm</span> <span class="token function">add</span> <span class="token parameter variable">-D</span> vuepress@next @vuepress/client@next vue
+</code></pre></div><ul>
+<li>步骤 4: 在 package.json 中添加一些 scripts</li>
+</ul>
+<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"docs:dev"</span><span class="token operator">:</span> <span class="token string">"vuepress dev docs"</span><span class="token punctuation">,</span>
+    <span class="token property">"docs:build"</span><span class="token operator">:</span> <span class="token string">"vuepress build docs"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul>
+<li>步骤 5: 在 .gitignore 文件中添加下面内容</li>
+</ul>
+<div class="language-ignorelang" data-ext="ignorelang" data-title="ignorelang"><pre class="language-ignorelang"><code>.DS_Store
+node_modules
+/dist
+.temp
+.cache
+
+docs/.vuepress/dist
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea/
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+</code></pre></div><ul>
+<li><strong>步骤 6</strong>: 创建你的第一篇文档</li>
+</ul>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">mkdir</span> docs
+<span class="token builtin class-name">echo</span> <span class="token string">'# Hello VuePress'</span> <span class="token operator">&gt;</span> docs/README.md
+</code></pre></div><ul>
+<li><strong>步骤 7</strong>: 在本地启动服务器来开发你的文档网站</li>
+</ul>
+<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">pnpm</span> docs:dev
+</code></pre></div><h2>页面</h2>
+<h3>页面路由</h3>
+<p>vuepress会读取docs目录下所有的markdown文件转成html。然后通过浏览器的输入对应的路径就可以访问了。<br>
+比如下面几个例子，左侧是文件在目录中的位置和文件名，右侧是在浏览器中的路由地址。</p>
+<p>| 相对路径	                      | 路由路径                        |<br>
+|</p>
+]]></content:encoded>
+    </item>
+    <item>
       <title>ChatGPT二次开发</title>
       <link>https://mister-hope.github.io/blog/project/chatgpt-assistant/</link>
       <guid>https://mister-hope.github.io/blog/project/chatgpt-assistant/</guid>
@@ -7052,419 +7545,6 @@ qq：1507906763</p>
 <h3>微信小程序端</h3>
 <p>在小程序端我选择使用京东的<code>Taro</code>小程序开发框架。其实采用<code>Taro</code>，<code>Uni-App</code>，<code>微信小程序官方语法</code>这三个框架开发并没有多大的差别。它们的配置，目录结构，API，都是遵循统一的规范。主要差别是在于<code>Taro</code>对于<code>Vue3</code>+<code>TypeScript</code>支持较好。</p>
 <p>| 技术         | 说明                                                                | 官网                                                     |<br>
-|</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>ChatGPT Next Web 搭建教程</title>
-      <link>https://mister-hope.github.io/blog/tools/chatgpt/</link>
-      <guid>https://mister-hope.github.io/blog/tools/chatgpt/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">ChatGPT Next Web 搭建教程</source>
-      <description>ChatGPT Next Web 搭建教程 1.2 介绍 1.2.1 自我介绍 我是起凡，一名全栈程序员，刚刚毕业于华侨大学。主要技术栈后端SpringBoot,Jpa, MongoDb等。前端Vue3, Typescript, Taro小程序。 1.2.2 ChatGPT Next Web 介绍 ChatGPT Next Web可以使用OpenAI官...</description>
-      <category>ChatGPT</category>
-      <pubDate>Wed, 10 May 2023 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[
-<h2>1.2 介绍</h2>
-<h3>1.2.1 自我介绍</h3>
-<p>我是起凡，一名全栈程序员，刚刚毕业于华侨大学。主要技术栈后端SpringBoot,Jpa, MongoDb等。前端Vue3, Typescript, Taro小程序。</p>
-<h3>1.2.2 ChatGPT Next Web 介绍</h3>
-<p>ChatGPT Next Web可以使用OpenAI官方提供的API。比如ChatGPT3.5模型，ChatGPT4.0模型等等。并且提供了一个WEB界面将我们输入的内容转发给OpenAI。同时支持多聊天窗口会话等。</p>
-<div style="text-align: center">
-
-</div>
-<h3>1.2.3 被封锁的中国区域</h3>
-<p>在中国地区无法调用OpenAI的接口，意味着即使你在本地部署了ChatGPT Next Web你无法与之对话。要解决上面的问题只能通过代理。</p>
-<ul>
-<li>使用稳定的代理服务软件和节点比如Windows的Clash for windows/v2ayN, linux的v2raya, mac下的Clash for mac等。</li>
-<li>配置代理软件让ChatGPT Next Web能够走代理</li>
-</ul>
-<h2>1.3 先决条件</h2>
-<h3>1.3.1 Docker</h3>
-<p>ChatGPT Next<br>
-Web可以通过源码安装，这种方式对于不熟悉开发的人来说要安装许多的软件和配置很多环境所以不推荐。使用Docker安装只需要一行命令。所以我推荐使用Docker来安装。如果是Windows或者Mac用户下载Docker<br>
-Desktop。</p>
-<p>请根据不同的操作系统安装docker。下面以Centos7操作系统为例安装docker。</p>
-<p>| 家族      | 发行版                                                              |<br>
-|</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>IDEA——强大的Shell工具</title>
-      <link>https://mister-hope.github.io/blog/tools/idea/shell.html</link>
-      <guid>https://mister-hope.github.io/blog/tools/idea/shell.html</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">IDEA——强大的Shell工具</source>
-      <description>IDEA——强大的Shell工具 SSH 在使用Shell工具时最常用的是SSH输入命令操控远程服务器。在idea中使用SSH也是很简单的事情。 settings -&amp;gt; tools -&amp;gt; ssh congratulations alt+f12打开命令行，在右上角的下拉框中选择上面配置好的SSH会话。之后直接在命令行中就可以向服务器发送命令了。 SFTP...</description>
-      <category>IDEA技巧</category>
-      <pubDate>Sun, 24 Sep 2023 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[
-<h2>SSH</h2>
-<p>在使用Shell工具时最常用的是SSH输入命令操控远程服务器。在idea中使用SSH也是很简单的事情。</p>
-<p>settings -&gt; tools -&gt; ssh congratulations</p>
-
-<p>alt+f12打开命令行，在右上角的下拉框中选择上面配置好的SSH会话。之后直接在命令行中就可以向服务器发送命令了。</p>
-
-<h2>SFTP</h2>
-<p>在控制远程服务器时除了发送命令行，自然少不了互传文件，文件预览编辑的功能。幸运的是强大的idea也有这个功能</p>
-<p>settings -&gt; deployment。点击左上角的➕添加sftp服务器，可以从之前已经配置的ssh session中选择。</p>
-
-<p>默认情况下idea没有显示远程sftp服务器的菜单，需要手动打开。</p>
-
-<p>在右侧的菜单栏中打开sftp服务器列表，选择已经配置好的sftp服务器，确认后下面就可以显示服务器内的文件了，可以编辑，可以下载，可以拖动本地文件到远程文件夹。</p>
-
-<h2>Database</h2>
-<p>作为一名软件开发程序员，经常需要远程查看服务器上的数据库。所以除了shell工具之外还需准备数据库连接工具。</p>
-
-<p>在ssh/ssl页签中选择已经配置好的ssh。之后切换到general页签输入数据库的账号密码，记住不需要修改host。</p>
-
-<p>连接数据库后你使用这</p>
-<ul>
-<li>
-<p>数据库迁移<br>
-在服务器上部署新项目的时候需要在服务器上新建数据库，然后把本地的表迁移到服务器上，在idea中就可以实现这个操作。</p>
-</li>
-<li>
-<p>结构对比<br>
-如果你在本地的数据库修改了某个字段，然后想同步到服务器上，idea的数据库/表结构对比非常好用。</p>
-</li>
-<li>
-<p>数据导出导入</p>
-</li>
-</ul>
-<h2>部署</h2>
-<p>settings -&gt; deployment</p>
-<p>将本地编译后的文件映射到服务器的目录。</p>
-
-<p>在本地映射到服务器的文件上右键，上传。</p>
-
-<h2>远程命令</h2>
-<p>在部署完之后一般需要执行命令或者脚本，这边我演示将远程服务器的nginx命令映射到idea里面。</p>
-
-
-<h2>远程执行</h2>
-<p>如果大家有做过支付功能可以知道它必须用于公网ip，我们在本地调试不了支付功能（除非内网穿透），只能将应用打包放到服务器上运行。这样做每次修改代码都需要重新打包部署很费时间。这个远程执行的功能就很好用了，可以直接指定你的应用运行机器。</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>工作必用的Jenkins</title>
-      <link>https://mister-hope.github.io/blog/tools/jenkins/</link>
-      <guid>https://mister-hope.github.io/blog/tools/jenkins/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">工作必用的Jenkins</source>
-      <description>工作必用的Jenkins Jenkins是一个可扩展的自动化服务器，Jenkins 可以作为一个简单的 CI 服务器使用，或者成为任何项目的持续交付中心。 CI/CD 通过上面这张图可以分三部分来理解CI/CD 第一部分 先看看软件开发生命周期（SDLC）和CI/CD是如何结合的。软件开发一般包含几个重要的阶段：开发（Develop），测试（Test）...</description>
-      <category>CI/CD</category>
-      <pubDate>Tue, 22 Aug 2023 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[
-<p>Jenkins是一个可扩展的自动化服务器，Jenkins 可以作为一个简单的 CI 服务器使用，或者成为任何项目的持续交付中心。</p>
-<h2>CI/CD</h2>
-
-<p>通过上面这张图可以分三部分来理解CI/CD</p>
-<ul>
-<li><strong>第一部分</strong></li>
-</ul>
-<p>先看看软件开发生命周期（SDLC）和CI/CD是如何结合的。软件开发一般包含几个重要的阶段：开发（Develop），测试（Test），部署（Deploy），维护（Maintain）。CI/CD可以将上述的流程流程串联一起来形成一个自动化的闭环，使得每次发布都更快更可靠。</p>
-<ul>
-<li><strong>第二部分</strong></li>
-</ul>
-<p>Continuous Integration(CI) 持续集成会不断的监听仓库并且执行构建测试确保最后合并到发布分支是没问题的。这样可以提早的发现问题，而不是累计了多次提交等合并到发布分支的时候才发现问题，这样回滚的时候会比较麻烦。</p>
-<p>Continuous Delivery(CD) 持续交付主要是在部署方面的自动化，它也会运行一些测试，每次发布分支有更新CD就会把CI构建好的代码部署到生产上。</p>
-<ul>
-<li><strong>第三部分</strong></li>
-</ul>
-<p>总结一下整体的流程可以有如下步骤</p>
-<ul>
-<li>开发者提交代码到参考</li>
-<li>CI 服务器检测到代码更新触发构建</li>
-<li>构建好代码并且测试</li>
-<li>生成测试结果报告</li>
-<li>部署打包的代码到模拟环境</li>
-<li>后续可能会有模拟环境的测试</li>
-<li>最后发布到生成环境</li>
-</ul>
-<p>那CI/CD是如何工作的呢？它其实不神秘，你把它看成一个软件（Jenkins），它可以运行在你的电脑上也可以单独运行在服务器上。它首先会监听你的代码仓库，每次有代码提交到仓库上它就会开始运转第一部分的流程图，先是把代码拉取下来在本地编译（Jenkins所在的机器）和测试(<br>
-测试环境)。然后用前端的自动化测试模拟用户点击（e2e<br>
-test），这步通过后就可以部署到模拟环境（Staging）或者生成环境（Production）。如果出现了问题就会通知开发者，开发者根据报错日志修改bug并且提交代码，接着又重复上述的流程。</p>
-<h2>Jenkins安装</h2>
-<p>本教程以windows为例安装jenkins，其他系统请参照官方文档。</p>
-<ul>
-<li>第一步<br>
-在<a href="https://www.jenkins.io/doc/book/installing/windows/" target="_blank" rel="noopener noreferrer">官网</a><br>
-下载<a href="https://www.jenkins.io/download/#downloading-jenkins" target="_blank" rel="noopener noreferrer">安装包</a></li>
-</ul>
-<p>打开安装包链接出现图1网页，再点击Windows即可下载。</p>
-
-<ul>
-<li>第二步</li>
-</ul>
-<p>按照提示走到这边。在这边输入你windows的用户名和密码。然后点击验证凭证。</p>
-
-<p>如果出错请按照以下步骤添加权限</p>
-<ol>
-<li>打开开始，输入<code>本地安全策略</code></li>
-<li>展开<code>本地策略</code>并点击右侧的<code>用户权限分配</code></li>
-<li>在右侧面板中找到<code>作为服务登录</code>，右键-&gt;属性</li>
-<li>点击<code>添加用户或组</code></li>
-<li>在输入框内输入你的Windows用户名，然后点击<code>检查名称</code>再点击确定。</li>
-</ol>
-
-<ul>
-<li>第三步</li>
-</ul>
-<p>在选择好端口和jdk路径后就安装结束了。安装成功后在任务管理器的服务中可以看见Jenkins服务</p>
-
-<ul>
-<li>第四步</li>
-</ul>
-<p>在浏览器中打开<code>http://localhost:8080</code>，如果你是安装时选择的端口号不是8080那替换成你选择的端口。打开后出现图5页面，根据红色的提示路径获取初始密码（图6）</p>
-
-
-<ul>
-<li>第五步</li>
-</ul>
-<p>安装推荐的插件，并且创建一个用户。</p>
-<h2>博客CI/CD案例</h2>
-<p>以前我每次写完博客需要自己编译打包部署。有时候部署完后发现格式或者内容出了一些问题又要重新打包部署，每次重复的干这些事显然是很枯燥无味的。使用Jenkins编写pipeline就可以帮助我完成这些重复的工作。</p>
-<h3>安装插件</h3>
-<p>除了安装推荐的插件之外还需要安装下面两个插件</p>
-<ul>
-<li><code>Publish Over SSH</code> 用于发送构建好的文件到服务器</li>
-<li><code>NodeJS Plugin</code> 管理不同版本的Node.js</li>
-</ul>
-<h3>配置</h3>
-<ul>
-<li><strong>配置服务器信息</strong></li>
-</ul>
-<p><code>Dashboard-&gt; Manage Jenkins-&gt; System -&gt; Publish over SSH -&gt; 新增SSH Server</code></p>
-
-<ul>
-<li><strong>配置Node.js</strong></li>
-</ul>
-<p><code>Dashboard-&gt; Manage Jenkins-&gt; Tools -&gt; NodeJS -&gt; 新增NodeJS</code></p>
-
-<h3>新建Pipeline项目</h3>
-<p><code>Dashboard -&gt; 新建Item -&gt; Pipeline</code></p>
-
-<h3>编写Pipeline</h3>
-<p><code>Dashboard -&gt; qifan-blog(你的项目) -&gt; 配置</code></p>
-<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code>pipeline {
-    agent any
-    // 选择node 16
-    tools {
-      nodejs 'node 16'
-    }
-   // 将整个构建部署分成三个阶段，整个分成几个阶段没有一个标准，全部合成一个阶段也可以。
-   // 分成多个阶段的好处的优点有 1. 逻辑清晰 2. 对于大项目如果其中某个阶段失败了，下次可以从失败的地方再运行。已经成功的阶段就不需要运行了。可以节省时间。3. 方便统计每个阶段的运行时间，好定位问题。
-    stages {
-        // 从git参考获取代码
-        stage('Git Checkout') {
-            steps {
-              // 从github获取代码，这边使用的是你本机的git。相当于你自己执行了git clone https://github.com/qifan777/qifan-blog-vuepress2.git
-              // git checkout master
-              git branch: 'master', url: 'https://github.com/qifan777/qifan-blog-vuepress2.git'
-            }
-        }
-        // 获取代码后在node16上构建博客代码
-        stage('Build') {
-            steps {
-                bat "node -v"
-                bat "npm install"
-                bat "npm run docs:build"
-            }
-        }
-        // 将构建好的博客上传到服务器上
-        stage('SSH Punlisher') {
-            steps{
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'centos7',
-                 transfers: [sshTransfer( execCommand: 'nginx -s reopen',
-                 remoteDirectory: '/www/server/nginx/html/blog',
-                 removePrefix: 'docs/.vuepress/dist',
-                  sourceFiles: 'docs/.vuepress/dist/**')])])
-            }
-        }
-    }
-}
-
-</code></pre></div><p>点击保存</p>
-<h3>构建Pipeline</h3>
-<p><code>Dashboard -&gt; qifan-blog(你的项目) -&gt; Build Now</code></p>
-
-<h2>Pipeline介绍</h2>
-<h3>概念介绍</h3>
-<p>pipeline流水线以<code>pipeline {}</code>开始，<code>pipeline{}</code>下可以包含<code>Sections</code>,<code>Steps</code>,<code>Directives</code>, 赋值语句。</p>
-
-
-<p>通过上面的例子相信大家对pipeline有了初步的了解。</p>
-<p>我们看图11中pipeline启动的方式可以是监听git仓库，每次git仓库有代码推送就会自动启动pipeline。前面的例子中我们是手动点击<code>Build Now</code><br>
-启动Pipeline的。</p>
-<p>在观察图中有多个Stage，对照我们之前写的例子其中有<code>Git Checkout</code>,<code>Build</code>和<code>SSH Punlisher</code><br>
-三个Stage。Stage的作用就是将整个构建部署流程从逻辑上划分成多个阶段。</p>
-<p>每个阶段（Stage）中又可以添加<code>Steps</code>，在<code>Steps</code>下可以添加<code>Directives</code>。我们看一下之前例子中的<code>Build</code>阶段，该阶段下有一个<br>
-<code>Steps</code>其中包含了三条<code>Directives</code>。在同一个<code>Steps</code>下的指令是可以共享局部变量，比如你可以在<code>Steps</code>中顶一个变量<code>def count=1</code>，下面的指令都可以使用count变量。</p>
-<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code>steps {
-    bat "node -v"
-    bat "npm install"
-    bat "npm run docs:build"
-}
-</code></pre></div><h3>如何编写Pipeline</h3>
-<p>一般分如下几个步骤</p>
-<ol>
-<li>确定Pipeline运行的<code>agent（机器/环境）</code></li>
-</ol>
-<p>如果是本机直接填写<code>agent: any</code>，还可以运行在docker，其他服务器，k8s上。可以参考官方文档中的<code>agent</code>参数。</p>
-<ol start="2">
-<li>配置需要工具</li>
-</ol>
-<p>如果你安装了git，maven插件，下面你tools你也可以添加。其他的工具也可以在插件市场中找到，安装完插件配置工具的版本，然后在<code>tools{}</code><br>
-中选择相应的版本。</p>
-<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code> tools {
-    nodejs 'node 16'
-    git '配置的git版本'
-    maven '配置的maven版本'
- }
-</code></pre></div><ol start="3">
-<li>划分stage</li>
-</ol>
-<p>参考我写的例子</p>
-<ol start="4">
-<li>在每个stage中使用指令(Directives)</li>
-</ol>
-<p>编写指令的时候，如果你不知道如何使用指令可以参考这个指令生成器和片段生成器。<br>
-指令生成器生成（Declarative Directive<br>
-Generator）的是官方提供的语法，片段生成器可以生成你下载的插件指令。比如之前写的例子中<code>tools</code>,<code>bat</code><br>
-就是官方的指令，<code>git</code>,<code>sshPublisher</code>就是我安装的插件提供的指令。</p>
-<p><code>Dashboard -&gt; qifan-blog(你的项目)  -&gt; 流水线语法 -&gt; Declarative Directive Generator</code></p>
-<p><code>Dashboard -&gt; qifan-blog(你的项目)  -&gt; 流水线语法 -&gt; 片段生成器</code></p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>远程开发工具分享</title>
-      <link>https://mister-hope.github.io/blog/tools/remote-develop/</link>
-      <guid>https://mister-hope.github.io/blog/tools/remote-develop/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">远程开发工具分享</source>
-      <description>远程开发工具分享 想到远程开发工具，大家必然会想到远程操控软件如TeamView，向日葵远程操控，ToDesk等等。在使用远程操控我们可以明显感觉到以下几个缺点 1. 画质低 大部人是使用免费的远程操控软件，平常我们写代码的时候字体本来就不是很大加上画面一糊根本就看不见代码。即使看得见也很难受，我自己是很难接受长时间在这种画质下写代码。 2. 延迟高 ...</description>
-      <category>IDEA技巧</category>
-      <pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[
-<p>想到远程开发工具，大家必然会想到远程操控软件如TeamView，向日葵远程操控，ToDesk等等。在使用远程操控我们可以明显感觉到以下几个缺点</p>
-<h5>1. 画质低</h5>
-<p>大部人是使用免费的远程操控软件，平常我们写代码的时候字体本来就不是很大加上画面一糊根本就看不见代码。即使看得见也很难受，我自己是很难接受长时间在这种画质下写代码。</p>
-<h5>2. 延迟高</h5>
-<p>我在使用远程操控写代码时候经常因为输入了一段代码但是还没反应过来导致我以为还没输入，然后又重新输入了一遍。更难受的时候，这个时候我删除也会出现同样的情况</p>
-<h5>3. 无法访问服务</h5>
-<p>我们在远程电脑假设运行了一个后端服务，或者前端项目，因为远程电脑没有拥有公网IP，我们没有办法在本机上访问到远程电脑上运行的服务。</p>
-<p>当然远程操控软件也有很明显的有点，那就是你可以拥有你电脑完整的操控权，你可以打开电脑上的各种软件，文档，随时的复制粘贴等。<br>
-所以如果我们能在远程操控软件的基础上解决画质低，延迟高，公网访问那岂不是完美了！</p>
-<p>ps：其实还有一个文件传输，这个只能通过微信QQ这种通讯工具解决了。</p>
-<h2>Idea插件Code With Me</h2>
-<p>Jetbrains 下面的旗舰版IDE如 IDEA，Pycharm，Webstorm都自带这个插件。也是可以和IDE一起破解的。</p>
-<p>使用介绍：在上诉介绍的IDE（2023版本）中，双击 <code>SHIFT</code> 输入<code>Code With Me</code>（图 1）。随后在右上角的弹出框中选择<code>Start Session</code>（图<br>
-2）。然后我们再选择第三个选项<code>Full Access</code>开放所有权限（图 3），最后点击 <code>Start Session</code><br>
-。启动后会自动把控制链接复制到粘贴板。然后你就可以在本机电脑的IDEA打开<code>Code With Me</code>然后<code>Join Session</code><br>
-在弹出框中输入刚刚远程机上得到是链接就可以远程开发了。</p>
-
-
-
-<h2>Jetbrains Gateway</h2>
-<p>总所周知，IDEA的内存占用至少那就是3，4个G。如果我们在本机电脑上打开IDEA去控制远程电脑上的IDEA这样本机电脑的IDEA内存占用就有些浪费了，因为我们没有在本机电脑的IDEA上写代码，现在本机电脑的IDEA只是一个远程操控软件。所以针对这种需求场景，JetBrains有一款产品叫<code>JetBrains Gateway</code><br>
-它就是专门用来操控远程JetBrains下的IDE，内存占用也会少。</p>
-<p>下面们就对比下IDEA和JetBrains的内存占用情况。可以看到Gateway的内存占用1G不到，IDEA内存占用高达4.5G。所以我们如果只是为了远程控制IDEA只需要在本机开Gateway就行了。</p>
-
-
-<p>使用介绍：我们在Gateway的首页上点击左侧菜单栏<code>Connect with a Link</code>（图6），将我们之前远程机中开启<code>Code With Me</code>得到的链接复制到里面再点击<code>Connect</code>。随后我们需要在远程机同意控制（图7）。</p>
-
-
-<p>Gateway的右下角可以看见延迟，我目前最高在100以内，大部分都是在30左右非常稳定。</p>
-
-<p>如果你需要开启远程端口访问，来访问远程机上的服务，你可以在远程机的IDEA上双击Shift输入<code>Port Foward</code>。在右侧的面板中添加需要转发的端口，比如我的后端服务端口是8890。开启后你在本机上就可以通过localhost:8890来访访问远程机上的8890了。</p>
-
-]]></content:encoded>
-    </item>
-    <item>
-      <title>VuePress2搭建自己的博客/官方网站</title>
-      <link>https://mister-hope.github.io/blog/tools/vue-press2/</link>
-      <guid>https://mister-hope.github.io/blog/tools/vue-press2/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">VuePress2搭建自己的博客/官方网站</source>
-      <description>VuePress2搭建自己的博客/官方网站 VuePress 是一个以 Markdown 为中心的静态网站生成器。你可以使用 Markdown 来书写内容（如文档、博客等），然后 VuePress 会帮助你生成一个静态网站来展示它们。 ps: 以上介绍摘自官网 平常我写博客只需要用markdown写好，然后运行打包命令，就可以将markdown转成ht...</description>
-      <category>网站搭建</category>
-      <pubDate>Tue, 15 Aug 2023 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[
-<figure><figcaption></figcaption></figure>
-
-<p>VuePress 是一个以 Markdown 为中心的静态网站生成器。你可以使用 Markdown 来书写内容（如文档、博客等），然后 VuePress<br>
-会帮助你生成一个静态网站来展示它们。</p>
-<blockquote>
-<p>ps: 以上介绍摘自官网</p>
-</blockquote>
-<p>平常我写博客只需要用markdown写好，然后运行打包命令，就可以将markdown转成html。接着将打包好的文件到nginx服务器上就可以供用户访问了。</p>
-<h2>快速上手</h2>
-<h3>依赖环境</h3>
-<ul>
-<li>Node.js v16.19.0+</li>
-</ul>
-<h3>手动安装</h3>
-<ul>
-<li><strong>步骤 1</strong>: 创建并进入一个新目录</li>
-</ul>
-<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">mkdir</span> vuepress-starter
-<span class="token builtin class-name">cd</span> vuepress-starter
-</code></pre></div><ul>
-<li><strong>步骤 2</strong>: 初始化项目</li>
-</ul>
-<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">git</span> init
-<span class="token function">pnpm</span> init
-</code></pre></div><ul>
-<li><strong>步骤 3</strong>: 将 VuePress 安装为本地依赖</li>
-</ul>
-<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">pnpm</span> <span class="token function">add</span> <span class="token parameter variable">-D</span> vuepress@next @vuepress/client@next vue
-</code></pre></div><ul>
-<li>步骤 4: 在 package.json 中添加一些 scripts</li>
-</ul>
-<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code><span class="token punctuation">{</span>
-  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"docs:dev"</span><span class="token operator">:</span> <span class="token string">"vuepress dev docs"</span><span class="token punctuation">,</span>
-    <span class="token property">"docs:build"</span><span class="token operator">:</span> <span class="token string">"vuepress build docs"</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre></div><ul>
-<li>步骤 5: 在 .gitignore 文件中添加下面内容</li>
-</ul>
-<div class="language-ignorelang" data-ext="ignorelang" data-title="ignorelang"><pre class="language-ignorelang"><code>.DS_Store
-node_modules
-/dist
-.temp
-.cache
-
-docs/.vuepress/dist
-# local env files
-.env.local
-.env.*.local
-
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# Editor directories and files
-.idea/
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-</code></pre></div><ul>
-<li><strong>步骤 6</strong>: 创建你的第一篇文档</li>
-</ul>
-<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">mkdir</span> docs
-<span class="token builtin class-name">echo</span> <span class="token string">'# Hello VuePress'</span> <span class="token operator">&gt;</span> docs/README.md
-</code></pre></div><ul>
-<li><strong>步骤 7</strong>: 在本地启动服务器来开发你的文档网站</li>
-</ul>
-<div class="language-bash" data-ext="sh" data-title="sh"><pre class="language-bash"><code><span class="token function">pnpm</span> docs:dev
-</code></pre></div><h2>页面</h2>
-<h3>页面路由</h3>
-<p>vuepress会读取docs目录下所有的markdown文件转成html。然后通过浏览器的输入对应的路径就可以访问了。<br>
-比如下面几个例子，左侧是文件在目录中的位置和文件名，右侧是在浏览器中的路由地址。</p>
-<p>| 相对路径	                      | 路由路径                        |<br>
 |</p>
 ]]></content:encoded>
     </item>
@@ -13658,326 +13738,6 @@ defineSlots<span class="token operator">&lt;</span><span class="token punctuatio
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name"><span class="token namespace">v-slot:</span>default</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>{ node }<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>{{ node.label }} <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>menu-tree</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form-item</span><span class="token punctuation">&gt;</span></span>
-</code></pre></div>]]></content:encoded>
-    </item>
-    <item>
-      <title>用户角色</title>
-      <link>https://mister-hope.github.io/blog/project/qifan-mall/permission/role.html</link>
-      <guid>https://mister-hope.github.io/blog/project/qifan-mall/permission/role.html</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">用户角色</source>
-      <description>用户角色 建表 角色表 用户角色关联表 实体类 Role 根据中可以知道角色是权限模型的核心部分，它不仅和用户建立起了多对多关系，同时也和菜单建立起了多对多关系。 UserRoleRel负责建立起用户和角色的多对多关联。 相关信息 @OneToMany(mappedBy = &amp;quot;xxx&amp;quot;)代表一对多映射，和ER图中的一对多相对应。 由于一对多的一方不存在...</description>
-      <category>起凡商城</category>
-      <pubDate>Mon, 15 Jan 2024 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[
-<h2>建表</h2>
-<p>角色表</p>
-<div class="language-sql" data-ext="sql" data-title="sql"><pre class="language-sql"><code><span class="token comment">-- auto-generated definition</span>
-<span class="token keyword">create</span> <span class="token keyword">table</span> role
-<span class="token punctuation">(</span>
-    id           <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">36</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span>
-        <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
-    created_time <span class="token keyword">datetime</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
-    edited_time  <span class="token keyword">datetime</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
-    creator_id   <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">36</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
-    editor_id    <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">36</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
-    name         <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">36</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
-    <span class="token keyword">constraint</span> role_pk
-        <span class="token keyword">unique</span> <span class="token punctuation">(</span>name<span class="token punctuation">)</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre></div><p>用户角色关联表</p>
-<div class="language-sql" data-ext="sql" data-title="sql"><pre class="language-sql"><code><span class="token comment">-- auto-generated definition</span>
-<span class="token keyword">create</span> <span class="token keyword">table</span> user_role_rel
-<span class="token punctuation">(</span>
-    id           <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">36</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span>
-        <span class="token keyword">primary</span> <span class="token keyword">key</span><span class="token punctuation">,</span>
-    created_time <span class="token keyword">datetime</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
-    edited_time  <span class="token keyword">datetime</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
-    creator_id   <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">36</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
-    editor_id    <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">36</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
-    role_id      <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">36</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
-    user_id      <span class="token keyword">varchar</span><span class="token punctuation">(</span><span class="token number">36</span><span class="token punctuation">)</span> <span class="token operator">not</span> <span class="token boolean">null</span><span class="token punctuation">,</span>
-    <span class="token keyword">constraint</span> role_id
-        <span class="token keyword">unique</span> <span class="token punctuation">(</span>role_id<span class="token punctuation">,</span> user_id<span class="token punctuation">)</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre></div><h2>实体类</h2>
-<h3>Role</h3>
-<p>根据<a href="/blog/project/qifan-mall/permission/README.md/#er%E5%9B%BE" target="_blank">ER图</a>中可以知道角色是权限模型的核心部分，它不仅和用户建立起了多对多关系，同时也和菜单建立起了多对多关系。<br>
-<code>UserRoleRel</code>负责建立起用户和角色的多对多关联。</p>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@GenEntity</span>
-<span class="token annotation punctuation">@Entity</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Role</span> <span class="token keyword">extends</span> <span class="token class-name">BaseEntity</span> <span class="token punctuation">{</span>
-    <span class="token annotation punctuation">@GenField</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"角色名称"</span><span class="token punctuation">)</span>
-    <span class="token annotation punctuation">@Key</span>
-    <span class="token class-name">String</span> <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@OneToMany</span><span class="token punctuation">(</span>mappedBy <span class="token operator">=</span> <span class="token string">"role"</span><span class="token punctuation">)</span>
-    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserRoleRel</span><span class="token punctuation">&gt;</span></span> <span class="token function">users</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre></div><div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p><a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/mapping/base/association/one-to-many" target="_blank" rel="noopener noreferrer">@OneToMany(mappedBy = "xxx")</a>代表一对多映射，和ER图中的一对多相对应。<br>
-由于一对多的一方不存在外键，因此为了确定是哪张表关联了自己需要指定<code>mappedBy = "xxx"</code>。</p>
-<p><a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/mapping/advanced/key" target="_blank" rel="noopener noreferrer">@Key</a>是业务主键。还有一种主键是<code>@Id</code>，这种主键和业务无关。<br>
-两者都可以唯一的标识一行记录，只是前者有业务的意义。如User表中的Phone也可以唯一代表一个用户，但是它多了一个业务含义——手机号。</p>
-<p><a href="/blog/project/qifan-mall/reference/backend/README.md/#baseentity" target="_blank">BaseEntity</a>包含通用的id, editedTime, createdTime, editor, creator。并且会在创建或者更新时自动填写这些字段。</p>
-</div>
-<h3>UserRoleRel</h3>
-<p>要实现两个实体类的多对多关联必然需要一张中间表。UserRoleRel就是负责建立起User和Role这个联系的中间表。</p>
-<p>除了BaseEntity中的逻辑主键<code>@Id</code>之外，还包含了两个业务主键<code>@Key</code>，分别是userId和roleId。他们组合起来可以唯一标识一行记录，因此加上了<code>@Key</code>。</p>
-<p>用户拥有多个角色，当减少关联的角色时我们希望删除掉UserRoleRel中相应的记录。<a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/mutation/save-command/dissociation#%E8%84%B1%E5%8B%BE%E4%B8%AD%E9%97%B4%E8%A1%A8%E6%95%B0%E6%8D%AE" target="_blank" rel="noopener noreferrer"><code>@OnDissociate(DissociateAction.DELETE)</code></a><br>
-即可达到这种脱钩操作。</p>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@Entity</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserRoleRel</span> <span class="token keyword">extends</span> <span class="token class-name">BaseEntity</span> <span class="token punctuation">{</span>
-
-  <span class="token annotation punctuation">@ManyToOne</span>
-  <span class="token annotation punctuation">@Key</span>
-  <span class="token annotation punctuation">@OnDissociate</span><span class="token punctuation">(</span><span class="token class-name">DissociateAction</span><span class="token punctuation">.</span><span class="token constant">DELETE</span><span class="token punctuation">)</span>
-  <span class="token class-name">User</span> <span class="token function">user</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token annotation punctuation">@ManyToOne</span>
-  <span class="token annotation punctuation">@Key</span>
-  <span class="token class-name">Role</span> <span class="token function">role</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre></div><div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p><a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/mutation/save-command/dissociation#%E8%84%B1%E5%8B%BE%E4%B8%AD%E9%97%B4%E8%A1%A8%E6%95%B0%E6%8D%AE" target="_blank" rel="noopener noreferrer"><code>@OnDissociate</code></a>当删除时触发的脱钩操作。有级联删除/置空/检查报错。</p>
-</div>
-<h3>User</h3>
-<p>在User中新增roles和rolesView。</p>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token annotation punctuation">@GenEntity</span>
-<span class="token annotation punctuation">@Entity</span>
-<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">User</span> <span class="token keyword">extends</span> <span class="token class-name">BaseDateTime</span> <span class="token punctuation">{</span>
-
-  <span class="token annotation punctuation">@Id</span>
-  <span class="token annotation punctuation">@GeneratedValue</span><span class="token punctuation">(</span>generatorType <span class="token operator">=</span> <span class="token class-name">UUIDIdGenerator</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
-  <span class="token class-name">String</span> <span class="token function">id</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token annotation punctuation">@GenField</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"手机号"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span>
-  <span class="token annotation punctuation">@Key</span>
-  <span class="token class-name">String</span> <span class="token function">phone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token annotation punctuation">@GenField</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"密码"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token class-name">String</span> <span class="token function">password</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token annotation punctuation">@GenField</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"昵称"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">)</span>
-  <span class="token annotation punctuation">@Null</span>
-  <span class="token class-name">String</span> <span class="token function">nickname</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token annotation punctuation">@GenField</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"头像"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span> type <span class="token operator">=</span> <span class="token class-name">ItemType</span><span class="token punctuation">.</span><span class="token constant">PICTURE</span><span class="token punctuation">)</span>
-  <span class="token annotation punctuation">@Null</span>
-  <span class="token class-name">String</span> <span class="token function">avatar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token annotation punctuation">@GenField</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"性别"</span><span class="token punctuation">,</span> order <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">,</span> type <span class="token operator">=</span> <span class="token class-name">ItemType</span><span class="token punctuation">.</span><span class="token constant">SELECTABLE</span><span class="token punctuation">,</span> dictEnName <span class="token operator">=</span> <span class="token class-name">DictConstants</span><span class="token punctuation">.</span><span class="token constant">GENDER</span><span class="token punctuation">)</span>
-  <span class="token annotation punctuation">@Null</span>
-  <span class="token class-name">DictConstants<span class="token punctuation">.</span>Gender</span> <span class="token function">gender</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token annotation punctuation">@Null</span>
-  <span class="token annotation punctuation">@OneToOne</span><span class="token punctuation">(</span>mappedBy <span class="token operator">=</span> <span class="token string">"user"</span><span class="token punctuation">)</span>
-  <span class="token class-name">UserWeChat</span> <span class="token function">wechat</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token annotation punctuation">@OneToMany</span><span class="token punctuation">(</span>mappedBy <span class="token operator">=</span> <span class="token string">"user"</span><span class="token punctuation">)</span>
-  <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">UserRoleRel</span><span class="token punctuation">&gt;</span></span> <span class="token function">roles</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre></div><div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p><a href="/blog/project/qifan-mall/reference/backend/README.md/#baseentity" target="_blank">BaseEntity</a>包含通用的 editedTime, createdTime。并且会在创建或者更新时自动填写这些字段。</p>
-</div>
-<h2>生成角色增删改查</h2>
-<p>运行<code>mall-server/src/test/java/io/qifan/mall/server/MallCodeGenerator.java</code>。将template目录下的前后端增删改查复制到相应的位置，请参考<a href="/blog/project/qifan-mall/start/develop.html" target="_blank">开发流程</a>。</p>
-<h2>用户角色创建</h2>
-<h3>修改dto</h3>
-<p><a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/object/view/dto-language#3-viewinput%E5%92%8Cspecification" target="_blank" rel="noopener noreferrer">Dto</a>有input，view，speciation三种类型。input专门用于输入，在当前的场景中需要接收前端传入的roleIds。<br>
-因此要在UserInput中添加<code>roleIds</code>。</p>
-<div class="language-text" data-ext="text" data-title="text"><pre class="language-text"><code># mall-server/src/main/dto/io/qifan/mall/server/user/entity/User.dto
-input UserInput {
-    #allScalars(User)
-    id?
-    # 新增roleIds
-    roleIds: Array&lt;String&gt;
-}
-</code></pre></div><h3>后端实现</h3>
-<p>前端实现提交的数据结构如下</p>
-<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code><span class="token punctuation">{</span>
-  <span class="token property">"createdTime"</span><span class="token operator">:</span> <span class="token string">"2023-11-24 17:13:08"</span><span class="token punctuation">,</span>
-  <span class="token property">"editedTime"</span><span class="token operator">:</span> <span class="token string">"2023-11-29 17:09:43"</span><span class="token punctuation">,</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"1cb4db50-66fa-4250-9916-73283e536fa0"</span><span class="token punctuation">,</span>
-  <span class="token property">"phone"</span><span class="token operator">:</span> <span class="token string">"13656987994"</span><span class="token punctuation">,</span>
-  <span class="token property">"password"</span><span class="token operator">:</span> <span class="token string">"$2a$10$UeZxmCdikKwYFK.wk7lp8Oj6ZzoXUZKUhV9qFGXuc74.IqgDP9AU2"</span><span class="token punctuation">,</span>
-  <span class="token property">"nickname"</span><span class="token operator">:</span> <span class="token string">"默认用户"</span><span class="token punctuation">,</span>
-  <span class="token property">"avatar"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
-  <span class="token property">"gender"</span><span class="token operator">:</span> <span class="token string">"0710c8a5-021c-404d-b09e-56db95c259e9"</span><span class="token punctuation">,</span>
-  <span class="token property">"roleIds"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token string">"1"</span><span class="token punctuation">,</span>
-    <span class="token string">"17509f5c-9a6b-429c-b467-cadbd8873d2d"</span>
-  <span class="token punctuation">]</span>
-<span class="token punctuation">}</span>
-</code></pre></div><p>在图1中可知选中了两个角色，所以roleIds里面包含两条id数据。</p>
-<ol>
-<li>UserInput中有roleIds，需要转成User中的<code>List&lt;UserRoleRel&gt; roles()</code>;</li>
-<li>UserInput是User的Dto，因此它可以通过userInput.toEntity()转成User对象</li>
-<li>由于User是不可变对象，要修改需要同<a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/object/draft" target="_blank" rel="noopener noreferrer">Draft对象</a>。如UserDraft</li>
-</ol>
-<p>通过上面三点可以知道Input类型的Dto插入到数据库需要哪些步骤，在<code>UserService</code>的save方法中新增下面的代码。</p>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">save</span><span class="token punctuation">(</span><span class="token class-name">UserInput</span> userInput<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token class-name">User</span> user <span class="token operator">=</span> userInput<span class="token punctuation">.</span><span class="token function">toEntity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> userRepository<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token class-name">UserDraft</span><span class="token punctuation">.</span>$<span class="token punctuation">.</span><span class="token function">produce</span><span class="token punctuation">(</span>user<span class="token punctuation">,</span> draft <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>
-        <span class="token comment">// 将List&lt;String&gt; roleIds map映射--&gt; List&lt;UserRoleRel&gt; roles</span>
-        <span class="token class-name">Arrays</span><span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span>userInput<span class="token punctuation">.</span><span class="token function">getRoleIds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>roleId <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>
-            <span class="token comment">// 向user对象中添加UserRoleRel</span>
-            draft<span class="token punctuation">.</span><span class="token function">addIntoRoles</span><span class="token punctuation">(</span>userRole <span class="token operator">-&gt;</span> <span class="token punctuation">{</span>
-                <span class="token comment">// 设置UserRoleRel，</span>
-                userRole<span class="token punctuation">.</span><span class="token function">applyRole</span><span class="token punctuation">(</span>role <span class="token operator">-&gt;</span> role<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span>roleId<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token comment">// user中有@Key phone，要不然需要创建完用户得到id才可以。</span>
-                userRole<span class="token punctuation">.</span><span class="token function">setUser</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre></div><h3>前端实现</h3>
-<p>使用<a href="/blog/project/qifan-mall/reference/front/remote-select.html" target="_blank">RemoteSelect组件</a>即可实现下图效果</p>
-<div style="text-align:center">
-<figure><figcaption>图1 选择角色</figcaption></figure>
-</div>
-<ol>
-<li>
-<p>提供待选项获取方法</p>
-<div class="language-typescript" data-ext="ts" data-title="ts"><pre class="language-typescript"><code><span class="token keyword">const</span> <span class="token function-variable function">roleQueryOptions</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span>keyword<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">await</span> api<span class="token punctuation">.</span>roleController<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">{</span> body<span class="token operator">:</span> <span class="token punctuation">{</span> query<span class="token operator">:</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> keyword <span class="token punctuation">}</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>content
-<span class="token punctuation">}</span>
-</code></pre></div></li>
-<li>
-<p>双向绑定已选的角色</p>
-<p>在user-store.ts中定义了<code>createForm</code>，类型是UserInput。在<a href="#%E4%BF%AE%E6%94%B9dto">dto修改</a>中新增了roleIds，代表前端需要传roleIds。</p>
-<div class="language-typescript" data-ext="ts" data-title="ts"><pre class="language-typescript"><code><span class="token comment">// roleIds和remote-select双向绑定</span>
-<span class="token keyword">const</span> initForm<span class="token operator">:</span> UserInput <span class="token operator">=</span> <span class="token punctuation">{</span> roleIds<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> password<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span> nickname<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span> phone<span class="token operator">:</span> <span class="token string">''</span> <span class="token punctuation">}</span>
-<span class="token keyword">const</span> createForm <span class="token operator">=</span> <span class="token generic-function"><span class="token function">ref</span><span class="token generic class-name"><span class="token operator">&lt;</span>UserInput<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>initForm<span class="token punctuation">)</span>
-</code></pre></div></li>
-<li>
-<p>映射待选项到label和value</p>
-<div class="language-vue" data-ext="vue" data-title="vue"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>remote-select</span>
-        <span class="token attr-name">:query-options</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>roleQueryOptions<span class="token punctuation">"</span></span>
-        <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>updateForm.roleIds<span class="token punctuation">"</span></span>
-        <span class="token attr-name">label-prop</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span>
-        <span class="token attr-name">multiple</span>
-      <span class="token punctuation">&gt;</span></span>
-</code></pre></div><ul>
-<li><code>label-prop="name"</code>代表角色的名称映射到el-option的label属性</li>
-<li><code>value-prop="id""</code>代表角色的id映射到el-option的value属性（默认就是id，所以这边没填）</li>
-</ul>
-</li>
-<li>
-<p>汇总</p>
-</li>
-</ol>
-<div class="language-vue" data-ext="vue" data-title="vue"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ts<span class="token punctuation">"</span></span> <span class="token attr-name">setup</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
-<span class="token keyword">const</span> userStore <span class="token operator">=</span> <span class="token function">useUserStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> <span class="token punctuation">{</span> createForm <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">storeToRefs</span><span class="token punctuation">(</span>userStore<span class="token punctuation">)</span>
-<span class="token comment">// 获取角色列表</span>
-<span class="token keyword">const</span> <span class="token function-variable function">roleQueryOptions</span> <span class="token operator">=</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">keyword</span><span class="token operator">:</span> string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-  <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">await</span> api<span class="token punctuation">.</span>roleController<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">body</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">query</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">name</span><span class="token operator">:</span> keyword <span class="token punctuation">}</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>content
-<span class="token punctuation">}</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>create-form<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>createFormRef<span class="token punctuation">"</span></span> <span class="token attr-name">:model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>createForm<span class="token punctuation">"</span></span> <span class="token attr-name">:rules</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>rules<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>form<span class="token punctuation">"</span></span> <span class="token attr-name">labelWidth</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>120<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-form-item</span> <span class="token attr-name">label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>角色<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-        <span class="token comment">&lt;!--  双向绑定和定义映射 --&gt;</span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>remote-select</span>
-          <span class="token attr-name">:query-options</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>roleQueryOptions<span class="token punctuation">"</span></span>
-          <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>createForm.roleIds<span class="token punctuation">"</span></span>
-          <span class="token attr-name">label-prop</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span>
-          <span class="token attr-name">multiple</span>
-        <span class="token punctuation">&gt;</span></span>
-        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>remote-select</span><span class="token punctuation">&gt;</span></span>
-      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form-item</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-form</span><span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
-</code></pre></div><div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p><a href="/blog/project/qifan-mall/reference/front/remote-select.html" target="_blank">RemoteSelect组件</a>：快速选择远程数据</p>
-</div>
-<h2>编辑用户（回显）修改角色</h2>
-<p>当创建完用户之后，当编辑用户的时候需要显示用户已有的角色。</p>
-<ol>
-<li>后端查询编辑用户的角色</li>
-<li>前端遍历roleVies得到roleIds</li>
-<li>双向绑定到RemoteSelect组件即可实现默认选中已有的角色</li>
-</ol>
-<h3>视图属性RolesView</h3>
-<p><code>rolesView</code>是<code>roles</code>的视图属性，获得<code>UserRoleRel</code>中的<code>role</code>得到<code>List&lt;Role&gt;</code>。</p>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code>  <span class="token annotation punctuation">@ManyToManyView</span><span class="token punctuation">(</span>
-      prop <span class="token operator">=</span> <span class="token string">"roles"</span><span class="token punctuation">,</span>
-      deeperProp <span class="token operator">=</span> <span class="token string">"role"</span>
-  <span class="token punctuation">)</span>
-  <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Role</span><span class="token punctuation">&gt;</span></span> <span class="token function">rolesView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre></div><div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p><a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/mapping/advanced/view/many-to-many-view#%E5%88%9D%E8%AF%86manytomanyview" target="_blank" rel="noopener noreferrer">@ManyToManyView</a>：<br>
-在权限模型中，如果用户需要获得它关联的角色，需要通过下面这种方式获得<code>List&lt;Role&gt; roles=user.getRoles().map(userRoleRel -&gt; userRoleRel.getRole()).toList();</code>。<br>
-使用<code>@ManyToManyView</code>可以便捷的将<code>UserRoleRel</code>中的<code>Role</code>获取。</p>
-</div>
-<h3>属性抓取</h3>
-<p>在<code>UserRepository</code>中定义了一个通用的对象抓取器。在这个数据抓取，<code>.allScalarFields()</code>代表抓取普通属性。后面又新增了<code>rolesView(RoleFetcher.$.name())</code>抓取角色视图且列表中的角色只抓取name字段，这样就可以返用户关联的角色。</p>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code><span class="token class-name">UserFetcher</span> <span class="token constant">USER_ROLE_FETCHER</span> <span class="token operator">=</span> <span class="token class-name">UserFetcher</span><span class="token punctuation">.</span>$<span class="token punctuation">.</span><span class="token function">allScalarFields</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">rolesView</span><span class="token punctuation">(</span><span class="token class-name">RoleFetcher</span><span class="token punctuation">.</span>$<span class="token punctuation">.</span><span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre></div><p>返回的结果，可以看见除了普通属性之外，还包含了一个视图属性rolesView</p>
-<div class="language-json" data-ext="json" data-title="json"><pre class="language-json"><code><span class="token punctuation">{</span>
-  <span class="token property">"code"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
-  <span class="token property">"msg"</span><span class="token operator">:</span> <span class="token string">"操作成功"</span><span class="token punctuation">,</span>
-  <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"createdTime"</span><span class="token operator">:</span> <span class="token string">"2024-01-10 10:48:02"</span><span class="token punctuation">,</span>
-    <span class="token property">"editedTime"</span><span class="token operator">:</span> <span class="token string">"2024-01-15 14:45:10"</span><span class="token punctuation">,</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"0f07d638-f1bc-4011-88d8-6dc650ab06a7"</span><span class="token punctuation">,</span>
-    <span class="token property">"phone"</span><span class="token operator">:</span> <span class="token string">"13656987994"</span><span class="token punctuation">,</span>
-    <span class="token property">"password"</span><span class="token operator">:</span> <span class="token string">"$2a$10$pl/GmO3mDaqWjBtmfXzppOFQwnW/jlinORR6.83Lo7QdTuU4uh5AG"</span><span class="token punctuation">,</span>
-    <span class="token property">"nickname"</span><span class="token operator">:</span> <span class="token string">"默认用户"</span><span class="token punctuation">,</span>
-    <span class="token property">"avatar"</span><span class="token operator">:</span> <span class="token string">"https://my-community.oss-cn-qingdao.aliyuncs.com/20240110212158起凡.jpg"</span><span class="token punctuation">,</span>
-    <span class="token property">"gender"</span><span class="token operator">:</span> <span class="token string">"PRIVATE"</span><span class="token punctuation">,</span>
-    <span class="token property">"rolesView"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"4a83f185-30bb-4464-9e68-239698e89a5e"</span><span class="token punctuation">,</span>
-        <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"普通用户"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"5f785900-d317-4210-979d-d17a40ba8ecc"</span><span class="token punctuation">,</span>
-        <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"管理员"</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">"success"</span><span class="token operator">:</span> <span class="token boolean">true</span>
-<span class="token punctuation">}</span>
-</code></pre></div><div class="hint-container info">
-<p class="hint-container-title">相关信息</p>
-<p><a href="https://babyfish-ct.gitee.io/jimmer-doc/docs/query/object-fetcher/" target="_blank" rel="noopener noreferrer">对象抓取器（Fetcher）</a>：抓取的属性包含三种类型</p>
-<ul>
-<li>普通属性，数据库表中和实体对应的属性</li>
-<li>关联属性，一对一，一对多，多对一，多对多</li>
-<li>视图属性，就像上面的rolesView，就是一种视图属性</li>
-</ul>
-</div>
-<h3>返回形状</h3>
-<p>之前的查询用户信息并没有返回角色信息。将<code>UserController</code>中的用户信息查询接口返回形状指定为<code>USER_ROLE_FETCHER</code></p>
-<div class="language-java" data-ext="java" data-title="java"><pre class="language-java"><code>  <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"{id}"</span><span class="token punctuation">)</span>
-  <span class="token keyword">public</span> <span class="token annotation punctuation">@FetchBy</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"USER_ROLE_FETCHER"</span><span class="token punctuation">)</span> <span class="token class-name">User</span> <span class="token function">findById</span><span class="token punctuation">(</span>
-      <span class="token annotation punctuation">@PathVariable</span> <span class="token class-name">String</span> id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> userService<span class="token punctuation">.</span><span class="token function">findById</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-  <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"user-info"</span><span class="token punctuation">)</span>
-  <span class="token keyword">public</span> <span class="token annotation punctuation">@FetchBy</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"USER_ROLE_FETCHER"</span><span class="token punctuation">)</span> <span class="token class-name">User</span> <span class="token function">getUserInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> userService<span class="token punctuation">.</span><span class="token function">getUserInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-</code></pre></div><h3>前端遍历获取roleId</h3>
-<p>前端将<code>res.rolesView</code>映射成<code>roleIds</code></p>
-<div class="language-typescript" data-ext="ts" data-title="ts"><pre class="language-typescript"><code><span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token keyword">await</span> api<span class="token punctuation">.</span>userController<span class="token punctuation">.</span><span class="token function">findById</span><span class="token punctuation">(</span><span class="token punctuation">{</span> id<span class="token operator">:</span> updateForm<span class="token punctuation">.</span>value<span class="token punctuation">.</span>id <span class="token operator">||</span> <span class="token string">''</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
-updateForm<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span>res<span class="token punctuation">,</span> roleIds<span class="token operator">:</span> res<span class="token punctuation">.</span>rolesView<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span>role<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> role<span class="token punctuation">.</span>id<span class="token punctuation">)</span> <span class="token punctuation">}</span>
-</code></pre></div><h3>双向绑定roleIds</h3>
-<p>由于roleIds中已经有值，此时下拉框中会选中该用户已有的角色。</p>
-<div class="language-vue" data-ext="vue" data-title="vue"><pre class="language-vue"><code> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>remote-select</span>
-        <span class="token attr-name">:query-options</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>roleQueryOptions<span class="token punctuation">"</span></span>
-        <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>updateForm.roleIds<span class="token punctuation">"</span></span>
-        <span class="token attr-name">label-prop</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span>
-        <span class="token attr-name">multiple</span>
-<span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>remote-select</span><span class="token punctuation">&gt;</span></span>
 </code></pre></div>]]></content:encoded>
     </item>
   </channel>
