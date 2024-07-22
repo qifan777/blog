@@ -6,8 +6,8 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 21 Jul 2024 01:48:49 GMT</pubDate>
-    <lastBuildDate>Sun, 21 Jul 2024 01:48:49 GMT</lastBuildDate>
+    <pubDate>Mon, 22 Jul 2024 02:38:59 GMT</pubDate>
+    <lastBuildDate>Mon, 22 Jul 2024 02:38:59 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>消息角标</category>
@@ -1882,7 +1882,7 @@ data:{"result":{"output":{"messageType":"ASSISTANT","media":[],"metadata":{"mess
 <p>本项目使用SpringAI教学，包含了SSE流/Agent智能体/FunctionCall/Embedding/VectorDatabase/RAG/Graph RAG/历史消息/图片生成/图片理解</p>
 <figure><figcaption>项目内容</figcaption></figure>
 <figure><figcaption>知识点</figcaption></figure>
-<p><a href="https://github.com/qifan777/KnowledgeBaseChatSpringAI" target="_blank" rel="noopener noreferrer">源码地址</a></p>
+<p><a href="https://github.com/qifan777/dive-into-spring-ai" target="_blank" rel="noopener noreferrer">源码地址</a></p>
 ]]></content:encoded>
     </item>
     <item>
