@@ -6,8 +6,8 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Mon, 22 Jul 2024 02:58:50 GMT</pubDate>
-    <lastBuildDate>Mon, 22 Jul 2024 02:58:50 GMT</lastBuildDate>
+    <pubDate>Mon, 12 Aug 2024 02:40:57 GMT</pubDate>
+    <lastBuildDate>Mon, 12 Aug 2024 02:40:57 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>消息角标</category>
@@ -2068,7 +2068,7 @@ data:{"result":{"output":{"messageType":"ASSISTANT","media":[],"metadata":{"mess
 <li>
 <p>版本号</p>
 <div class="language-xml" data-ext="xml" data-title="xml"><pre class="language-xml"><code>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>spring-ai.version</span><span class="token punctuation">&gt;</span></span>1.0.0-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>spring-ai.version</span><span class="token punctuation">&gt;</span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uni-ai.version</span><span class="token punctuation">&gt;</span></span>0.1.7<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>uni-ai.version</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uni-ai.version</span><span class="token punctuation">&gt;</span></span>0.1.8<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>uni-ai.version</span><span class="token punctuation">&gt;</span></span>
 </code></pre></div></li>
 <li>
 <p>依赖</p>
