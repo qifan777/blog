@@ -6,8 +6,8 @@
     <link>https://mister-hope.github.io/blog/</link>
     <description>起凡Code闲聊</description>
     <language>zh-CN</language>
-    <pubDate>Mon, 12 Aug 2024 08:34:40 GMT</pubDate>
-    <lastBuildDate>Mon, 12 Aug 2024 08:34:40 GMT</lastBuildDate>
+    <pubDate>Mon, 26 Aug 2024 09:52:47 GMT</pubDate>
+    <lastBuildDate>Mon, 26 Aug 2024 09:52:47 GMT</lastBuildDate>
     <generator>@vuepress/plugin-feed</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>消息角标</category>
@@ -24,6 +24,25 @@
     <category>CI/CD</category>
     <category>JPA</category>
     <category>Spring</category>
+    <item>
+      <title>魔力赏盲盒小程序</title>
+      <link>https://mister-hope.github.io/blog/project/mystery-box/</link>
+      <guid>https://mister-hope.github.io/blog/project/mystery-box/</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">魔力赏盲盒小程序</source>
+      <pubDate>Mon, 26 Aug 2024 09:50:53 GMT</pubDate>
+    </item>
+    <item>
+      <title>项目介绍</title>
+      <link>https://mister-hope.github.io/blog/project/mystery-box/intro.html</link>
+      <guid>https://mister-hope.github.io/blog/project/mystery-box/intro.html</guid>
+      <source url="https://mister-hope.github.io/blog/rss.xml">项目介绍</source>
+      <description>项目介绍 本项目模仿b站的魔力赏盲盒，每个盲盒中可以添加多个商品，支付成功后根据概率随机挑选盲盒内的商品。同时加入了VIP，优惠券，运费计算等功能。 功能点 项目截图 首页首页 盲盒详情页（一）盲盒详情页（一） 盲盒详情页（二）盲盒详情页（二） 商品详情对话框商品详情对话框 订单提交订单提交 地址列表地址列表 长按地址-复制、设置默认长按地址-复制、设...</description>
+      <pubDate>Mon, 26 Aug 2024 09:50:53 GMT</pubDate>
+      <content:encoded><![CDATA[
+<p>本项目模仿b站的魔力赏盲盒，每个盲盒中可以添加多个商品，支付成功后根据概率随机挑选盲盒内的商品。同时加入了VIP，优惠券，运费计算等功能。</p>
+<h2>功能点</h2>
+]]></content:encoded>
+    </item>
     <item>
       <title>文件问答</title>
       <link>https://mister-hope.github.io/blog/project/spring-ai/file-chat.html</link>
@@ -13516,42 +13535,6 @@ Taro<span class="token punctuation">.</span><span class="token function">useLoad
 
 <h3>订单展示</h3>
 
-]]></content:encoded>
-    </item>
-    <item>
-      <title>权限</title>
-      <link>https://mister-hope.github.io/blog/project/qifan-mall/permission/</link>
-      <guid>https://mister-hope.github.io/blog/project/qifan-mall/permission/</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">权限</source>
-      <pubDate>Sun, 04 Feb 2024 11:55:25 GMT</pubDate>
-    </item>
-    <item>
-      <title>模型设计</title>
-      <link>https://mister-hope.github.io/blog/project/qifan-mall/permission/design.html</link>
-      <guid>https://mister-hope.github.io/blog/project/qifan-mall/permission/design.html</guid>
-      <source url="https://mister-hope.github.io/blog/rss.xml">模型设计</source>
-      <description>模型设计 权限管理模型主要分以下几种 ACL模型：访问控制列表 DAC 模型：自主访问控制 MAC 模型：强制访问控制 ABAC 模型：基于属性的访问控制 RBAC 模型：基于角色的权限访问控制 RBAC0 模型 RBAC1 模型 RBAC2 模型 RBAC3 模型 在上面的这么多模型中,RBAC这类的模型是应用最广泛的。然后根据系统的复杂度在RBAC...</description>
-      <category>起凡商城</category>
-      <pubDate>Mon, 15 Jan 2024 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[
-<p>权限管理模型主要分以下几种</p>
-<ul>
-<li>ACL模型：访问控制列表</li>
-<li>DAC 模型：自主访问控制</li>
-<li>MAC 模型：强制访问控制</li>
-<li>ABAC 模型：基于属性的访问控制</li>
-<li>RBAC 模型：基于角色的权限访问控制
-<ul>
-<li>RBAC0 模型</li>
-<li>RBAC1 模型</li>
-<li>RBAC2 模型</li>
-<li>RBAC3 模型</li>
-</ul>
-</li>
-</ul>
-<p>在上面的这么多模型中,RBAC这类的模型是应用最广泛的。然后根据系统的复杂度在RBAC0-3中进行选择。RBAC0就已经可以解决大部分小项目的需求了。</p>
-<p>下面的内容就是实现RBAC0权限模型。</p>
-<h2>ER图</h2>
 ]]></content:encoded>
     </item>
   </channel>
