@@ -1,0 +1,1 @@
+import{_ as o}from"./plugin-vue_export-helper-x3n3nnut.js";import{o as r,c as t,d as e}from"./app-sVP6WpHU.js";const a={},c=e("h1",{id:"订单支付",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#订单支付"},[e("span",null,"订单支付")])],-1),s=[c];function n(_,d){return r(),t("div",null,s)}const f=o(a,[["render",n],["__file","box-order-pay.html.vue"]]);export{f as default};
