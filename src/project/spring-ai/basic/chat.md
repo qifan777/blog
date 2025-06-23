@@ -9,10 +9,7 @@ order: 1
 
 本案例使用的是阿里的灵积AI服务请参考[灵积接入](../config/dash-scope.md)。
 
-其他AI厂商接入方式请参考下面的链接：
-[百度千帆](../config/qian-fan.md)
-[智谱清言](../config/zhi-pu.md)
-[kimi](../config/kimi.md)
+
 
 ## 注入AI模型
 

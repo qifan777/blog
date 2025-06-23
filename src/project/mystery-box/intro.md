@@ -7,15 +7,15 @@ order: 1
 
 ## 项目预览
 
-![](image.png =x500)
+![ =x500](image.png)
 
-![](image-1.png =x500)
+![ =x500](image-1.png)
 
-![](image-2.png =x500)
+![ =x500](image-2.png)
 
-![](image-3.png =x500)
+![ =x500](image-3.png)
 
-![](image-4.png =x500)
+![ =x500](image-4.png)
 
 ## 功能点
 

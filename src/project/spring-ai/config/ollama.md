@@ -1,7 +1,7 @@
 ---
-order: 5
+order: 4
 ---
-# Kimi接入
+# Ollama本地部署
 
 ## 通用配置
 
@@ -12,26 +12,27 @@ order: 5
 ```xml
 <dependency>
     <groupId>org.springframework.ai</groupId>
-    <artifactId>spring-ai-moonshot-spring-boot-starter</artifactId>
+    <artifactId>spring-ai-starter-model-ollama</artifactId>
 </dependency>
 ```
 
 ## 密钥配置
 
-[kimi api-key申请](https://platform.moonshot.cn/console/api-keys)
 
 ```yml
 spring:
   ai:
-    # kimi
-    moonshot:
-      api-key: xxx
+    ollama:
+      # 填写模型所在的地址
+      base-url: http://localhost:11434
+      chat:
+        model: xxx
 ```
 
 ## 使用
 
 ```java
-private final MoonshotChatModel moonshotChatModel;
+private final OllamaChatModel chatModel;
 ```
 
 ## 消息发送案例

@@ -10,11 +10,11 @@ order: 2
 ## 依赖配置
 
 ```xml
-        <dependency>
-            <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-starter</artifactId>
-            <version>${spring-ai.version}</version>
-        </dependency>
+<dependency>
+    <groupId>com.alibaba.cloud.ai</groupId>
+    <artifactId>spring-ai-alibaba-starter-dashscope</artifactId>
+    <version>${spring-ai-alibaba.version}</version>
+</dependency>
 ```
 
 ## 密钥配置

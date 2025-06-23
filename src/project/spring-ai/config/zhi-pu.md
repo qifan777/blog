@@ -12,7 +12,7 @@ order: 3
 ```xml
 <dependency>
     <groupId>org.springframework.ai</groupId>
-    <artifactId>spring-ai-zhipuai-spring-boot-starter</artifactId>
+    <artifactId>spring-ai-starter-model-zhipuai</artifactId>
 </dependency>
 ```
 
