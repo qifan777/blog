@@ -100,7 +100,7 @@ SpringAI的`UserMessage`支持发送媒体对象，因此只需将接收的`medi
             promptUserSpec.media(message.getMedia().toArray(medias));
         }
         // 用户发送的文本
-        promptUserSpec.text(message.getContent());
+        promptUserSpec.text(message.getText());
     }
 
 ```

@@ -20,7 +20,7 @@ order: 8
 
 参数解释：
 
-- input: `AiMessageWrapper` json体。之前接收请求参数是用@RequestBody, 现在使用@RequestPart 接收json字符串再手动转成AiMessageWrapper.
+- input: `AiMessageWrapper` json体。之前接收请求参数是用@RequestBody, 现在使用@RequestPart 接收.
 
 - file: 需要问答的文件。
 
@@ -30,7 +30,7 @@ order: 8
 ```
 
 :::tip
-SpringMVC的`@RequestPart`是支持自动将Json字符串转换为Java对象，也就是说可以等效`@RequestBody`，但是由于前端FormData无法设置Part的Content-Type，所以只能手动转json字符串再转成Java对象。
+SpringMVC的`@RequestPart`是支持自动将Json字符串转换为Java对象，也就是说可以等效`@RequestBody`
 :::
 
 ## 文件读取
@@ -40,8 +40,7 @@ SpringMVC的`@RequestPart`是支持自动将Json字符串转换为Java对象，�
 ```java
     @SneakyThrows
     @PostMapping(value = "chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<String>> chat(@RequestPart String input, @RequestPart(required = false) MultipartFile file) {
-        AiMessageWrapper aiMessageWrapper = objectMapper.readValue(input, AiMessageWrapper.class);
+    public Flux<ServerSentEvent<String>> chat(@RequestPart AiMessageWrapper aiMessageWrapper, @RequestPart(required = false) MultipartFile file) {        
         /*
         * 忽略...
         */
@@ -62,7 +61,7 @@ SpringMVC的`@RequestPart`是支持自动将Json字符串转换为Java对象，�
     @SneakyThrows
     public void useFile(ChatClient.PromptSystemSpec spec, MultipartFile file) {
         if (file == null) return;
-        String content = new TikaDocumentReader(new InputStreamResource(file.getInputStream())).get().get(0).getContent();
+        String content = new TikaDocumentReader(new InputStreamResource(file.getInputStream())).get().get(0).getText();
         Message message = new PromptTemplate("""
                 已下内容是额外的知识，在你回答问题时可以参考下面的内容
                 ---------------------
@@ -70,7 +69,7 @@ SpringMVC的`@RequestPart`是支持自动将Json字符串转换为Java对象，�
                 ---------------------
                 """)
                 .createMessage(Map.of("context", content));
-        spec.text(message.getContent());
+        spec.text(message.getText());
     }
 ```
 
@@ -83,20 +82,20 @@ const fileList = ref<UploadUserFile[]>([])
 ```
 
 ```html
-          <el-form-item label="文件">
-            <div class="upload">
-              <el-upload v-model:file-list="fileList" :auto-upload="false" :limit="1">
-                <el-button type="primary">上传文本文件</el-button>
-              </el-upload>
-            </div>
-          </el-form-item>
+<el-form-item label="文件">
+    <div class="upload">
+      <el-upload v-model:file-list="fileList" :auto-upload="false" :limit="1">
+        <el-button type="primary">上传文本文件</el-button>
+      </el-upload>
+    </div>
+</el-form-item>
 ```
 
 发送消息的时候把文件的二进制内容一起发送上去。formData对象的key需要对应后端的`@RequestPart`的参数名称。
 
 ```ts
   const form = new FormData()
-  form.set('input', JSON.stringify(body))
+  form.append('input', new Blob([JSON.stringify(body)], { type: 'application/json' }))
 
   if (fileList.value.length && fileList.value[0].raw) {
     form.append('file', fileList.value[0].raw)

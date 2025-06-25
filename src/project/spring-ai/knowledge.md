@@ -121,16 +121,20 @@ public class AiMessageParams {
                         .event("message")
                         .build());
     }
-    
-    public void useVectorStore(ChatClient.AdvisorSpec advisorSpec) {
+
+    public void useVectorStore(ChatClient.AdvisorSpec advisorSpec, Boolean enableVectorStore) {
+        if (!enableVectorStore) return;
         // question_answer_context是一个占位符，会替换成向量数据库中查询到的文档。QuestionAnswerAdvisor会替换。
         String promptWithContext = """
+                {query}
                 下面是上下文信息
                 ---------------------
                 {question_answer_context}
                 ---------------------
                 给定的上下文和提供的历史信息，而不是事先的知识，回复用户的意见。如果答案不在上下文中，告诉用户你不能回答这个问题。
                 """;
-        advisorSpec.advisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults(), promptWithContext));
+        advisorSpec.advisors(QuestionAnswerAdvisor.builder(vectorStore)
+                .promptTemplate(new PromptTemplate(promptWithContext))
+                .build());
     }
 ```

@@ -9,6 +9,14 @@ order: 6
 
 请参考[文档嵌入](./vector-database.md#文档嵌入)，向数据库中插入一些自己的文档。
 
+## 依赖
+
+```xml
+<dependency>
+    <groupId>org.springframework.ai</groupId>
+    <artifactId>spring-ai-advisors-vector-store</artifactId>
+</dependency>
+```
 ## QuestionAnswerAdvisor
 
 `QuestionAnswerAdvisor`可以在用户发起的提问时，先向数据库查询相关的文档，再把相关的文档拼接到用户的提问中，再让模型生成答案。那就是`RAG`的实现了。
@@ -33,8 +41,9 @@ order: 6
      */
     @GetMapping(value = "chat/stream/database", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<String>> chatStreamWithDatabase(@RequestParam String prompt) {
-        // 1. 定义提示词模板，question_answer_context会被替换成向量数据库中查询到的文档。
+        // question_answer_context是一个占位符，会替换成向量数据库中查询到的文档。QuestionAnswerAdvisor会替换。
         String promptWithContext = """
+                {query}
                 下面是上下文信息
                 ---------------------
                 {question_answer_context}
@@ -43,10 +52,9 @@ order: 6
                 """;
         return ChatClient.create(chatModel).prompt()
                 .user(prompt)
-                // 2. QuestionAnswerAdvisor会在运行时替换模板中的占位符`question_answer_context`，替换成向量数据库中查询到的文档。此时的query=用户的提问+替换完的提示词模板;
-                .advisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults(), promptWithContext))
+                .advisors(QuestionAnswerAdvisor.builder(vectorStore)
+                        .promptTemplate(new PromptTemplate(promptWithContext)).build())
                 .stream()
-                // 3. query发送给大模型得到答案
                 .content()
                 .map(chatResponse -> ServerSentEvent.builder(chatResponse)
                         .event("message")

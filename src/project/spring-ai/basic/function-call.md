@@ -93,7 +93,7 @@ public class DocumentAnalyzerFunction implements Function<DocumentAnalyzerFuncti
 
 ## 使用函数
 
-在实际的开发中可以接收多个函数，通过`functions`参数传入。然后ai会根据提问从这些函数中选择一个执行。
+在实际的开发中可以接收多个函数，通过`toolNames`参数传入。然后ai会根据提问从这些函数中选择一个执行。
 
 ```java
     private final ChatModel chatModel;
@@ -110,7 +110,7 @@ public class DocumentAnalyzerFunction implements Function<DocumentAnalyzerFuncti
         return ChatClient.create(chatModel).prompt()
                 .messages(new UserMessage(prompt))
                 // spring ai会从已注册为bean的function中查找函数，将它添加到请求中。如果成功触发就会调用函数
-                .functions(functionName)
+                .toolNames(functionName)
                 .stream()
                 .chatResponse()
                 .map(chatResponse -> ServerSentEvent.builder(toJson(chatResponse))

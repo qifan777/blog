@@ -16,8 +16,8 @@ order: 2
 
 历史消息的实现过程：
 
-1. 提供ChatMemory，通过会话id查找历史消息。下面的例子提供的是`InMemoryChatMemory`，内存存储。
-2. `MessageChatMemoryAdvisor`会在运行时调用`ChatMemory`，通过会话id查找历史消息。然后把消息列表拼接到历史的消息中。
+1. 提供ChatMemory，通过会话id查找历史消息。下面的例子提供的是`MessageWindowChatMemory`，内存存储。
+2. `MessageChatMemoryAdvisor`会在运行时调用`MessageWindowChatMemory`，通过会话id查找历史消息。然后把消息列表拼接到历史的消息中。
 3. 发送消息给大模型得到答案
 
 ```java
@@ -25,7 +25,9 @@ order: 2
     // 阿里灵积
     private final ChatModel chatModel;
     // 模拟数据库存储会话和消息
-    private final ChatMemory chatMemory = new InMemoryChatMemory();
+    private final MessageWindowChatMemory chatMemory = MessageWindowChatMemory.builder()
+            .maxMessages(10)
+            .build();
     /**
      * 根据会话id，从数据库中查找历史消息，并将消息作为上下文回答。
      *
@@ -36,15 +38,16 @@ order: 2
     @GetMapping(value = "chat/stream/history", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<String>> chatStreamWithHistory(@RequestParam String prompt,
                                                                @RequestParam String sessionId) {
-        // 1. 如果需要存储会话和消息到数据库，自己可以实现ChatMemory接口，
-        //    这里使用InMemoryChatMemory，内存存储。
+        // 1. 如果需要存储会话和消息到数据库，自己可以实现ChatMemory接口，这里使用InMemoryChatMemory，内存存储。
         // 2. 传入会话id，MessageChatMemoryAdvisor会根据会话id去查找消息。
         // 3. 只需要携带最近10条消息
-        var messageChatMemoryAdvisor = new MessageChatMemoryAdvisor(chatMemory, sessionId, 10);
+        MessageChatMemoryAdvisor  messageChatMemoryAdvisor= MessageChatMemoryAdvisor
+                .builder(chatMemory)
+                .conversationId(sessionId)
+                .build();
         return ChatClient.create(chatModel).prompt()
                 .user(prompt)
-                // MessageChatMemoryAdvisor会在消息发送给大模型之前，从ChatMemory中获取会话的历史消息，
-                // 然后一起发送给大模型。
+                // MessageChatMemoryAdvisor会在消息发送给大模型之前，从ChatMemory中获取会话的历史消息，然后一起发送给大模型。
                 .advisors(messageChatMemoryAdvisor)
                 .stream()
                 .content()

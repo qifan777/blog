@@ -22,7 +22,7 @@ docker run -d --name redis-stack --restart=always  -v redis-data:/data -p 6379:6
 ```xml
 <dependency>
     <groupId>org.springframework.ai</groupId>
-    <artifactId>spring-ai-redis-store</artifactId>
+    <artifactId>spring-ai-starter-vector-store-redis</artifactId>
 </dependency>
 <dependency>
     <groupId>redis.clients</groupId>
@@ -42,57 +42,19 @@ spring:
     redis:
       database: 0
       timeout: 10s
-      lettuce:
-        pool:
-          # 连接池最大连接数
-          max-active: 200
-          # 连接池最大阻塞等待时间（使用负值表示没有限制）
-          max-wait: -1ms
-          # 连接池中的最大空闲连接
-          max-idle: 10
-          # 连接池中的最小空闲连接
-          min-idle: 0
+      password: 123456
       repositories:
         enabled: false
-      password: 123456
+      client-type: jedis
+  ai:
+    vectorstore:
+      redis:
+        initialize-schema: true
+        index-name: custom-index
+        prefix: custom-prefix
 ```
 
-## 配置向量数据库
 
-如果你的项目里面有用到redis，需要先禁用`RedisVectorStoreAutoConfiguration`。这是SpringAI自动配置RedisStack的向量数据库连接，会导致Redis的连接配置冲突。
-
-`VectorStore`对象需要提供`EmbeddingModel`，这个案例提供的是阿里灵积的`EmbeddingModel`。可以切换换成其他厂家的EmbeddingModel。
-
-```java
-@Configuration
-// 禁用SpringAI提供的RedisStack向量数据库的自动配置，会和Redis的配置冲突。
-@EnableAutoConfiguration(exclude = {RedisVectorStoreAutoConfiguration.class})
-// 读取RedisStack的配置信息
-@EnableConfigurationProperties({RedisVectorStoreProperties.class})
-@AllArgsConstructor
-public class RedisVectorConfig {
-
-    /**
-     * 创建RedisStack向量数据库
-     *
-     * @param embeddingModel 嵌入模型
-     * @param properties     redis-stack的配置信息
-     * @return vectorStore 向量数据库
-     */
-    @Bean
-    public VectorStore vectorStore(EmbeddingModel embeddingModel,
-                                   RedisVectorStoreProperties properties,
-                                   RedisConnectionDetails redisConnectionDetails) {
-        RedisVectorStore.RedisVectorStoreConfig config = RedisVectorStore.RedisVectorStoreConfig.builder().withIndexName(properties.getIndex()).withPrefix(properties.getPrefix()).build();
-        return new RedisVectorStore(config, embeddingModel,
-                new JedisPooled(redisConnectionDetails.getStandalone().getHost(),
-                        redisConnectionDetails.getStandalone().getPort()
-                        , redisConnectionDetails.getUsername(),
-                        redisConnectionDetails.getPassword()),
-                properties.isInitializeSchema());
-    }
-}
-```
 
 ## 文档嵌入
 

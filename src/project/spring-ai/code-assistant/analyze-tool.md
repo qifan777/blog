@@ -99,7 +99,7 @@ public class AnalyzeFunction implements Function<AnalyzeFunction.Request, String
                                 .distinct()
                                 .collect(Collectors.joining("\n")),
                         "methodId", methodId))
-                .getContent();
+                .getText();
         log.info("评审方法: {}", prompt);
         String content = childMethods.stream().filter(m -> m.getId().equals(methodId)).findFirst().orElseThrow().getContent();
         return chatModel.stream(prompt).map(response -> new AnalyzeResult(methodId, response, methodId.split("#")[0], content));

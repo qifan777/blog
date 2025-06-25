@@ -156,19 +156,19 @@ public class AiMessageChatMemory implements ChatMemory {
      * 查询会话内的消息最新n条历史记录
      *
      * @param conversationId 会话id
-     * @param lastN          最近n条
      * @return org.springframework.ai.chat.messages.Message格式的消息
      */
     @Override
-    public List<Message> get(String conversationId, int lastN) {
-        return messageRepository
-                // 查询会话内的最新n条消息
-                .findBySessionId(conversationId, lastN)
-                .stream()
-                // 转成Message对象
-                .map(AiMessageChatMemory::toSpringAiMessage)
-                .toList();
+    public @NotNull List<Message> get(@NotNull String conversationId) {
+      return messageRepository
+              // 查询会话内的最新10条消息
+              .findBySessionId(conversationId, 10)
+              .stream()
+              // 转成Message对象
+              .map(AiMessageChatMemory::toSpringAiMessage)
+              .toList();
     }
+
 
     /**
      * 清除会话内的消息
@@ -197,7 +197,7 @@ MessageChatMemoryAdvisor的作用有下面三个
 // 注入chatMemory
 private final AiMessageChatMemory chatMemory;
 // 传入chatMemory，会话id，查询最近n条历史消息
-var messageChatMemoryAdvisor = new MessageChatMemoryAdvisor(chatMemory, input.getSessionId(), 10);
+var messageChatMemoryAdvisor = MessageChatMemoryAdvisor.builder(chatMemory).conversationId(sessionId).build();
 ```
 
 ## 消息发送接口
@@ -231,32 +231,40 @@ public class AiMessageController {
      */
     @PostMapping(value = "chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<String>> chatStreamWithHistory(@RequestBody AiMessageInput input) {
-        // MessageChatMemoryAdvisor的三个参数解释。
-        // 1. 如果需要存储会话和消息到数据库，自己可以实现ChatMemory接口，这里使用自己实现的AiMessageChatMemory，数据库存储。
-        // 2. 传入会话id，MessageChatMemoryAdvisor会根据会话id去查找消息。
-        // 3. 只需要携带最近10条消息
-        var messageChatMemoryAdvisor = new MessageChatMemoryAdvisor(chatMemory, input.getSessionId(), 10);
         return ChatClient.create(dashScopeAiChatModel).prompt()
-                .user(promptUserSpec -> {
-                    // AiMessageInput转成Message
-                    Message message = AiMessageChatMemory.toSpringAiMessage(input.toEntity());
-                    if (message instanceof UserMessage userMessage &&
-                            !CollectionUtils.isEmpty(userMessage.getMedia())) {
-                        // 用户发送的图片/语言
-                        Media[] medias = new Media[userMessage.getMedia().size()];
-                        promptUserSpec.media(userMessage.getMedia().toArray(medias));
-                    }
-                    // 用户发送的文本
-                    promptUserSpec.text(message.getContent());
-                })
+                .user(promptUserSpec -> toPrompt(promptUserSpec, input))
                 // MessageChatMemoryAdvisor会在消息发送给大模型之前，从ChatMemory中获取会话的历史消息，然后一起发送给大模型。
-                .advisors(messageChatMemoryAdvisor)
+                .advisors(advisorSpec -> {
+                  // 使用历史消息
+                  useChatHistory(advisorSpec, input.getSessionId());
+                })
                 .stream()
                 .content()
                 .map(chatResponse -> ServerSentEvent.builder(toJson(chatResponse))
                         // 和前端监听的事件相对应
                         .event("message")
                         .build());
+    }
+    
+    public void toPrompt(ChatClient.PromptUserSpec promptUserSpec, AiMessageInput input) {
+      // AiMessageInput转成Message
+      Message message = AiMessageChatMemory.toSpringAiMessage(input.toEntity());
+      if (message instanceof UserMessage userMessage &&
+          !CollectionUtils.isEmpty(userMessage.getMedia())) {
+        // 用户发送的图片/语言
+        Media[] medias = new Media[userMessage.getMedia().size()];
+        promptUserSpec.media(userMessage.getMedia().toArray(medias));
+      }
+      // 用户发送的文本
+      promptUserSpec.text(message.getText());
+    }
+
+    public void useChatHistory(ChatClient.AdvisorSpec advisorSpec, String sessionId) {
+      // 1. 如果需要存储会话和消息到数据库，自己可以实现ChatMemory接口，这里使用自己实现的AiMessageChatMemory，数据库存储。
+      // 2. 传入会话id，MessageChatMemoryAdvisor会根据会话id去查找消息。
+      // 3. 只需要携带最近10条消息
+      // MessageChatMemoryAdvisor会在消息发送给大模型之前，从ChatMemory中获取会话的历史消息，然后一起发送给大模型。
+      advisorSpec.advisors(MessageChatMemoryAdvisor.builder(chatMemory).conversationId(sessionId).build());
     }
     @SneakyThrows
     public String toJson(ChatResponse response) {

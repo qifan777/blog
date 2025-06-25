@@ -77,7 +77,7 @@ return apoc.text.join(textList, " \n ")
                 .bind(embed).to("embedding")
                 .fetchAs(String.class).first()
                 .orElseThrow(() -> new BusinessException("未找到相似文档"));
-        String content = promptTemplate.createMessage(Map.of("question_answer_context", result)).getContent();
+        String content = promptTemplate.createMessage(Map.of("question_answer_context", result)).getText();
         return chatModel.call(new UserMessage(content + "\n" + query));
     }
 ```
@@ -162,7 +162,7 @@ RETURN "investors: \\n" + apoc.text.join(investment_statements, "\\n") +\s
                 .fetchAs(String.class)
                 .first()
                 .orElseThrow(() -> new BusinessException("未找到相似文档"));
-        String content = promptTemplate.createMessage(Map.of("question_answer_context", result)).getContent();
+        String content = promptTemplate.createMessage(Map.of("question_answer_context", result)).getText();
         log.info("context result: {}", content);
         return chatModel.call(new UserMessage(content + "\n" + query));
     }
