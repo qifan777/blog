@@ -4,13 +4,13 @@ College-Help 是一个为大学生提供便捷服务的综合性平台，旨在�
 
 ## 项目预览
 
-![](./images/task-order.png)
-![](./images/user.png)
-![](./images/order-list.png)
-![](./images/wallet-record.png)
-![](./images/rating.png)
-![](./images/address-list.png)
-![](./images/address.png)
+![ =x500](./images/task-order.png)
+![ =x500](./images/user.png)
+![ =x500](./images/order-list.png)
+![ =x500](./images/wallet-record.png)
+![ =x500](./images/rating.png)
+![ =x500](./images/address-list.png)
+![ =x500](./images/address.png)
 
 ## 项目结构
 
