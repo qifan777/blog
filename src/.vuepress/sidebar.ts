@@ -55,7 +55,6 @@ export default sidebar({
   "/project/uni-ai/": "structure",
   "/project/spring-ai/": 'structure',
   "/project/mystery-box": 'structure',
-  '/project/college-help':'structure',
   "/knowledge/vite/": [
     { text: "Vite", link: "/knowledge/vite/" },
     {
