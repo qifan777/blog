@@ -16,7 +16,8 @@ export default navbar([
       { text: "魔力赏盲盒小程序", link: "mystery-box/intro" },
       { text: "AI智能体市场", link: "ai-agent/intro" },
       { text: "AI计划助手", link: "ai-plan/intro" },
-      { text: "校园跑腿", link: "college-help/intro" },
+      { text: "校园跑腿小程序", link: "college-help/intro" },
+      { text: "手工预约商店小程序", link: "handmade-shop/intro" },
     ],
   },
   {
