@@ -13,6 +13,27 @@
 - **多端支持**：包含小程序端和管理后台
 - **用户友好界面**：简洁直观的操作体验
 
+## 项目预览
+
+![ =x500](./images/booking-list.png)
+
+![ =x500](./images/booking.png)
+
+![ =x500](./images/booking-order.png)
+
+![ =x500](./images/product-list.png)
+
+![ =x500](./images/product-details.png)
+
+![ =x500](./images/product-order.png)
+
+![ =x500](./images/cart.png)
+
+![ =x500](./images/user.png)
+
+![ =x500](./images/vip.png)
+
+
 ## 系统架构
 
 手工预约系统采用典型的前后端分离架构，整体架构设计清晰，各模块职责明确，便于维护和扩展。
